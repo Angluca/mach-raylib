@@ -222,8 +222,8 @@ pub fun vector3_project(v1: Vector3, v2: Vector3) Vector3 { ret Vector3Project(v
 ext fun Vector3Reject(v1: Vector3, v2: Vector3) Vector3;
 pub fun vector3_reject(v1: Vector3, v2: Vector3) Vector3 { ret Vector3Reject(v1, v2); }
 #[library("raylib")]
-ext fun Vector3OrthoNormalize(v1: *Vector3, v2: *Vector3) u8;
-pub fun vector3_ortho_normalize(v1: *Vector3, v2: *Vector3) u8 { ret Vector3OrthoNormalize(v1, v2); }
+ext fun Vector3OrthoNormalize(v1: *Vector3, v2: *Vector3);
+pub fun vector3_ortho_normalize(v1: *Vector3, v2: *Vector3) { Vector3OrthoNormalize(v1, v2); }
 #[library("raylib")]
 ext fun Vector3Transform(v: Vector3, mat: Matrix) Vector3;
 pub fun vector3_transform(v: Vector3, mat: Matrix) Vector3 { ret Vector3Transform(v, mat); }
@@ -465,8 +465,8 @@ pub fun quaternion_to_matrix(q: Quaternion) Matrix { ret QuaternionToMatrix(q); 
 ext fun QuaternionFromAxisAngle(axis: Vector3, angle: f32) Quaternion;
 pub fun quaternion_from_axis_angle(axis: Vector3, angle: f32) Quaternion { ret QuaternionFromAxisAngle(axis, angle); }
 #[library("raylib")]
-ext fun QuaternionToAxisAngle(q: Quaternion, outAxis: *Vector3, outAngle: *f32) u8;
-pub fun quaternion_to_axis_angle(q: Quaternion, outAxis: *Vector3, outAngle: *f32) u8 { ret QuaternionToAxisAngle(q, outAxis, outAngle); }
+ext fun QuaternionToAxisAngle(q: Quaternion, outAxis: *Vector3, outAngle: *f32);
+pub fun quaternion_to_axis_angle(q: Quaternion, outAxis: *Vector3, outAngle: *f32) { QuaternionToAxisAngle(q, outAxis, outAngle); }
 #[library("raylib")]
 ext fun QuaternionFromEuler(pitch: f32, yaw: f32, roll: f32) Quaternion;
 pub fun quaternion_from_euler(pitch: f32, yaw: f32, roll: f32) Quaternion { ret QuaternionFromEuler(pitch, yaw, roll); }
@@ -483,5 +483,5 @@ pub fun quaternion_equals(p: Quaternion, q: Quaternion) i32 { ret QuaternionEqua
 ext fun MatrixCompose(translation: Vector3, rotation: Quaternion, scale: Vector3) Matrix;
 pub fun matrix_compose(translation: Vector3, rotation: Quaternion, scale: Vector3) Matrix { ret MatrixCompose(translation, rotation, scale); }
 #[library("raylib")]
-ext fun MatrixDecompose(mat: Matrix, translation: *Vector3, rotation: *Quaternion, scale: *Vector3) u8;
-pub fun matrix_decompose(mat: Matrix, translation: *Vector3, rotation: *Quaternion, scale: *Vector3) u8 { ret MatrixDecompose(mat, translation, rotation, scale); }
+ext fun MatrixDecompose(mat: Matrix, translation: *Vector3, rotation: *Quaternion, scale: *Vector3);
+pub fun matrix_decompose(mat: Matrix, translation: *Vector3, rotation: *Quaternion, scale: *Vector3) { MatrixDecompose(mat, translation, rotation, scale); }

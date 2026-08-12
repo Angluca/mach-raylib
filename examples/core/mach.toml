@@ -1,0 +1,56 @@
+[project]
+id = "example"
+version = "0.1.0"
+src = "src"
+#out = "out/{target.name}/{profile.name}"
+out = "out"
+
+[target.linux-x86_64]
+isa = "x86_64"
+os  = "linux"
+abi = "sysv64"
+
+[target.windows-x86_64]
+isa = "x86_64"
+os  = "windows"
+abi = "win64"
+
+[target.darwin-x86_64]
+isa = "x86_64"
+os  = "darwin"
+abi = "sysv64"
+
+# -- examples -------------------------------------
+[artifact.basic_window]
+kind = "bin"
+entry = "basic_window.mach"
+out = "bin/basic_window"
+targets = ["*"]
+link = []
+need = []
+
+[artifact.basic_screen_manager]
+kind = "bin"
+entry = "basic_screen_manager.mach"
+out = "bin/basic_screen_manager"
+targets = ["*"]
+link = []
+need = []
+
+# -------------------------------------------------
+[profile.debug]
+opt = 0
+debug = true
+simd = "scalarize"
+
+[profile.release]
+opt = 2
+debug = false
+simd = "scalarize"
+
+[dep.mach-raylib]
+path = "../.."
+
+[dep.mach-std]
+git = "https://github.com/briar-systems/mach-std"
+ref = "branch/main"

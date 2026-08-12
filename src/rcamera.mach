@@ -62,26 +62,26 @@ pub fun get_camera_up(camera: *Camera) Vector3 { ret GetCameraUp(camera); }
 ext fun GetCameraRight(camera: *Camera) Vector3;
 pub fun get_camera_right(camera: *Camera) Vector3 { ret GetCameraRight(camera); }
 #[library("raylib")]
-ext fun CameraMoveForward(camera: *Camera, distance: f32, moveInWorldPlane: bool) u8;
-pub fun camera_move_forward(camera: *Camera, distance: f32, moveInWorldPlane: bool) u8 { ret CameraMoveForward(camera, distance, moveInWorldPlane); }
+ext fun CameraMoveForward(camera: *Camera, distance: f32, moveInWorldPlane: bool);
+pub fun camera_move_forward(camera: *Camera, distance: f32, moveInWorldPlane: bool) { CameraMoveForward(camera, distance, moveInWorldPlane); }
 #[library("raylib")]
-ext fun CameraMoveUp(camera: *Camera, distance: f32) u8;
-pub fun camera_move_up(camera: *Camera, distance: f32) u8 { ret CameraMoveUp(camera, distance); }
+ext fun CameraMoveUp(camera: *Camera, distance: f32);
+pub fun camera_move_up(camera: *Camera, distance: f32) { CameraMoveUp(camera, distance); }
 #[library("raylib")]
-ext fun CameraMoveRight(camera: *Camera, distance: f32, moveInWorldPlane: bool) u8;
-pub fun camera_move_right(camera: *Camera, distance: f32, moveInWorldPlane: bool) u8 { ret CameraMoveRight(camera, distance, moveInWorldPlane); }
+ext fun CameraMoveRight(camera: *Camera, distance: f32, moveInWorldPlane: bool);
+pub fun camera_move_right(camera: *Camera, distance: f32, moveInWorldPlane: bool) { CameraMoveRight(camera, distance, moveInWorldPlane); }
 #[library("raylib")]
-ext fun CameraMoveToTarget(camera: *Camera, delta: f32) u8;
-pub fun camera_move_to_target(camera: *Camera, delta: f32) u8 { ret CameraMoveToTarget(camera, delta); }
+ext fun CameraMoveToTarget(camera: *Camera, delta: f32);
+pub fun camera_move_to_target(camera: *Camera, delta: f32) { CameraMoveToTarget(camera, delta); }
 #[library("raylib")]
-ext fun CameraYaw(camera: *Camera, angle: f32, rotateAroundTarget: bool) u8;
-pub fun camera_yaw(camera: *Camera, angle: f32, rotateAroundTarget: bool) u8 { ret CameraYaw(camera, angle, rotateAroundTarget); }
+ext fun CameraYaw(camera: *Camera, angle: f32, rotateAroundTarget: bool);
+pub fun camera_yaw(camera: *Camera, angle: f32, rotateAroundTarget: bool) { CameraYaw(camera, angle, rotateAroundTarget); }
 #[library("raylib")]
-ext fun CameraPitch(camera: *Camera, angle: f32, lockView: bool, rotateAroundTarget: bool, rotateUp: bool) u8;
-pub fun camera_pitch(camera: *Camera, angle: f32, lockView: bool, rotateAroundTarget: bool, rotateUp: bool) u8 { ret CameraPitch(camera, angle, lockView, rotateAroundTarget, rotateUp); }
+ext fun CameraPitch(camera: *Camera, angle: f32, lockView: bool, rotateAroundTarget: bool, rotateUp: bool);
+pub fun camera_pitch(camera: *Camera, angle: f32, lockView: bool, rotateAroundTarget: bool, rotateUp: bool) { CameraPitch(camera, angle, lockView, rotateAroundTarget, rotateUp); }
 #[library("raylib")]
-ext fun CameraRoll(camera: *Camera, angle: f32) u8;
-pub fun camera_roll(camera: *Camera, angle: f32) u8 { ret CameraRoll(camera, angle); }
+ext fun CameraRoll(camera: *Camera, angle: f32);
+pub fun camera_roll(camera: *Camera, angle: f32) { CameraRoll(camera, angle); }
 #[library("raylib")]
 ext fun GetCameraViewMatrix(camera: *Camera) Matrix;
 pub fun get_camera_view_matrix(camera: *Camera) Matrix { ret GetCameraViewMatrix(camera); }

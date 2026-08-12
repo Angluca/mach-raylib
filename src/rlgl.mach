@@ -28,6 +28,7 @@ $if (GRAPHICS_API_OPENGL_ES2) {
           vboId: [5]u32;
     }
 }
+
 pub val RLGL_VERSION: str = "6.0";
 pub val RL_DEFAULT_BATCH_BUFFER_ELEMENTS: i32 = 8192;
 pub val RL_DEFAULT_BATCH_BUFFERS: i32 = 1;
@@ -131,7 +132,6 @@ pub rec Matrix {
       m11: f32;
       m15: f32;
 }
-
 pub rec rlDrawCall {
       mode: i32;
       vertexCount: i32;
@@ -263,41 +263,41 @@ pub val RL_ATTACHMENT_RENDERBUFFER: i32 = 200;
 pub val RL_CULL_FACE_FRONT: i32 = 0;
 pub val RL_CULL_FACE_BACK: i32 = 1;
 #[library("raylib")]
-ext fun rlMatrixMode(mode: i32) u8;
-pub fun matrix_mode(mode: i32) u8 { ret rlMatrixMode(mode); }
+ext fun rlMatrixMode(mode: i32);
+pub fun matrix_mode(mode: i32) { rlMatrixMode(mode); }
 #[library("raylib")]
-ext fun rlPushMatrix() u8;
-pub fun push_matrix() u8 { ret rlPushMatrix(); }
+ext fun rlPushMatrix();
+pub fun push_matrix() { rlPushMatrix(); }
 #[library("raylib")]
-ext fun rlPopMatrix() u8;
-pub fun pop_matrix() u8 { ret rlPopMatrix(); }
+ext fun rlPopMatrix();
+pub fun pop_matrix() { rlPopMatrix(); }
 #[library("raylib")]
-ext fun rlLoadIdentity() u8;
-pub fun load_identity() u8 { ret rlLoadIdentity(); }
+ext fun rlLoadIdentity();
+pub fun load_identity() { rlLoadIdentity(); }
 #[library("raylib")]
-ext fun rlTranslatef(x: f32, y: f32, z: f32) u8;
-pub fun translatef(x: f32, y: f32, z: f32) u8 { ret rlTranslatef(x, y, z); }
+ext fun rlTranslatef(x: f32, y: f32, z: f32);
+pub fun translatef(x: f32, y: f32, z: f32) { rlTranslatef(x, y, z); }
 #[library("raylib")]
-ext fun rlRotatef(angle: f32, x: f32, y: f32, z: f32) u8;
-pub fun rotatef(angle: f32, x: f32, y: f32, z: f32) u8 { ret rlRotatef(angle, x, y, z); }
+ext fun rlRotatef(angle: f32, x: f32, y: f32, z: f32);
+pub fun rotatef(angle: f32, x: f32, y: f32, z: f32) { rlRotatef(angle, x, y, z); }
 #[library("raylib")]
-ext fun rlScalef(x: f32, y: f32, z: f32) u8;
-pub fun scalef(x: f32, y: f32, z: f32) u8 { ret rlScalef(x, y, z); }
+ext fun rlScalef(x: f32, y: f32, z: f32);
+pub fun scalef(x: f32, y: f32, z: f32) { rlScalef(x, y, z); }
 #[library("raylib")]
-ext fun rlMultMatrixf(matf: *f32) u8;
-pub fun mult_matrixf(matf: *f32) u8 { ret rlMultMatrixf(matf); }
+ext fun rlMultMatrixf(matf: *f32);
+pub fun mult_matrixf(matf: *f32) { rlMultMatrixf(matf); }
 #[library("raylib")]
-ext fun rlFrustum(left: f64, right: f64, bottom: f64, top: f64, znear: f64, zfar: f64) u8;
-pub fun frustum(left: f64, right: f64, bottom: f64, top: f64, znear: f64, zfar: f64) u8 { ret rlFrustum(left, right, bottom, top, znear, zfar); }
+ext fun rlFrustum(left: f64, right: f64, bottom: f64, top: f64, znear: f64, zfar: f64);
+pub fun frustum(left: f64, right: f64, bottom: f64, top: f64, znear: f64, zfar: f64) { rlFrustum(left, right, bottom, top, znear, zfar); }
 #[library("raylib")]
-ext fun rlOrtho(left: f64, right: f64, bottom: f64, top: f64, znear: f64, zfar: f64) u8;
-pub fun ortho(left: f64, right: f64, bottom: f64, top: f64, znear: f64, zfar: f64) u8 { ret rlOrtho(left, right, bottom, top, znear, zfar); }
+ext fun rlOrtho(left: f64, right: f64, bottom: f64, top: f64, znear: f64, zfar: f64);
+pub fun ortho(left: f64, right: f64, bottom: f64, top: f64, znear: f64, zfar: f64) { rlOrtho(left, right, bottom, top, znear, zfar); }
 #[library("raylib")]
-ext fun rlViewport(x: i32, y: i32, width: i32, height: i32) u8;
-pub fun viewport(x: i32, y: i32, width: i32, height: i32) u8 { ret rlViewport(x, y, width, height); }
+ext fun rlViewport(x: i32, y: i32, width: i32, height: i32);
+pub fun viewport(x: i32, y: i32, width: i32, height: i32) { rlViewport(x, y, width, height); }
 #[library("raylib")]
-ext fun rlSetClipPlanes(nearPlane: f64, farPlane: f64) u8;
-pub fun set_clip_planes(nearPlane: f64, farPlane: f64) u8 { ret rlSetClipPlanes(nearPlane, farPlane); }
+ext fun rlSetClipPlanes(nearPlane: f64, farPlane: f64);
+pub fun set_clip_planes(nearPlane: f64, farPlane: f64) { rlSetClipPlanes(nearPlane, farPlane); }
 #[library("raylib")]
 ext fun rlGetCullDistanceNear() f64;
 pub fun get_cull_distance_near() f64 { ret rlGetCullDistanceNear(); }
@@ -305,230 +305,230 @@ pub fun get_cull_distance_near() f64 { ret rlGetCullDistanceNear(); }
 ext fun rlGetCullDistanceFar() f64;
 pub fun get_cull_distance_far() f64 { ret rlGetCullDistanceFar(); }
 #[library("raylib")]
-ext fun rlBegin(mode: i32) u8;
-pub fun begin(mode: i32) u8 { ret rlBegin(mode); }
+ext fun rlBegin(mode: i32);
+pub fun begin(mode: i32) { rlBegin(mode); }
 #[library("raylib")]
-ext fun rlEnd() u8;
-pub fun end() u8 { ret rlEnd(); }
+ext fun rlEnd();
+pub fun end() { rlEnd(); }
 #[library("raylib")]
-ext fun rlVertex2i(x: i32, y: i32) u8;
-pub fun vertex2i(x: i32, y: i32) u8 { ret rlVertex2i(x, y); }
+ext fun rlVertex2i(x: i32, y: i32);
+pub fun vertex2i(x: i32, y: i32) { rlVertex2i(x, y); }
 #[library("raylib")]
-ext fun rlVertex2f(x: f32, y: f32) u8;
-pub fun vertex2f(x: f32, y: f32) u8 { ret rlVertex2f(x, y); }
+ext fun rlVertex2f(x: f32, y: f32);
+pub fun vertex2f(x: f32, y: f32) { rlVertex2f(x, y); }
 #[library("raylib")]
-ext fun rlVertex3f(x: f32, y: f32, z: f32) u8;
-pub fun vertex3f(x: f32, y: f32, z: f32) u8 { ret rlVertex3f(x, y, z); }
+ext fun rlVertex3f(x: f32, y: f32, z: f32);
+pub fun vertex3f(x: f32, y: f32, z: f32) { rlVertex3f(x, y, z); }
 #[library("raylib")]
-ext fun rlTexCoord2f(x: f32, y: f32) u8;
-pub fun tex_coord2f(x: f32, y: f32) u8 { ret rlTexCoord2f(x, y); }
+ext fun rlTexCoord2f(x: f32, y: f32);
+pub fun tex_coord2f(x: f32, y: f32) { rlTexCoord2f(x, y); }
 #[library("raylib")]
-ext fun rlNormal3f(x: f32, y: f32, z: f32) u8;
-pub fun normal3f(x: f32, y: f32, z: f32) u8 { ret rlNormal3f(x, y, z); }
+ext fun rlNormal3f(x: f32, y: f32, z: f32);
+pub fun normal3f(x: f32, y: f32, z: f32) { rlNormal3f(x, y, z); }
 #[library("raylib")]
-ext fun rlColor4ub(r: u8, g: u8, b: u8, a: u8) u8;
-pub fun color4ub(r: u8, g: u8, b: u8, a: u8) u8 { ret rlColor4ub(r, g, b, a); }
+ext fun rlColor4ub(r: u8, g: u8, b: u8, a: u8);
+pub fun color4ub(r: u8, g: u8, b: u8, a: u8) { rlColor4ub(r, g, b, a); }
 #[library("raylib")]
-ext fun rlColor3f(x: f32, y: f32, z: f32) u8;
-pub fun color3f(x: f32, y: f32, z: f32) u8 { ret rlColor3f(x, y, z); }
+ext fun rlColor3f(x: f32, y: f32, z: f32);
+pub fun color3f(x: f32, y: f32, z: f32) { rlColor3f(x, y, z); }
 #[library("raylib")]
-ext fun rlColor4f(x: f32, y: f32, z: f32, w: f32) u8;
-pub fun color4f(x: f32, y: f32, z: f32, w: f32) u8 { ret rlColor4f(x, y, z, w); }
+ext fun rlColor4f(x: f32, y: f32, z: f32, w: f32);
+pub fun color4f(x: f32, y: f32, z: f32, w: f32) { rlColor4f(x, y, z, w); }
 #[library("raylib")]
 ext fun rlEnableVertexArray(vaoId: u32) bool;
 pub fun enable_vertex_array(vaoId: u32) bool { ret rlEnableVertexArray(vaoId); }
 #[library("raylib")]
-ext fun rlDisableVertexArray() u8;
-pub fun disable_vertex_array() u8 { ret rlDisableVertexArray(); }
+ext fun rlDisableVertexArray();
+pub fun disable_vertex_array() { rlDisableVertexArray(); }
 #[library("raylib")]
-ext fun rlEnableVertexBuffer(id: u32) u8;
-pub fun enable_vertex_buffer(id: u32) u8 { ret rlEnableVertexBuffer(id); }
+ext fun rlEnableVertexBuffer(id: u32);
+pub fun enable_vertex_buffer(id: u32) { rlEnableVertexBuffer(id); }
 #[library("raylib")]
-ext fun rlDisableVertexBuffer() u8;
-pub fun disable_vertex_buffer() u8 { ret rlDisableVertexBuffer(); }
+ext fun rlDisableVertexBuffer();
+pub fun disable_vertex_buffer() { rlDisableVertexBuffer(); }
 #[library("raylib")]
-ext fun rlEnableVertexBufferElement(id: u32) u8;
-pub fun enable_vertex_buffer_element(id: u32) u8 { ret rlEnableVertexBufferElement(id); }
+ext fun rlEnableVertexBufferElement(id: u32);
+pub fun enable_vertex_buffer_element(id: u32) { rlEnableVertexBufferElement(id); }
 #[library("raylib")]
-ext fun rlDisableVertexBufferElement() u8;
-pub fun disable_vertex_buffer_element() u8 { ret rlDisableVertexBufferElement(); }
+ext fun rlDisableVertexBufferElement();
+pub fun disable_vertex_buffer_element() { rlDisableVertexBufferElement(); }
 #[library("raylib")]
-ext fun rlEnableVertexAttribute(index: u32) u8;
-pub fun enable_vertex_attribute(index: u32) u8 { ret rlEnableVertexAttribute(index); }
+ext fun rlEnableVertexAttribute(index: u32);
+pub fun enable_vertex_attribute(index: u32) { rlEnableVertexAttribute(index); }
 #[library("raylib")]
-ext fun rlDisableVertexAttribute(index: u32) u8;
-pub fun disable_vertex_attribute(index: u32) u8 { ret rlDisableVertexAttribute(index); }
+ext fun rlDisableVertexAttribute(index: u32);
+pub fun disable_vertex_attribute(index: u32) { rlDisableVertexAttribute(index); }
 #[library("raylib")]
-ext fun rlEnableStatePointer(vertexAttribType: i32, buffer: ptr) u8;
-pub fun enable_state_pointer(vertexAttribType: i32, buffer: ptr) u8 { ret rlEnableStatePointer(vertexAttribType, buffer); }
+ext fun rlEnableStatePointer(vertexAttribType: i32, buffer: ptr);
+pub fun enable_state_pointer(vertexAttribType: i32, buffer: ptr) { rlEnableStatePointer(vertexAttribType, buffer); }
 #[library("raylib")]
-ext fun rlDisableStatePointer(vertexAttribType: i32) u8;
-pub fun disable_state_pointer(vertexAttribType: i32) u8 { ret rlDisableStatePointer(vertexAttribType); }
+ext fun rlDisableStatePointer(vertexAttribType: i32);
+pub fun disable_state_pointer(vertexAttribType: i32) { rlDisableStatePointer(vertexAttribType); }
 #[library("raylib")]
-ext fun rlActiveTextureSlot(slot: i32) u8;
-pub fun active_texture_slot(slot: i32) u8 { ret rlActiveTextureSlot(slot); }
+ext fun rlActiveTextureSlot(slot: i32);
+pub fun active_texture_slot(slot: i32) { rlActiveTextureSlot(slot); }
 #[library("raylib")]
-ext fun rlEnableTexture(id: u32) u8;
-pub fun enable_texture(id: u32) u8 { ret rlEnableTexture(id); }
+ext fun rlEnableTexture(id: u32);
+pub fun enable_texture(id: u32) { rlEnableTexture(id); }
 #[library("raylib")]
-ext fun rlDisableTexture() u8;
-pub fun disable_texture() u8 { ret rlDisableTexture(); }
+ext fun rlDisableTexture();
+pub fun disable_texture() { rlDisableTexture(); }
 #[library("raylib")]
-ext fun rlEnableTextureCubemap(id: u32) u8;
-pub fun enable_texture_cubemap(id: u32) u8 { ret rlEnableTextureCubemap(id); }
+ext fun rlEnableTextureCubemap(id: u32);
+pub fun enable_texture_cubemap(id: u32) { rlEnableTextureCubemap(id); }
 #[library("raylib")]
-ext fun rlDisableTextureCubemap() u8;
-pub fun disable_texture_cubemap() u8 { ret rlDisableTextureCubemap(); }
+ext fun rlDisableTextureCubemap();
+pub fun disable_texture_cubemap() { rlDisableTextureCubemap(); }
 #[library("raylib")]
-ext fun rlTextureParameters(id: u32, param: i32, value: i32) u8;
-pub fun texture_parameters(id: u32, param: i32, value: i32) u8 { ret rlTextureParameters(id, param, value); }
+ext fun rlTextureParameters(id: u32, param: i32, value: i32);
+pub fun texture_parameters(id: u32, param: i32, value: i32) { rlTextureParameters(id, param, value); }
 #[library("raylib")]
-ext fun rlCubemapParameters(id: u32, param: i32, value: i32) u8;
-pub fun cubemap_parameters(id: u32, param: i32, value: i32) u8 { ret rlCubemapParameters(id, param, value); }
+ext fun rlCubemapParameters(id: u32, param: i32, value: i32);
+pub fun cubemap_parameters(id: u32, param: i32, value: i32) { rlCubemapParameters(id, param, value); }
 #[library("raylib")]
-ext fun rlEnableShader(id: u32) u8;
-pub fun enable_shader(id: u32) u8 { ret rlEnableShader(id); }
+ext fun rlEnableShader(id: u32);
+pub fun enable_shader(id: u32) { rlEnableShader(id); }
 #[library("raylib")]
-ext fun rlDisableShader() u8;
-pub fun disable_shader() u8 { ret rlDisableShader(); }
+ext fun rlDisableShader();
+pub fun disable_shader() { rlDisableShader(); }
 #[library("raylib")]
-ext fun rlEnableFramebuffer(id: u32) u8;
-pub fun enable_framebuffer(id: u32) u8 { ret rlEnableFramebuffer(id); }
+ext fun rlEnableFramebuffer(id: u32);
+pub fun enable_framebuffer(id: u32) { rlEnableFramebuffer(id); }
 #[library("raylib")]
-ext fun rlDisableFramebuffer() u8;
-pub fun disable_framebuffer() u8 { ret rlDisableFramebuffer(); }
+ext fun rlDisableFramebuffer();
+pub fun disable_framebuffer() { rlDisableFramebuffer(); }
 #[library("raylib")]
 ext fun rlGetActiveFramebuffer() u32;
 pub fun get_active_framebuffer() u32 { ret rlGetActiveFramebuffer(); }
 #[library("raylib")]
-ext fun rlActiveDrawBuffers(count: i32) u8;
-pub fun active_draw_buffers(count: i32) u8 { ret rlActiveDrawBuffers(count); }
+ext fun rlActiveDrawBuffers(count: i32);
+pub fun active_draw_buffers(count: i32) { rlActiveDrawBuffers(count); }
 #[library("raylib")]
-ext fun rlBlitFramebuffer(srcX: i32, srcY: i32, srcWidth: i32, srcHeight: i32, dstX: i32, dstY: i32, dstWidth: i32, dstHeight: i32, bufferMask: i32) u8;
-pub fun blit_framebuffer(srcX: i32, srcY: i32, srcWidth: i32, srcHeight: i32, dstX: i32, dstY: i32, dstWidth: i32, dstHeight: i32, bufferMask: i32) u8 { ret rlBlitFramebuffer(srcX, srcY, srcWidth, srcHeight, dstX, dstY, dstWidth, dstHeight, bufferMask); }
+ext fun rlBlitFramebuffer(srcX: i32, srcY: i32, srcWidth: i32, srcHeight: i32, dstX: i32, dstY: i32, dstWidth: i32, dstHeight: i32, bufferMask: i32);
+pub fun blit_framebuffer(srcX: i32, srcY: i32, srcWidth: i32, srcHeight: i32, dstX: i32, dstY: i32, dstWidth: i32, dstHeight: i32, bufferMask: i32) { rlBlitFramebuffer(srcX, srcY, srcWidth, srcHeight, dstX, dstY, dstWidth, dstHeight, bufferMask); }
 #[library("raylib")]
-ext fun rlBindFramebuffer(target: u32, framebuffer: u32) u8;
-pub fun bind_framebuffer(target: u32, framebuffer: u32) u8 { ret rlBindFramebuffer(target, framebuffer); }
+ext fun rlBindFramebuffer(target: u32, framebuffer: u32);
+pub fun bind_framebuffer(target: u32, framebuffer: u32) { rlBindFramebuffer(target, framebuffer); }
 #[library("raylib")]
-ext fun rlEnableColorBlend() u8;
-pub fun enable_color_blend() u8 { ret rlEnableColorBlend(); }
+ext fun rlEnableColorBlend();
+pub fun enable_color_blend() { rlEnableColorBlend(); }
 #[library("raylib")]
-ext fun rlDisableColorBlend() u8;
-pub fun disable_color_blend() u8 { ret rlDisableColorBlend(); }
+ext fun rlDisableColorBlend();
+pub fun disable_color_blend() { rlDisableColorBlend(); }
 #[library("raylib")]
-ext fun rlEnableDepthTest() u8;
-pub fun enable_depth_test() u8 { ret rlEnableDepthTest(); }
+ext fun rlEnableDepthTest();
+pub fun enable_depth_test() { rlEnableDepthTest(); }
 #[library("raylib")]
-ext fun rlDisableDepthTest() u8;
-pub fun disable_depth_test() u8 { ret rlDisableDepthTest(); }
+ext fun rlDisableDepthTest();
+pub fun disable_depth_test() { rlDisableDepthTest(); }
 #[library("raylib")]
-ext fun rlEnableDepthMask() u8;
-pub fun enable_depth_mask() u8 { ret rlEnableDepthMask(); }
+ext fun rlEnableDepthMask();
+pub fun enable_depth_mask() { rlEnableDepthMask(); }
 #[library("raylib")]
-ext fun rlDisableDepthMask() u8;
-pub fun disable_depth_mask() u8 { ret rlDisableDepthMask(); }
+ext fun rlDisableDepthMask();
+pub fun disable_depth_mask() { rlDisableDepthMask(); }
 #[library("raylib")]
-ext fun rlEnableBackfaceCulling() u8;
-pub fun enable_backface_culling() u8 { ret rlEnableBackfaceCulling(); }
+ext fun rlEnableBackfaceCulling();
+pub fun enable_backface_culling() { rlEnableBackfaceCulling(); }
 #[library("raylib")]
-ext fun rlDisableBackfaceCulling() u8;
-pub fun disable_backface_culling() u8 { ret rlDisableBackfaceCulling(); }
+ext fun rlDisableBackfaceCulling();
+pub fun disable_backface_culling() { rlDisableBackfaceCulling(); }
 #[library("raylib")]
-ext fun rlColorMask(r: bool, g: bool, b: bool, a: bool) u8;
-pub fun color_mask(r: bool, g: bool, b: bool, a: bool) u8 { ret rlColorMask(r, g, b, a); }
+ext fun rlColorMask(r: bool, g: bool, b: bool, a: bool);
+pub fun color_mask(r: bool, g: bool, b: bool, a: bool) { rlColorMask(r, g, b, a); }
 #[library("raylib")]
-ext fun rlSetCullFace(mode: i32) u8;
-pub fun set_cull_face(mode: i32) u8 { ret rlSetCullFace(mode); }
+ext fun rlSetCullFace(mode: i32);
+pub fun set_cull_face(mode: i32) { rlSetCullFace(mode); }
 #[library("raylib")]
-ext fun rlEnableScissorTest() u8;
-pub fun enable_scissor_test() u8 { ret rlEnableScissorTest(); }
+ext fun rlEnableScissorTest();
+pub fun enable_scissor_test() { rlEnableScissorTest(); }
 #[library("raylib")]
-ext fun rlDisableScissorTest() u8;
-pub fun disable_scissor_test() u8 { ret rlDisableScissorTest(); }
+ext fun rlDisableScissorTest();
+pub fun disable_scissor_test() { rlDisableScissorTest(); }
 #[library("raylib")]
-ext fun rlScissor(x: i32, y: i32, width: i32, height: i32) u8;
-pub fun scissor(x: i32, y: i32, width: i32, height: i32) u8 { ret rlScissor(x, y, width, height); }
+ext fun rlScissor(x: i32, y: i32, width: i32, height: i32);
+pub fun scissor(x: i32, y: i32, width: i32, height: i32) { rlScissor(x, y, width, height); }
 #[library("raylib")]
-ext fun rlEnablePointMode() u8;
-pub fun enable_point_mode() u8 { ret rlEnablePointMode(); }
+ext fun rlEnablePointMode();
+pub fun enable_point_mode() { rlEnablePointMode(); }
 #[library("raylib")]
-ext fun rlDisablePointMode() u8;
-pub fun disable_point_mode() u8 { ret rlDisablePointMode(); }
+ext fun rlDisablePointMode();
+pub fun disable_point_mode() { rlDisablePointMode(); }
 #[library("raylib")]
-ext fun rlSetPointSize(size: f32) u8;
-pub fun set_point_size(size: f32) u8 { ret rlSetPointSize(size); }
+ext fun rlSetPointSize(size: f32);
+pub fun set_point_size(size: f32) { rlSetPointSize(size); }
 #[library("raylib")]
 ext fun rlGetPointSize() f32;
 pub fun get_point_size() f32 { ret rlGetPointSize(); }
 #[library("raylib")]
-ext fun rlEnableWireMode() u8;
-pub fun enable_wire_mode() u8 { ret rlEnableWireMode(); }
+ext fun rlEnableWireMode();
+pub fun enable_wire_mode() { rlEnableWireMode(); }
 #[library("raylib")]
-ext fun rlDisableWireMode() u8;
-pub fun disable_wire_mode() u8 { ret rlDisableWireMode(); }
+ext fun rlDisableWireMode();
+pub fun disable_wire_mode() { rlDisableWireMode(); }
 #[library("raylib")]
-ext fun rlSetLineWidth(width: f32) u8;
-pub fun set_line_width(width: f32) u8 { ret rlSetLineWidth(width); }
+ext fun rlSetLineWidth(width: f32);
+pub fun set_line_width(width: f32) { rlSetLineWidth(width); }
 #[library("raylib")]
 ext fun rlGetLineWidth() f32;
 pub fun get_line_width() f32 { ret rlGetLineWidth(); }
 #[library("raylib")]
-ext fun rlEnableSmoothLines() u8;
-pub fun enable_smooth_lines() u8 { ret rlEnableSmoothLines(); }
+ext fun rlEnableSmoothLines();
+pub fun enable_smooth_lines() { rlEnableSmoothLines(); }
 #[library("raylib")]
-ext fun rlDisableSmoothLines() u8;
-pub fun disable_smooth_lines() u8 { ret rlDisableSmoothLines(); }
+ext fun rlDisableSmoothLines();
+pub fun disable_smooth_lines() { rlDisableSmoothLines(); }
 #[library("raylib")]
-ext fun rlEnableStereoRender() u8;
-pub fun enable_stereo_render() u8 { ret rlEnableStereoRender(); }
+ext fun rlEnableStereoRender();
+pub fun enable_stereo_render() { rlEnableStereoRender(); }
 #[library("raylib")]
-ext fun rlDisableStereoRender() u8;
-pub fun disable_stereo_render() u8 { ret rlDisableStereoRender(); }
+ext fun rlDisableStereoRender();
+pub fun disable_stereo_render() { rlDisableStereoRender(); }
 #[library("raylib")]
 ext fun rlIsStereoRenderEnabled() bool;
 pub fun is_stereo_render_enabled() bool { ret rlIsStereoRenderEnabled(); }
 #[library("raylib")]
-ext fun rlClearColor(r: u8, g: u8, b: u8, a: u8) u8;
-pub fun clear_color(r: u8, g: u8, b: u8, a: u8) u8 { ret rlClearColor(r, g, b, a); }
+ext fun rlClearColor(r: u8, g: u8, b: u8, a: u8);
+pub fun clear_color(r: u8, g: u8, b: u8, a: u8) { rlClearColor(r, g, b, a); }
 #[library("raylib")]
-ext fun rlClearScreenBuffers() u8;
-pub fun clear_screen_buffers() u8 { ret rlClearScreenBuffers(); }
+ext fun rlClearScreenBuffers();
+pub fun clear_screen_buffers() { rlClearScreenBuffers(); }
 #[library("raylib")]
-ext fun rlCheckErrors() u8;
-pub fun check_errors() u8 { ret rlCheckErrors(); }
+ext fun rlCheckErrors();
+pub fun check_errors() { rlCheckErrors(); }
 #[library("raylib")]
-ext fun rlSetBlendMode(mode: i32) u8;
-pub fun set_blend_mode(mode: i32) u8 { ret rlSetBlendMode(mode); }
+ext fun rlSetBlendMode(mode: i32);
+pub fun set_blend_mode(mode: i32) { rlSetBlendMode(mode); }
 #[library("raylib")]
-ext fun rlSetBlendFactors(glSrcFactor: i32, glDstFactor: i32, glEquation: i32) u8;
-pub fun set_blend_factors(glSrcFactor: i32, glDstFactor: i32, glEquation: i32) u8 { ret rlSetBlendFactors(glSrcFactor, glDstFactor, glEquation); }
+ext fun rlSetBlendFactors(glSrcFactor: i32, glDstFactor: i32, glEquation: i32);
+pub fun set_blend_factors(glSrcFactor: i32, glDstFactor: i32, glEquation: i32) { rlSetBlendFactors(glSrcFactor, glDstFactor, glEquation); }
 #[library("raylib")]
-ext fun rlSetBlendFactorsSeparate(glSrcRGB: i32, glDstRGB: i32, glSrcAlpha: i32, glDstAlpha: i32, glEqRGB: i32, glEqAlpha: i32) u8;
-pub fun set_blend_factors_separate(glSrcRGB: i32, glDstRGB: i32, glSrcAlpha: i32, glDstAlpha: i32, glEqRGB: i32, glEqAlpha: i32) u8 { ret rlSetBlendFactorsSeparate(glSrcRGB, glDstRGB, glSrcAlpha, glDstAlpha, glEqRGB, glEqAlpha); }
+ext fun rlSetBlendFactorsSeparate(glSrcRGB: i32, glDstRGB: i32, glSrcAlpha: i32, glDstAlpha: i32, glEqRGB: i32, glEqAlpha: i32);
+pub fun set_blend_factors_separate(glSrcRGB: i32, glDstRGB: i32, glSrcAlpha: i32, glDstAlpha: i32, glEqRGB: i32, glEqAlpha: i32) { rlSetBlendFactorsSeparate(glSrcRGB, glDstRGB, glSrcAlpha, glDstAlpha, glEqRGB, glEqAlpha); }
 #[library("raylib")]
-ext fun rlglInit(width: i32, height: i32) u8;
-pub fun rlgl_init(width: i32, height: i32) u8 { ret rlglInit(width, height); }
+ext fun rlglInit(width: i32, height: i32);
+pub fun rlgl_init(width: i32, height: i32) { rlglInit(width, height); }
 #[library("raylib")]
-ext fun rlglClose() u8;
-pub fun rlgl_close() u8 { ret rlglClose(); }
+ext fun rlglClose();
+pub fun rlgl_close() { rlglClose(); }
 #[library("raylib")]
-ext fun rlLoadExtensions(loader: ptr) u8;
-pub fun load_extensions(loader: ptr) u8 { ret rlLoadExtensions(loader); }
+ext fun rlLoadExtensions(loader: ptr);
+pub fun load_extensions(loader: ptr) { rlLoadExtensions(loader); }
 #[library("raylib")]
-ext fun rlGetProcAddress(procName: *u8) ptr;
-pub fun get_proc_address(procName: *u8) ptr { ret rlGetProcAddress(procName); }
+ext fun rlGetProcAddress(procName: str) ptr;
+pub fun get_proc_address(procName: str) ptr { ret rlGetProcAddress(procName); }
 #[library("raylib")]
 ext fun rlGetVersion() i32;
 pub fun get_version() i32 { ret rlGetVersion(); }
 #[library("raylib")]
-ext fun rlSetFramebufferWidth(width: i32) u8;
-pub fun set_framebuffer_width(width: i32) u8 { ret rlSetFramebufferWidth(width); }
+ext fun rlSetFramebufferWidth(width: i32);
+pub fun set_framebuffer_width(width: i32) { rlSetFramebufferWidth(width); }
 #[library("raylib")]
 ext fun rlGetFramebufferWidth() i32;
 pub fun get_framebuffer_width() i32 { ret rlGetFramebufferWidth(); }
 #[library("raylib")]
-ext fun rlSetFramebufferHeight(height: i32) u8;
-pub fun set_framebuffer_height(height: i32) u8 { ret rlSetFramebufferHeight(height); }
+ext fun rlSetFramebufferHeight(height: i32);
+pub fun set_framebuffer_height(height: i32) { rlSetFramebufferHeight(height); }
 #[library("raylib")]
 ext fun rlGetFramebufferHeight() i32;
 pub fun get_framebuffer_height() i32 { ret rlGetFramebufferHeight(); }
@@ -545,23 +545,23 @@ pub fun get_shader_locs_default() *i32 { ret rlGetShaderLocsDefault(); }
 ext fun rlLoadRenderBatch(numBuffers: i32, bufferElements: i32) rlRenderBatch;
 pub fun load_render_batch(numBuffers: i32, bufferElements: i32) rlRenderBatch { ret rlLoadRenderBatch(numBuffers, bufferElements); }
 #[library("raylib")]
-ext fun rlUnloadRenderBatch(batch: rlRenderBatch) u8;
-pub fun unload_render_batch(batch: rlRenderBatch) u8 { ret rlUnloadRenderBatch(batch); }
+ext fun rlUnloadRenderBatch(batch: rlRenderBatch);
+pub fun unload_render_batch(batch: rlRenderBatch) { rlUnloadRenderBatch(batch); }
 #[library("raylib")]
-ext fun rlDrawRenderBatch(batch: *rlRenderBatch) u8;
-pub fun draw_render_batch(batch: *rlRenderBatch) u8 { ret rlDrawRenderBatch(batch); }
+ext fun rlDrawRenderBatch(batch: *rlRenderBatch);
+pub fun draw_render_batch(batch: *rlRenderBatch) { rlDrawRenderBatch(batch); }
 #[library("raylib")]
-ext fun rlSetRenderBatchActive(batch: *rlRenderBatch) u8;
-pub fun set_render_batch_active(batch: *rlRenderBatch) u8 { ret rlSetRenderBatchActive(batch); }
+ext fun rlSetRenderBatchActive(batch: *rlRenderBatch);
+pub fun set_render_batch_active(batch: *rlRenderBatch) { rlSetRenderBatchActive(batch); }
 #[library("raylib")]
-ext fun rlDrawRenderBatchActive() u8;
-pub fun draw_render_batch_active() u8 { ret rlDrawRenderBatchActive(); }
+ext fun rlDrawRenderBatchActive();
+pub fun draw_render_batch_active() { rlDrawRenderBatchActive(); }
 #[library("raylib")]
 ext fun rlCheckRenderBatchLimit(vCount: i32) bool;
 pub fun check_render_batch_limit(vCount: i32) bool { ret rlCheckRenderBatchLimit(vCount); }
 #[library("raylib")]
-ext fun rlSetTexture(id: u32) u8;
-pub fun set_texture(id: u32) u8 { ret rlSetTexture(id); }
+ext fun rlSetTexture(id: u32);
+pub fun set_texture(id: u32) { rlSetTexture(id); }
 #[library("raylib")]
 ext fun rlLoadVertexArray() u32;
 pub fun load_vertex_array() u32 { ret rlLoadVertexArray(); }
@@ -572,38 +572,38 @@ pub fun load_vertex_buffer(buffer: ptr, size: i32, dynamic: bool) u32 { ret rlLo
 ext fun rlLoadVertexBufferElement(buffer: ptr, size: i32, dynamic: bool) u32;
 pub fun load_vertex_buffer_element(buffer: ptr, size: i32, dynamic: bool) u32 { ret rlLoadVertexBufferElement(buffer, size, dynamic); }
 #[library("raylib")]
-ext fun rlUpdateVertexBuffer(bufferId: u32, data: ptr, dataSize: i32, offset: i32) u8;
-pub fun update_vertex_buffer(bufferId: u32, data: ptr, dataSize: i32, offset: i32) u8 { ret rlUpdateVertexBuffer(bufferId, data, dataSize, offset); }
+ext fun rlUpdateVertexBuffer(bufferId: u32, data: ptr, dataSize: i32, offset: i32);
+pub fun update_vertex_buffer(bufferId: u32, data: ptr, dataSize: i32, offset: i32) { rlUpdateVertexBuffer(bufferId, data, dataSize, offset); }
 #[library("raylib")]
-ext fun rlUpdateVertexBufferElements(id: u32, data: ptr, dataSize: i32, offset: i32) u8;
-pub fun update_vertex_buffer_elements(id: u32, data: ptr, dataSize: i32, offset: i32) u8 { ret rlUpdateVertexBufferElements(id, data, dataSize, offset); }
+ext fun rlUpdateVertexBufferElements(id: u32, data: ptr, dataSize: i32, offset: i32);
+pub fun update_vertex_buffer_elements(id: u32, data: ptr, dataSize: i32, offset: i32) { rlUpdateVertexBufferElements(id, data, dataSize, offset); }
 #[library("raylib")]
-ext fun rlUnloadVertexArray(vaoId: u32) u8;
-pub fun unload_vertex_array(vaoId: u32) u8 { ret rlUnloadVertexArray(vaoId); }
+ext fun rlUnloadVertexArray(vaoId: u32);
+pub fun unload_vertex_array(vaoId: u32) { rlUnloadVertexArray(vaoId); }
 #[library("raylib")]
-ext fun rlUnloadVertexBuffer(vboId: u32) u8;
-pub fun unload_vertex_buffer(vboId: u32) u8 { ret rlUnloadVertexBuffer(vboId); }
+ext fun rlUnloadVertexBuffer(vboId: u32);
+pub fun unload_vertex_buffer(vboId: u32) { rlUnloadVertexBuffer(vboId); }
 #[library("raylib")]
-ext fun rlSetVertexAttribute(index: u32, compSize: i32, type: i32, normalized: bool, stride: i32, offset: i32) u8;
-pub fun set_vertex_attribute(index: u32, compSize: i32, type: i32, normalized: bool, stride: i32, offset: i32) u8 { ret rlSetVertexAttribute(index, compSize, type, normalized, stride, offset); }
+ext fun rlSetVertexAttribute(index: u32, compSize: i32, type: i32, normalized: bool, stride: i32, offset: i32);
+pub fun set_vertex_attribute(index: u32, compSize: i32, type: i32, normalized: bool, stride: i32, offset: i32) { rlSetVertexAttribute(index, compSize, type, normalized, stride, offset); }
 #[library("raylib")]
-ext fun rlSetVertexAttributeDivisor(index: u32, divisor: i32) u8;
-pub fun set_vertex_attribute_divisor(index: u32, divisor: i32) u8 { ret rlSetVertexAttributeDivisor(index, divisor); }
+ext fun rlSetVertexAttributeDivisor(index: u32, divisor: i32);
+pub fun set_vertex_attribute_divisor(index: u32, divisor: i32) { rlSetVertexAttributeDivisor(index, divisor); }
 #[library("raylib")]
-ext fun rlSetVertexAttributeDefault(locIndex: i32, value: ptr, attribType: i32, count: i32) u8;
-pub fun set_vertex_attribute_default(locIndex: i32, value: ptr, attribType: i32, count: i32) u8 { ret rlSetVertexAttributeDefault(locIndex, value, attribType, count); }
+ext fun rlSetVertexAttributeDefault(locIndex: i32, value: ptr, attribType: i32, count: i32);
+pub fun set_vertex_attribute_default(locIndex: i32, value: ptr, attribType: i32, count: i32) { rlSetVertexAttributeDefault(locIndex, value, attribType, count); }
 #[library("raylib")]
-ext fun rlDrawVertexArray(offset: i32, count: i32) u8;
-pub fun draw_vertex_array(offset: i32, count: i32) u8 { ret rlDrawVertexArray(offset, count); }
+ext fun rlDrawVertexArray(offset: i32, count: i32);
+pub fun draw_vertex_array(offset: i32, count: i32) { rlDrawVertexArray(offset, count); }
 #[library("raylib")]
-ext fun rlDrawVertexArrayElements(offset: i32, count: i32, buffer: ptr) u8;
-pub fun draw_vertex_array_elements(offset: i32, count: i32, buffer: ptr) u8 { ret rlDrawVertexArrayElements(offset, count, buffer); }
+ext fun rlDrawVertexArrayElements(offset: i32, count: i32, buffer: ptr);
+pub fun draw_vertex_array_elements(offset: i32, count: i32, buffer: ptr) { rlDrawVertexArrayElements(offset, count, buffer); }
 #[library("raylib")]
-ext fun rlDrawVertexArrayInstanced(offset: i32, count: i32, instances: i32) u8;
-pub fun draw_vertex_array_instanced(offset: i32, count: i32, instances: i32) u8 { ret rlDrawVertexArrayInstanced(offset, count, instances); }
+ext fun rlDrawVertexArrayInstanced(offset: i32, count: i32, instances: i32);
+pub fun draw_vertex_array_instanced(offset: i32, count: i32, instances: i32) { rlDrawVertexArrayInstanced(offset, count, instances); }
 #[library("raylib")]
-ext fun rlDrawVertexArrayElementsInstanced(offset: i32, count: i32, buffer: ptr, instances: i32) u8;
-pub fun draw_vertex_array_elements_instanced(offset: i32, count: i32, buffer: ptr, instances: i32) u8 { ret rlDrawVertexArrayElementsInstanced(offset, count, buffer, instances); }
+ext fun rlDrawVertexArrayElementsInstanced(offset: i32, count: i32, buffer: ptr, instances: i32);
+pub fun draw_vertex_array_elements_instanced(offset: i32, count: i32, buffer: ptr, instances: i32) { rlDrawVertexArrayElementsInstanced(offset, count, buffer, instances); }
 #[library("raylib")]
 ext fun rlLoadTexture(data: ptr, width: i32, height: i32, format: i32, mipmapCount: i32) u32;
 pub fun load_texture(data: ptr, width: i32, height: i32, format: i32, mipmapCount: i32) u32 { ret rlLoadTexture(data, width, height, format, mipmapCount); }
@@ -614,20 +614,20 @@ pub fun load_texture_depth(width: i32, height: i32, useRenderBuffer: bool) u32 {
 ext fun rlLoadTextureCubemap(data: ptr, size: i32, format: i32, mipmapCount: i32) u32;
 pub fun load_texture_cubemap(data: ptr, size: i32, format: i32, mipmapCount: i32) u32 { ret rlLoadTextureCubemap(data, size, format, mipmapCount); }
 #[library("raylib")]
-ext fun rlUpdateTexture(id: u32, offsetX: i32, offsetY: i32, width: i32, height: i32, format: i32, data: ptr) u8;
-pub fun update_texture(id: u32, offsetX: i32, offsetY: i32, width: i32, height: i32, format: i32, data: ptr) u8 { ret rlUpdateTexture(id, offsetX, offsetY, width, height, format, data); }
+ext fun rlUpdateTexture(id: u32, offsetX: i32, offsetY: i32, width: i32, height: i32, format: i32, data: ptr);
+pub fun update_texture(id: u32, offsetX: i32, offsetY: i32, width: i32, height: i32, format: i32, data: ptr) { rlUpdateTexture(id, offsetX, offsetY, width, height, format, data); }
 #[library("raylib")]
-ext fun rlGetGlTextureFormats(format: i32, glInternalFormat: *u32, glFormat: *u32, glType: *u32) u8;
-pub fun get_gl_texture_formats(format: i32, glInternalFormat: *u32, glFormat: *u32, glType: *u32) u8 { ret rlGetGlTextureFormats(format, glInternalFormat, glFormat, glType); }
+ext fun rlGetGlTextureFormats(format: i32, glInternalFormat: *u32, glFormat: *u32, glType: *u32);
+pub fun get_gl_texture_formats(format: i32, glInternalFormat: *u32, glFormat: *u32, glType: *u32) { rlGetGlTextureFormats(format, glInternalFormat, glFormat, glType); }
 #[library("raylib")]
-ext fun rlGetPixelFormatName(format: u32) *u8;
-pub fun get_pixel_format_name(format: u32) *u8 { ret rlGetPixelFormatName(format); }
+ext fun rlGetPixelFormatName(format: u32) str;
+pub fun get_pixel_format_name(format: u32) str { ret rlGetPixelFormatName(format); }
 #[library("raylib")]
-ext fun rlUnloadTexture(id: u32) u8;
-pub fun unload_texture(id: u32) u8 { ret rlUnloadTexture(id); }
+ext fun rlUnloadTexture(id: u32);
+pub fun unload_texture(id: u32) { rlUnloadTexture(id); }
 #[library("raylib")]
-ext fun rlGenTextureMipmaps(id: u32, width: i32, height: i32, format: i32, mipmaps: *i32) u8;
-pub fun gen_texture_mipmaps(id: u32, width: i32, height: i32, format: i32, mipmaps: *i32) u8 { ret rlGenTextureMipmaps(id, width, height, format, mipmaps); }
+ext fun rlGenTextureMipmaps(id: u32, width: i32, height: i32, format: i32, mipmaps: *i32);
+pub fun gen_texture_mipmaps(id: u32, width: i32, height: i32, format: i32, mipmaps: *i32) { rlGenTextureMipmaps(id, width, height, format, mipmaps); }
 #[library("raylib")]
 ext fun rlReadTexturePixels(id: u32, width: i32, height: i32, format: i32) ptr;
 pub fun read_texture_pixels(id: u32, width: i32, height: i32, format: i32) ptr { ret rlReadTexturePixels(id, width, height, format); }
@@ -638,26 +638,26 @@ pub fun read_screen_pixels(width: i32, height: i32) *u8 { ret rlReadScreenPixels
 ext fun rlLoadFramebuffer() u32;
 pub fun load_framebuffer() u32 { ret rlLoadFramebuffer(); }
 #[library("raylib")]
-ext fun rlFramebufferAttach(id: u32, texId: u32, attachType: i32, texType: i32, mipLevel: i32) u8;
-pub fun framebuffer_attach(id: u32, texId: u32, attachType: i32, texType: i32, mipLevel: i32) u8 { ret rlFramebufferAttach(id, texId, attachType, texType, mipLevel); }
+ext fun rlFramebufferAttach(id: u32, texId: u32, attachType: i32, texType: i32, mipLevel: i32);
+pub fun framebuffer_attach(id: u32, texId: u32, attachType: i32, texType: i32, mipLevel: i32) { rlFramebufferAttach(id, texId, attachType, texType, mipLevel); }
 #[library("raylib")]
 ext fun rlFramebufferComplete(id: u32) bool;
 pub fun framebuffer_complete(id: u32) bool { ret rlFramebufferComplete(id); }
 #[library("raylib")]
-ext fun rlUnloadFramebuffer(id: u32) u8;
-pub fun unload_framebuffer(id: u32) u8 { ret rlUnloadFramebuffer(id); }
+ext fun rlUnloadFramebuffer(id: u32);
+pub fun unload_framebuffer(id: u32) { rlUnloadFramebuffer(id); }
 #[library("raylib")]
-ext fun rlCopyFramebuffer(x: i32, y: i32, width: i32, height: i32, format: i32, pixels: ptr) u8;
-pub fun copy_framebuffer(x: i32, y: i32, width: i32, height: i32, format: i32, pixels: ptr) u8 { ret rlCopyFramebuffer(x, y, width, height, format, pixels); }
+ext fun rlCopyFramebuffer(x: i32, y: i32, width: i32, height: i32, format: i32, pixels: ptr);
+pub fun copy_framebuffer(x: i32, y: i32, width: i32, height: i32, format: i32, pixels: ptr) { rlCopyFramebuffer(x, y, width, height, format, pixels); }
 #[library("raylib")]
-ext fun rlResizeFramebuffer(width: i32, height: i32) u8;
-pub fun resize_framebuffer(width: i32, height: i32) u8 { ret rlResizeFramebuffer(width, height); }
+ext fun rlResizeFramebuffer(width: i32, height: i32);
+pub fun resize_framebuffer(width: i32, height: i32) { rlResizeFramebuffer(width, height); }
 #[library("raylib")]
-ext fun rlLoadShader(code: *u8, type: i32) u32;
-pub fun load_shader(code: *u8, type: i32) u32 { ret rlLoadShader(code, type); }
+ext fun rlLoadShader(code: str, type: i32) u32;
+pub fun load_shader(code: str, type: i32) u32 { ret rlLoadShader(code, type); }
 #[library("raylib")]
-ext fun rlLoadShaderProgram(vsCode: *u8, fsCode: *u8) u32;
-pub fun load_shader_program(vsCode: *u8, fsCode: *u8) u32 { ret rlLoadShaderProgram(vsCode, fsCode); }
+ext fun rlLoadShaderProgram(vsCode: str, fsCode: str) u32;
+pub fun load_shader_program(vsCode: str, fsCode: str) u32 { ret rlLoadShaderProgram(vsCode, fsCode); }
 #[library("raylib")]
 ext fun rlLoadShaderProgramEx(vsId: u32, fsId: u32) u32;
 pub fun load_shader_program_ex(vsId: u32, fsId: u32) u32 { ret rlLoadShaderProgramEx(vsId, fsId); }
@@ -665,59 +665,59 @@ pub fun load_shader_program_ex(vsId: u32, fsId: u32) u32 { ret rlLoadShaderProgr
 ext fun rlLoadShaderProgramCompute(csId: u32) u32;
 pub fun load_shader_program_compute(csId: u32) u32 { ret rlLoadShaderProgramCompute(csId); }
 #[library("raylib")]
-ext fun rlUnloadShader(id: u32) u8;
-pub fun unload_shader(id: u32) u8 { ret rlUnloadShader(id); }
+ext fun rlUnloadShader(id: u32);
+pub fun unload_shader(id: u32) { rlUnloadShader(id); }
 #[library("raylib")]
-ext fun rlUnloadShaderProgram(id: u32) u8;
-pub fun unload_shader_program(id: u32) u8 { ret rlUnloadShaderProgram(id); }
+ext fun rlUnloadShaderProgram(id: u32);
+pub fun unload_shader_program(id: u32) { rlUnloadShaderProgram(id); }
 #[library("raylib")]
-ext fun rlGetLocationUniform(id: u32, uniformName: *u8) i32;
-pub fun get_location_uniform(id: u32, uniformName: *u8) i32 { ret rlGetLocationUniform(id, uniformName); }
+ext fun rlGetLocationUniform(id: u32, uniformName: str) i32;
+pub fun get_location_uniform(id: u32, uniformName: str) i32 { ret rlGetLocationUniform(id, uniformName); }
 #[library("raylib")]
-ext fun rlGetLocationAttrib(id: u32, attribName: *u8) i32;
-pub fun get_location_attrib(id: u32, attribName: *u8) i32 { ret rlGetLocationAttrib(id, attribName); }
+ext fun rlGetLocationAttrib(id: u32, attribName: str) i32;
+pub fun get_location_attrib(id: u32, attribName: str) i32 { ret rlGetLocationAttrib(id, attribName); }
 #[library("raylib")]
-ext fun rlSetUniform(locIndex: i32, value: ptr, uniformType: i32, count: i32) u8;
-pub fun set_uniform(locIndex: i32, value: ptr, uniformType: i32, count: i32) u8 { ret rlSetUniform(locIndex, value, uniformType, count); }
+ext fun rlSetUniform(locIndex: i32, value: ptr, uniformType: i32, count: i32);
+pub fun set_uniform(locIndex: i32, value: ptr, uniformType: i32, count: i32) { rlSetUniform(locIndex, value, uniformType, count); }
 #[library("raylib")]
-ext fun rlSetUniformMatrix(locIndex: i32, mat: Matrix) u8;
-pub fun set_uniform_matrix(locIndex: i32, mat: Matrix) u8 { ret rlSetUniformMatrix(locIndex, mat); }
+ext fun rlSetUniformMatrix(locIndex: i32, mat: Matrix);
+pub fun set_uniform_matrix(locIndex: i32, mat: Matrix) { rlSetUniformMatrix(locIndex, mat); }
 #[library("raylib")]
-ext fun rlSetUniformMatrices(locIndex: i32, mat: *Matrix, count: i32) u8;
-pub fun set_uniform_matrices(locIndex: i32, mat: *Matrix, count: i32) u8 { ret rlSetUniformMatrices(locIndex, mat, count); }
+ext fun rlSetUniformMatrices(locIndex: i32, mat: *Matrix, count: i32);
+pub fun set_uniform_matrices(locIndex: i32, mat: *Matrix, count: i32) { rlSetUniformMatrices(locIndex, mat, count); }
 #[library("raylib")]
-ext fun rlSetUniformSampler(locIndex: i32, textureId: u32) u8;
-pub fun set_uniform_sampler(locIndex: i32, textureId: u32) u8 { ret rlSetUniformSampler(locIndex, textureId); }
+ext fun rlSetUniformSampler(locIndex: i32, textureId: u32);
+pub fun set_uniform_sampler(locIndex: i32, textureId: u32) { rlSetUniformSampler(locIndex, textureId); }
 #[library("raylib")]
-ext fun rlSetShader(id: u32, locs: *i32) u8;
-pub fun set_shader(id: u32, locs: *i32) u8 { ret rlSetShader(id, locs); }
+ext fun rlSetShader(id: u32, locs: *i32);
+pub fun set_shader(id: u32, locs: *i32) { rlSetShader(id, locs); }
 #[library("raylib")]
-ext fun rlComputeShaderDispatch(groupX: u32, groupY: u32, groupZ: u32) u8;
-pub fun compute_shader_dispatch(groupX: u32, groupY: u32, groupZ: u32) u8 { ret rlComputeShaderDispatch(groupX, groupY, groupZ); }
+ext fun rlComputeShaderDispatch(groupX: u32, groupY: u32, groupZ: u32);
+pub fun compute_shader_dispatch(groupX: u32, groupY: u32, groupZ: u32) { rlComputeShaderDispatch(groupX, groupY, groupZ); }
 #[library("raylib")]
 ext fun rlLoadShaderBuffer(size: u32, data: ptr, usageHint: i32) u32;
 pub fun load_shader_buffer(size: u32, data: ptr, usageHint: i32) u32 { ret rlLoadShaderBuffer(size, data, usageHint); }
 #[library("raylib")]
-ext fun rlUnloadShaderBuffer(ssboId: u32) u8;
-pub fun unload_shader_buffer(ssboId: u32) u8 { ret rlUnloadShaderBuffer(ssboId); }
+ext fun rlUnloadShaderBuffer(ssboId: u32);
+pub fun unload_shader_buffer(ssboId: u32) { rlUnloadShaderBuffer(ssboId); }
 #[library("raylib")]
-ext fun rlUpdateShaderBuffer(id: u32, data: ptr, dataSize: u32, offset: u32) u8;
-pub fun update_shader_buffer(id: u32, data: ptr, dataSize: u32, offset: u32) u8 { ret rlUpdateShaderBuffer(id, data, dataSize, offset); }
+ext fun rlUpdateShaderBuffer(id: u32, data: ptr, dataSize: u32, offset: u32);
+pub fun update_shader_buffer(id: u32, data: ptr, dataSize: u32, offset: u32) { rlUpdateShaderBuffer(id, data, dataSize, offset); }
 #[library("raylib")]
-ext fun rlBindShaderBuffer(id: u32, index: u32) u8;
-pub fun bind_shader_buffer(id: u32, index: u32) u8 { ret rlBindShaderBuffer(id, index); }
+ext fun rlBindShaderBuffer(id: u32, index: u32);
+pub fun bind_shader_buffer(id: u32, index: u32) { rlBindShaderBuffer(id, index); }
 #[library("raylib")]
-ext fun rlReadShaderBuffer(id: u32, dest: ptr, count: u32, offset: u32) u8;
-pub fun read_shader_buffer(id: u32, dest: ptr, count: u32, offset: u32) u8 { ret rlReadShaderBuffer(id, dest, count, offset); }
+ext fun rlReadShaderBuffer(id: u32, dest: ptr, count: u32, offset: u32);
+pub fun read_shader_buffer(id: u32, dest: ptr, count: u32, offset: u32) { rlReadShaderBuffer(id, dest, count, offset); }
 #[library("raylib")]
-ext fun rlCopyShaderBuffer(destId: u32, srcId: u32, destOffset: u32, srcOffset: u32, count: u32) u8;
-pub fun copy_shader_buffer(destId: u32, srcId: u32, destOffset: u32, srcOffset: u32, count: u32) u8 { ret rlCopyShaderBuffer(destId, srcId, destOffset, srcOffset, count); }
+ext fun rlCopyShaderBuffer(destId: u32, srcId: u32, destOffset: u32, srcOffset: u32, count: u32);
+pub fun copy_shader_buffer(destId: u32, srcId: u32, destOffset: u32, srcOffset: u32, count: u32) { rlCopyShaderBuffer(destId, srcId, destOffset, srcOffset, count); }
 #[library("raylib")]
 ext fun rlGetShaderBufferSize(id: u32) u32;
 pub fun get_shader_buffer_size(id: u32) u32 { ret rlGetShaderBufferSize(id); }
 #[library("raylib")]
-ext fun rlBindImageTexture(id: u32, index: u32, format: i32, readonly: bool) u8;
-pub fun bind_image_texture(id: u32, index: u32, format: i32, readonly: bool) u8 { ret rlBindImageTexture(id, index, format, readonly); }
+ext fun rlBindImageTexture(id: u32, index: u32, format: i32, readonly: bool);
+pub fun bind_image_texture(id: u32, index: u32, format: i32, readonly: bool) { rlBindImageTexture(id, index, format, readonly); }
 #[library("raylib")]
 ext fun rlGetMatrixModelview() Matrix;
 pub fun get_matrix_modelview() Matrix { ret rlGetMatrixModelview(); }
@@ -734,20 +734,20 @@ pub fun get_matrix_projection_stereo(eye: i32) Matrix { ret rlGetMatrixProjectio
 ext fun rlGetMatrixViewOffsetStereo(eye: i32) Matrix;
 pub fun get_matrix_view_offset_stereo(eye: i32) Matrix { ret rlGetMatrixViewOffsetStereo(eye); }
 #[library("raylib")]
-ext fun rlSetMatrixProjection(proj: Matrix) u8;
-pub fun set_matrix_projection(proj: Matrix) u8 { ret rlSetMatrixProjection(proj); }
+ext fun rlSetMatrixProjection(proj: Matrix);
+pub fun set_matrix_projection(proj: Matrix) { rlSetMatrixProjection(proj); }
 #[library("raylib")]
-ext fun rlSetMatrixModelview(view: Matrix) u8;
-pub fun set_matrix_modelview(view: Matrix) u8 { ret rlSetMatrixModelview(view); }
+ext fun rlSetMatrixModelview(view: Matrix);
+pub fun set_matrix_modelview(view: Matrix) { rlSetMatrixModelview(view); }
 #[library("raylib")]
-ext fun rlSetMatrixProjectionStereo(right: Matrix, left: Matrix) u8;
-pub fun set_matrix_projection_stereo(right: Matrix, left: Matrix) u8 { ret rlSetMatrixProjectionStereo(right, left); }
+ext fun rlSetMatrixProjectionStereo(right: Matrix, left: Matrix);
+pub fun set_matrix_projection_stereo(right: Matrix, left: Matrix) { rlSetMatrixProjectionStereo(right, left); }
 #[library("raylib")]
-ext fun rlSetMatrixViewOffsetStereo(right: Matrix, left: Matrix) u8;
-pub fun set_matrix_view_offset_stereo(right: Matrix, left: Matrix) u8 { ret rlSetMatrixViewOffsetStereo(right, left); }
+ext fun rlSetMatrixViewOffsetStereo(right: Matrix, left: Matrix);
+pub fun set_matrix_view_offset_stereo(right: Matrix, left: Matrix) { rlSetMatrixViewOffsetStereo(right, left); }
 #[library("raylib")]
-ext fun rlLoadDrawCube() u8;
-pub fun load_draw_cube() u8 { ret rlLoadDrawCube(); }
+ext fun rlLoadDrawCube();
+pub fun load_draw_cube() { rlLoadDrawCube(); }
 #[library("raylib")]
-ext fun rlLoadDrawQuad() u8;
-pub fun load_draw_quad() u8 { ret rlLoadDrawQuad(); }
+ext fun rlLoadDrawQuad();
+pub fun load_draw_quad() { rlLoadDrawQuad(); }
