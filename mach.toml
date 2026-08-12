@@ -1,0 +1,307 @@
+[project]
+id = "raylib"
+version = "0.1.0"
+src = "src"
+out = "out/{target.name}/{profile.name}"
+
+[target.linux]
+isa = "x86_64"
+os  = "linux"
+abi = "sysv64"
+
+[target.windows]
+isa = "x86_64"
+os  = "windows"
+abi = "win64"
+
+[target.darwin-x86_64]
+isa = "x86_64"
+os  = "darwin"
+abi = "sysv64"
+
+[artifact.raylib]
+kind = "bin"
+entry = "main.mach"
+out = "bin/main"
+targets = ["*"]
+#subsystem = "gui"
+link = [
+    #"raygui",
+    "raylib",
+    # -- os: linux ----
+    "pthread", "m", "dl", "rt",
+    # -- os: windows ----
+    # -- os: darwin ----
+    "libSystem", "objc",
+    "Cocoa", "AppKit", "Foundation", "CoreGraphics", "CoreServices",
+    "IOKit", "CoreFoundation", "CoreVideo", "OpenGL",
+]
+need = []
+
+[profile.debug]
+opt = 0
+debug = true
+simd = "scalarize"
+
+[profile.release]
+opt = 2
+debug = false
+simd = "scalarize"
+
+[link.raylib]
+source = "system"
+#name = "libs/libraylib.a"
+name = "raylib" # mach build . -L lib_path
+os = ["linux", "windows", "darwin"]
+isa = "*"
+abi = "*"
+export = true
+
+#[link.raygui]
+#source = "system"
+##name = "libs/libraygui.a"
+#name = "raygui"
+#os = ["linux", "windows", "darwin"]
+#isa = "*"
+#abi = "*"
+#export = true
+
+[link.libSystem]
+source = "system"
+name = "/usr/lib/libSystem.B.dylib"
+library = "libSystem"
+symbols = [
+    "_NSConcreteGlobalBlock", "_NSGetExecutablePath", "_NSGetProgname", 
+    "___chkstk_darwin", "__bzero", "__error", "__exp10", 
+    "__memcpy_chk", "__memset_chk", "__sincos_stret", 
+    "__sincosf_stret", "__sprintf_chk", "__stack_chk_fail", 
+    "__stack_chk_guard", "__stderrp", "__stdoutp", "__strcat_chk", 
+    "__strncpy_chk", "access", "acos", "acosf", "asinf", "atan2f", 
+    "atof", "atoi", "atoll", "calloc", "chdir", "closedir", "cos", 
+    "cosf", "div", "dlclose", "dlopen", "dlsym", "exit", "exp", 
+    "exp2f", "fclose", "feof", "ferror", "fflush", "fgetc", "fgets", 
+    "fileno", "fmod", "fmodf", "fopen", "fprintf", "fread", "free", 
+    "frexp", "fseek", "fstat$INODE64", "ftell", "fwrite", "getcwd", 
+    "gettimeofday", "hypot", "hypotf", "ldexp", "log", "logf", 
+    "mach_absolute_time", "mach_timebase_info", "malloc", "memchr", 
+    "memcmp", "memcpy", "memmove", "memset", "memset_pattern16", 
+    "mkdir", "opendir$INODE64", "pow", "powf", "pthread_attr_destroy", 
+    "pthread_attr_getschedparam", "pthread_attr_init", 
+    "pthread_attr_setinheritsched", "pthread_attr_setschedparam", 
+    "pthread_attr_setschedpolicy", "pthread_attr_setstacksize", 
+    "pthread_cond_destroy", "pthread_cond_init", "pthread_cond_signal", 
+    "pthread_cond_wait", "pthread_create", "pthread_getspecific", 
+    "pthread_join", "pthread_key_create", "pthread_key_delete", 
+    "pthread_mutex_destroy", "pthread_mutex_init", 
+    "pthread_mutex_lock", "pthread_mutex_unlock", 
+    "pthread_setspecific", "puts", "qsort", "rand", "readdir$INODE64", 
+    "realloc", "remove", "rename", "rewind", "sched_get_priority_max", 
+    "sched_get_priority_min", "select$1050", "sin", "sinf", "snprintf", 
+    "sprintf", "sscanf", "stat$INODE64", "strchr", "strcmp", "strcpy", 
+    "strcspn", "strerror", "strlen", "strncmp", "strncpy", "strpbrk", 
+    "strrchr", "strspn", "strstr", "strtok", "strtol", "strtoul", 
+    "system", "tan", "time", "ungetc", "usleep", "vprintf", 
+    "vsnprintf", "wcsrtombs", "ma_atomic_global_lock"
+]
+os = ["darwin"]
+isa = "*"
+abi = "*"
+export = true
+
+[link.objc]
+source = "system"
+name = "/usr/lib/libobjc.A.dylib"
+library = "objc"
+symbols = [
+    "OBJC_CLASS_$_NSObject", "OBJC_METACLASS_$_NSObject", 
+    "_objc_empty_cache", "objc_alloc", "objc_alloc_init", 
+    "objc_autoreleasePoolPop", "objc_autoreleasePoolPush", 
+    "objc_enumerationMutation", "objc_msgSend", "objc_msgSendSuper2", 
+    "objc_msgSend_stret", "objc_opt_class", "objc_opt_isKindOfClass", 
+    "objc_opt_respondsToSelector", "objc_release", "objc_retain"
+]
+os = ["darwin"]
+isa = "*"
+abi = "*"
+export = true
+
+[link.CoreFoundation]
+source = "framework"
+name = "CoreFoundation"
+symbols = [
+    "CFArrayAppendValue", "CFArrayCreateMutable", "CFArrayGetCount", 
+    "CFArrayGetValueAtIndex", "CFArraySortValues", 
+    "CFBundleCopyPrivateFrameworksURL", 
+    "CFBundleCopyResourcesDirectoryURL", 
+    "CFBundleGetBundleWithIdentifier", "CFBundleGetDataPointerForName", 
+    "CFBundleGetFunctionPointerForName", "CFBundleGetMainBundle", 
+    "CFDictionaryCreateMutable", "CFDictionaryGetValue", 
+    "CFDictionaryGetValueIfPresent", "CFDictionarySetValue", 
+    "CFGetTypeID", "CFNumberCreate", "CFNumberGetValue", "CFRelease", 
+    "CFRunLoopGetMain", "CFRunLoopRunInMode", "CFStringCompare", 
+    "CFStringCreateWithCString", "CFStringCreateWithCharactersNoCopy", 
+    "CFStringGetCString", "CFStringGetLength", 
+    "CFStringGetMaximumSizeForEncoding", "CFURLCopyLastPathComponent", 
+    "CFURLCreateCopyAppendingPathComponent", 
+    "CFURLGetFileSystemRepresentation", "NSDefaultRunLoopMode", 
+    "OBJC_CLASS_$_NSArray", "OBJC_CLASS_$_NSConstantDictionary", 
+    "OBJC_CLASS_$_NSDate", "OBJC_CLASS_$_NSDictionary", 
+    "OBJC_CLASS_$_NSURL", "OBJC_CLASS_$_NSUserDefaults", 
+    "__CFConstantStringClassReference", "__kCFBooleanFalse", 
+    "__kCFBooleanTrue", "kCFAllocatorDefault", "kCFAllocatorNull", 
+    "kCFRunLoopDefaultMode", "kCFTypeArrayCallBacks", 
+    "kCFTypeDictionaryKeyCallBacks", "kCFTypeDictionaryValueCallBacks"
+]
+os = ["darwin"]
+isa = "*"
+abi = "*"
+export = true
+
+[link.CoreGraphics]
+source = "framework"
+name = "CoreGraphics"
+symbols = [
+    "CGAcquireDisplayFadeReservation", 
+    "CGAssociateMouseAndMouseCursorPosition", "CGDisplayBounds", 
+    "CGDisplayCopyAllDisplayModes", "CGDisplayCopyDisplayMode", 
+    "CGDisplayFade", "CGDisplayGammaTableCapacity", 
+    "CGDisplayIsAsleep", "CGDisplayModeGetHeight", 
+    "CGDisplayModeGetIOFlags", "CGDisplayModeGetRefreshRate", 
+    "CGDisplayModeGetWidth", "CGDisplayModeRelease", 
+    "CGDisplayModelNumber", "CGDisplayMoveCursorToPoint", 
+    "CGDisplayScreenSize", "CGDisplaySetDisplayMode", 
+    "CGDisplayUnitNumber", "CGDisplayVendorNumber", 
+    "CGEventSourceCreate", 
+    "CGEventSourceSetLocalEventsSuppressionInterval", 
+    "CGGetDisplayTransferByTable", "CGGetOnlineDisplayList", 
+    "CGMainDisplayID", "CGOpenGLDisplayMaskToDisplayID", 
+    "CGReleaseDisplayFadeReservation", "CGSetDisplayTransferByTable", 
+    "CGWarpMouseCursorPosition"
+]
+os = ["darwin"]
+isa = "*"
+abi = "*"
+export = true
+
+[link.IOKit]
+source = "framework"
+name = "IOKit"
+symbols = [
+    "IODisplayCreateInfoDictionary", "IOHIDDeviceCopyMatchingElements", 
+    "IOHIDDeviceGetProperty", "IOHIDDeviceGetValue", 
+    "IOHIDElementGetLogicalMax", "IOHIDElementGetLogicalMin", 
+    "IOHIDElementGetType", "IOHIDElementGetTypeID", 
+    "IOHIDElementGetUsage", "IOHIDElementGetUsagePage", 
+    "IOHIDManagerCreate", "IOHIDManagerOpen", 
+    "IOHIDManagerRegisterDeviceMatchingCallback", 
+    "IOHIDManagerRegisterDeviceRemovalCallback", 
+    "IOHIDManagerScheduleWithRunLoop", 
+    "IOHIDManagerSetDeviceMatchingMultiple", 
+    "IOHIDValueGetIntegerValue", "IOIteratorNext", "IOObjectRelease", 
+    "IORegistryEntryCreateCFProperty", "IOServiceGetMatchingServices", 
+    "IOServiceMatching"
+]
+os = ["darwin"]
+isa = "*"
+abi = "*"
+export = true
+
+[link.Foundation]
+source = "framework"
+name = "Foundation"
+symbols = [
+    "NSMouseInRect", "NSSelectorFromString", 
+    "OBJC_CLASS_$_NSAttributedString", "OBJC_CLASS_$_NSBundle", 
+    "OBJC_CLASS_$_NSMutableAttributedString", 
+    "OBJC_CLASS_$_NSNotificationCenter", "OBJC_CLASS_$_NSString", 
+    "OBJC_CLASS_$_NSThread"
+]
+os = ["darwin"]
+isa = "*"
+abi = "*"
+export = true
+
+[link.AppKit]
+source = "framework"
+name = "AppKit"
+symbols = [
+    "NSApp", "NSCalibratedRGBColorSpace", "NSPasteboardTypeString", 
+    "NSPasteboardTypeURL", "NSPasteboardURLReadingFileURLsOnlyKey", 
+    "NSTextInputContextKeyboardSelectionDidChangeNotification", 
+    "OBJC_CLASS_$_NSApplication", "OBJC_CLASS_$_NSBitmapImageRep", 
+    "OBJC_CLASS_$_NSColor", "OBJC_CLASS_$_NSCursor", 
+    "OBJC_CLASS_$_NSEvent", "OBJC_CLASS_$_NSImage", 
+    "OBJC_CLASS_$_NSMenu", "OBJC_CLASS_$_NSMenuItem", 
+    "OBJC_CLASS_$_NSOpenGLContext", "OBJC_CLASS_$_NSOpenGLPixelFormat", 
+    "OBJC_CLASS_$_NSPasteboard", "OBJC_CLASS_$_NSRunningApplication", 
+    "OBJC_CLASS_$_NSScreen", "OBJC_CLASS_$_NSTrackingArea", 
+    "OBJC_CLASS_$_NSView", "OBJC_CLASS_$_NSWindow", 
+    "OBJC_METACLASS_$_NSView", "OBJC_METACLASS_$_NSWindow"
+]
+os = ["darwin"]
+isa = "*"
+abi = "*"
+export = true
+
+[link.CoreServices]
+source = "framework"
+name = "CoreServices"
+symbols = ["UCKeyTranslate"]
+os = ["darwin"]
+isa = "*"
+abi = "*"
+export = true
+
+[link.Cocoa]
+source = "framework"
+name = "Cocoa"
+os = ["darwin"]
+isa = "*"
+abi = "*"
+export = true
+
+[link.OpenGL]
+source = "framework"
+name = "OpenGL"
+os = ["darwin"]
+isa = "*"
+abi = "*"
+export = true
+
+[link.pthread]
+source = "system"
+name = "pthread"
+os = ["linux"]
+isa = "*"
+abi = "*"
+export = true
+
+[link.m]
+source = "system"
+name = "m"
+os = ["linux"]
+isa = "*"
+abi = "*"
+export = true
+
+[link.dl]
+source = "system"
+name = "dl"
+os = ["linux"]
+isa = "*"
+abi = "*"
+export = true
+
+[link.rt]
+source = "system"
+name = "rt"
+os = ["linux"]
+isa = "*"
+abi = "*"
+export = true
+
+[dep.mach-std]
+#path = "dep/mach-std"
+git = "https://github.com/briar-systems/mach-std"
+ref = "branch/main"
+

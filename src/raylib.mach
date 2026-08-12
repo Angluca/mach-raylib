@@ -1,0 +1,2431 @@
+fwd std.types.bool.bool;
+fwd std.types.bool.true;
+fwd std.types.bool.false;
+fwd std.types.string.str;
+
+pub val PI: f32 = 3.14159265358979323846;
+pub val DEG2RAD: f32 = (PI/180.0f32);
+pub val RAD2DEG: f32 = (180.0f32/PI);
+pub val LIGHTGRAY: Color = Color{ r: 200, g: 200, b: 200, a: 255 };
+pub val GRAY: Color = Color{ r: 130, g: 130, b: 130, a: 255 };
+pub val DARKGRAY: Color = Color{ r: 80, g: 80, b: 80, a: 255 };
+pub val YELLOW: Color = Color{ r: 253, g: 249, b: 0, a: 255 };
+pub val GOLD: Color = Color{ r: 255, g: 203, b: 0, a: 255 };
+pub val ORANGE: Color = Color{ r: 255, g: 161, b: 0, a: 255 };
+pub val PINK: Color = Color{ r: 255, g: 109, b: 194, a: 255 };
+pub val RED: Color = Color{ r: 230, g: 41, b: 55, a: 255 };
+pub val MAROON: Color = Color{ r: 190, g: 33, b: 55, a: 255 };
+pub val GREEN: Color = Color{ r: 0, g: 228, b: 48, a: 255 };
+pub val LIME: Color = Color{ r: 0, g: 158, b: 47, a: 255 };
+pub val DARKGREEN: Color = Color{ r: 0, g: 117, b: 44, a: 255 };
+pub val SKYBLUE: Color = Color{ r: 102, g: 191, b: 255, a: 255 };
+pub val BLUE: Color = Color{ r: 0, g: 121, b: 241, a: 255 };
+pub val DARKBLUE: Color = Color{ r: 0, g: 82, b: 172, a: 255 };
+pub val PURPLE: Color = Color{ r: 200, g: 122, b: 255, a: 255 };
+pub val VIOLET: Color = Color{ r: 135, g: 60, b: 190, a: 255 };
+pub val DARKPURPLE: Color = Color{ r: 112, g: 31, b: 126, a: 255 };
+pub val BEIGE: Color = Color{ r: 211, g: 176, b: 131, a: 255 };
+pub val BROWN: Color = Color{ r: 127, g: 106, b: 79, a: 255 };
+pub val DARKBROWN: Color = Color{ r: 76, g: 63, b: 47, a: 255 };
+pub val WHITE: Color = Color{ r: 255, g: 255, b: 255, a: 255 };
+pub val BLACK: Color = Color{ r: 0, g: 0, b: 0, a: 255 };
+pub val BLANK: Color = Color{ r: 0, g: 0, b: 0, a: 0 };
+pub val MAGENTA: Color = Color{ r: 255, g: 0, b: 255, a: 255 };
+pub val RAYWHITE: Color = Color{ r: 245, g: 245, b: 245, a: 255 };
+pub rec rAudioBuffer {}
+pub rec rAudioProcessor {}
+
+
+pub rec Vector2 {
+      x: f32;
+      y: f32;
+}
+pub rec Vector3 {
+      x: f32;
+      y: f32;
+      z: f32;
+}
+pub rec Vector4 {
+      x: f32;
+      y: f32;
+      z: f32;
+      w: f32;
+}
+pub rec Matrix {
+      m0: f32;
+      m4: f32;
+      m8: f32;
+      m12: f32;
+      m1: f32;
+      m5: f32;
+      m9: f32;
+      m13: f32;
+      m2: f32;
+      m6: f32;
+      m10: f32;
+      m14: f32;
+      m3: f32;
+      m7: f32;
+      m11: f32;
+      m15: f32;
+}
+pub rec Color {
+      r: u8;
+      g: u8;
+      b: u8;
+      a: u8;
+}
+pub rec Rectangle {
+      x: f32;
+      y: f32;
+      width: f32;
+      height: f32;
+}
+pub rec Image {
+      data: ptr;
+      width: i32;
+      height: i32;
+      mipmaps: i32;
+      format: i32;
+}
+pub rec Texture {
+      id: u32;
+      width: i32;
+      height: i32;
+      mipmaps: i32;
+      format: i32;
+}
+pub rec RenderTexture {
+      id: u32;
+      texture: Texture;
+      depth: Texture;
+}
+pub rec NPatchInfo {
+      source: Rectangle;
+      left: i32;
+      top: i32;
+      right: i32;
+      bottom: i32;
+      layout: i32;
+}
+pub rec GlyphInfo {
+      value: i32;
+      offsetX: i32;
+      offsetY: i32;
+      advanceX: i32;
+      image: Image;
+}
+pub rec Font {
+      baseSize: i32;
+      glyphCount: i32;
+      glyphPadding: i32;
+      texture: Texture2D;
+      recs: *Rectangle;
+      glyphs: *GlyphInfo;
+}
+pub rec Camera3D {
+      position: Vector3;
+      target: Vector3;
+      up: Vector3;
+      fovy: f32;
+      projection: i32;
+}
+pub rec Camera2D {
+      offset: Vector2;
+      target: Vector2;
+      rotation: f32;
+      zoom: f32;
+}
+pub rec Mesh {
+      vertexCount: i32;
+      triangleCount: i32;
+      vertices: *f32;
+      texcoords: *f32;
+      texcoords2: *f32;
+      normals: *f32;
+      tangents: *f32;
+      colors: *u8;
+      indices: *u16;
+      boneCount: i32;
+      boneIndices: *u8;
+      boneWeights: *f32;
+      animVertices: *f32;
+      animNormals: *f32;
+      vaoId: u32;
+      vboId: *u32;
+}
+pub rec Shader {
+      id: u32;
+      locs: *i32;
+}
+pub rec MaterialMap {
+      texture: Texture2D;
+      color: Color;
+      value: f32;
+}
+pub rec Material {
+      shader: Shader;
+      maps: *MaterialMap;
+      params: [4]f32;
+}
+pub rec Transform {
+      translation: Vector3;
+      rotation: Quaternion;
+      scale: Vector3;
+}
+pub rec BoneInfo {
+      name: [32]u8;
+      parent: i32;
+}
+pub rec ModelSkeleton {
+      boneCount: u32;
+      bones: *BoneInfo;
+      bindPose: ModelAnimPose;
+}
+pub rec Model {
+      transform: Matrix;
+      meshCount: i32;
+      materialCount: i32;
+      meshes: *Mesh;
+      materials: *Material;
+      meshMaterial: *i32;
+      skeleton: ModelSkeleton;
+      currentPose: ModelAnimPose;
+      boneMatrices: *Matrix;
+}
+pub rec ModelAnimation {
+      name: [32]u8;
+      boneCount: u32;
+      keyframeCount: i32;
+      keyframePoses: *ModelAnimPose;
+}
+pub rec Ray {
+      position: Vector3;
+      direction: Vector3;
+}
+pub rec RayCollision {
+      hit: bool;
+      distance: f32;
+      point: Vector3;
+      normal: Vector3;
+}
+pub rec BoundingBox {
+      min: Vector3;
+      max: Vector3;
+}
+pub rec Wave {
+      frameCount: u32;
+      sampleRate: u32;
+      sampleSize: u32;
+      channels: u32;
+      data: ptr;
+}
+pub rec AudioStream {
+      buffer: *rAudioBuffer;
+      processor: *rAudioProcessor;
+      sampleRate: u32;
+      sampleSize: u32;
+      channels: u32;
+}
+pub rec Sound {
+      stream: AudioStream;
+      frameCount: u32;
+}
+pub rec Music {
+      stream: AudioStream;
+      frameCount: u32;
+      looping: bool;
+      ctxType: i32;
+      ctxData: ptr;
+}
+pub rec VrDeviceInfo {
+      hResolution: i32;
+      vResolution: i32;
+      hScreenSize: f32;
+      vScreenSize: f32;
+      eyeToScreenDistance: f32;
+      lensSeparationDistance: f32;
+      interpupillaryDistance: f32;
+      lensDistortionValues: [4]f32;
+      chromaAbCorrection: [4]f32;
+}
+pub rec VrStereoConfig {
+      projection: [2]Matrix;
+      viewOffset: [2]Matrix;
+      leftLensCenter: [2]f32;
+      rightLensCenter: [2]f32;
+      leftScreenCenter: [2]f32;
+      rightScreenCenter: [2]f32;
+      scale: [2]f32;
+      scaleIn: [2]f32;
+}
+pub rec FilePathList {
+      count: u32;
+      paths: *u8;
+}
+pub rec AutomationEvent {
+      frame: u32;
+      type: u32;
+      params: [4]i32;
+}
+pub rec AutomationEventList {
+      capacity: u32;
+      count: u32;
+      events: *AutomationEvent;
+}
+pub def Quaternion: Vector4;
+pub def Texture2D: Texture;
+pub def TextureCubemap: Texture;
+pub def RenderTexture2D: RenderTexture;
+pub def Camera: Camera3D;
+pub def ModelAnimPose: *Transform;
+pub val FLAG_VSYNC_HINT: i32 = 64;
+pub val FLAG_FULLSCREEN_MODE: i32 = 2;
+pub val FLAG_WINDOW_RESIZABLE: i32 = 4;
+pub val FLAG_WINDOW_UNDECORATED: i32 = 8;
+pub val FLAG_WINDOW_HIDDEN: i32 = 128;
+pub val FLAG_WINDOW_MINIMIZED: i32 = 512;
+pub val FLAG_WINDOW_MAXIMIZED: i32 = 1024;
+pub val FLAG_WINDOW_UNFOCUSED: i32 = 2048;
+pub val FLAG_WINDOW_TOPMOST: i32 = 4096;
+pub val FLAG_WINDOW_ALWAYS_RUN: i32 = 256;
+pub val FLAG_WINDOW_TRANSPARENT: i32 = 16;
+pub val FLAG_WINDOW_HIGHDPI: i32 = 8192;
+pub val FLAG_WINDOW_MOUSE_PASSTHROUGH: i32 = 16384;
+pub val FLAG_BORDERLESS_WINDOWED_MODE: i32 = 32768;
+pub val FLAG_MSAA_4X_HINT: i32 = 32;
+pub val FLAG_INTERLACED_HINT: i32 = 65536;
+pub val LOG_ALL: i32 = 0;
+pub val LOG_TRACE: i32 = 1;
+pub val LOG_DEBUG: i32 = 2;
+pub val LOG_INFO: i32 = 3;
+pub val LOG_WARNING: i32 = 4;
+pub val LOG_ERROR: i32 = 5;
+pub val LOG_FATAL: i32 = 6;
+pub val LOG_NONE: i32 = 7;
+pub val KEY_NULL: i32 = 0;
+pub val KEY_APOSTROPHE: i32 = 39;
+pub val KEY_COMMA: i32 = 44;
+pub val KEY_MINUS: i32 = 45;
+pub val KEY_PERIOD: i32 = 46;
+pub val KEY_SLASH: i32 = 47;
+pub val KEY_ZERO: i32 = 48;
+pub val KEY_ONE: i32 = 49;
+pub val KEY_TWO: i32 = 50;
+pub val KEY_THREE: i32 = 51;
+pub val KEY_FOUR: i32 = 52;
+pub val KEY_FIVE: i32 = 53;
+pub val KEY_SIX: i32 = 54;
+pub val KEY_SEVEN: i32 = 55;
+pub val KEY_EIGHT: i32 = 56;
+pub val KEY_NINE: i32 = 57;
+pub val KEY_SEMICOLON: i32 = 59;
+pub val KEY_EQUAL: i32 = 61;
+pub val KEY_A: i32 = 65;
+pub val KEY_B: i32 = 66;
+pub val KEY_C: i32 = 67;
+pub val KEY_D: i32 = 68;
+pub val KEY_E: i32 = 69;
+pub val KEY_F: i32 = 70;
+pub val KEY_G: i32 = 71;
+pub val KEY_H: i32 = 72;
+pub val KEY_I: i32 = 73;
+pub val KEY_J: i32 = 74;
+pub val KEY_K: i32 = 75;
+pub val KEY_L: i32 = 76;
+pub val KEY_M: i32 = 77;
+pub val KEY_N: i32 = 78;
+pub val KEY_O: i32 = 79;
+pub val KEY_P: i32 = 80;
+pub val KEY_Q: i32 = 81;
+pub val KEY_R: i32 = 82;
+pub val KEY_S: i32 = 83;
+pub val KEY_T: i32 = 84;
+pub val KEY_U: i32 = 85;
+pub val KEY_V: i32 = 86;
+pub val KEY_W: i32 = 87;
+pub val KEY_X: i32 = 88;
+pub val KEY_Y: i32 = 89;
+pub val KEY_Z: i32 = 90;
+pub val KEY_LEFT_BRACKET: i32 = 91;
+pub val KEY_BACKSLASH: i32 = 92;
+pub val KEY_RIGHT_BRACKET: i32 = 93;
+pub val KEY_GRAVE: i32 = 96;
+pub val KEY_SPACE: i32 = 32;
+pub val KEY_ESCAPE: i32 = 256;
+pub val KEY_ENTER: i32 = 257;
+pub val KEY_TAB: i32 = 258;
+pub val KEY_BACKSPACE: i32 = 259;
+pub val KEY_INSERT: i32 = 260;
+pub val KEY_DELETE: i32 = 261;
+pub val KEY_RIGHT: i32 = 262;
+pub val KEY_LEFT: i32 = 263;
+pub val KEY_DOWN: i32 = 264;
+pub val KEY_UP: i32 = 265;
+pub val KEY_PAGE_UP: i32 = 266;
+pub val KEY_PAGE_DOWN: i32 = 267;
+pub val KEY_HOME: i32 = 268;
+pub val KEY_END: i32 = 269;
+pub val KEY_CAPS_LOCK: i32 = 280;
+pub val KEY_SCROLL_LOCK: i32 = 281;
+pub val KEY_NUM_LOCK: i32 = 282;
+pub val KEY_PRINT_SCREEN: i32 = 283;
+pub val KEY_PAUSE: i32 = 284;
+pub val KEY_F1: i32 = 290;
+pub val KEY_F2: i32 = 291;
+pub val KEY_F3: i32 = 292;
+pub val KEY_F4: i32 = 293;
+pub val KEY_F5: i32 = 294;
+pub val KEY_F6: i32 = 295;
+pub val KEY_F7: i32 = 296;
+pub val KEY_F8: i32 = 297;
+pub val KEY_F9: i32 = 298;
+pub val KEY_F10: i32 = 299;
+pub val KEY_F11: i32 = 300;
+pub val KEY_F12: i32 = 301;
+pub val KEY_LEFT_SHIFT: i32 = 340;
+pub val KEY_LEFT_CONTROL: i32 = 341;
+pub val KEY_LEFT_ALT: i32 = 342;
+pub val KEY_LEFT_SUPER: i32 = 343;
+pub val KEY_RIGHT_SHIFT: i32 = 344;
+pub val KEY_RIGHT_CONTROL: i32 = 345;
+pub val KEY_RIGHT_ALT: i32 = 346;
+pub val KEY_RIGHT_SUPER: i32 = 347;
+pub val KEY_KB_MENU: i32 = 348;
+pub val KEY_KP_0: i32 = 320;
+pub val KEY_KP_1: i32 = 321;
+pub val KEY_KP_2: i32 = 322;
+pub val KEY_KP_3: i32 = 323;
+pub val KEY_KP_4: i32 = 324;
+pub val KEY_KP_5: i32 = 325;
+pub val KEY_KP_6: i32 = 326;
+pub val KEY_KP_7: i32 = 327;
+pub val KEY_KP_8: i32 = 328;
+pub val KEY_KP_9: i32 = 329;
+pub val KEY_KP_DECIMAL: i32 = 330;
+pub val KEY_KP_DIVIDE: i32 = 331;
+pub val KEY_KP_MULTIPLY: i32 = 332;
+pub val KEY_KP_SUBTRACT: i32 = 333;
+pub val KEY_KP_ADD: i32 = 334;
+pub val KEY_KP_ENTER: i32 = 335;
+pub val KEY_KP_EQUAL: i32 = 336;
+pub val KEY_BACK: i32 = 4;
+pub val KEY_MENU: i32 = 5;
+pub val KEY_VOLUME_UP: i32 = 24;
+pub val KEY_VOLUME_DOWN: i32 = 25;
+pub val MOUSE_BUTTON_LEFT: i32 = 0;
+pub val MOUSE_BUTTON_RIGHT: i32 = 1;
+pub val MOUSE_BUTTON_MIDDLE: i32 = 2;
+pub val MOUSE_BUTTON_SIDE: i32 = 3;
+pub val MOUSE_BUTTON_EXTRA: i32 = 4;
+pub val MOUSE_BUTTON_FORWARD: i32 = 5;
+pub val MOUSE_BUTTON_BACK: i32 = 6;
+pub val MOUSE_CURSOR_DEFAULT: i32 = 0;
+pub val MOUSE_CURSOR_ARROW: i32 = 1;
+pub val MOUSE_CURSOR_IBEAM: i32 = 2;
+pub val MOUSE_CURSOR_CROSSHAIR: i32 = 3;
+pub val MOUSE_CURSOR_POINTING_HAND: i32 = 4;
+pub val MOUSE_CURSOR_RESIZE_EW: i32 = 5;
+pub val MOUSE_CURSOR_RESIZE_NS: i32 = 6;
+pub val MOUSE_CURSOR_RESIZE_NWSE: i32 = 7;
+pub val MOUSE_CURSOR_RESIZE_NESW: i32 = 8;
+pub val MOUSE_CURSOR_RESIZE_ALL: i32 = 9;
+pub val MOUSE_CURSOR_NOT_ALLOWED: i32 = 10;
+pub val GAMEPAD_BUTTON_UNKNOWN: i32 = 0;
+pub val GAMEPAD_BUTTON_LEFT_FACE_UP: i32 = 1;
+pub val GAMEPAD_BUTTON_LEFT_FACE_RIGHT: i32 = 2;
+pub val GAMEPAD_BUTTON_LEFT_FACE_DOWN: i32 = 3;
+pub val GAMEPAD_BUTTON_LEFT_FACE_LEFT: i32 = 4;
+pub val GAMEPAD_BUTTON_RIGHT_FACE_UP: i32 = 5;
+pub val GAMEPAD_BUTTON_RIGHT_FACE_RIGHT: i32 = 6;
+pub val GAMEPAD_BUTTON_RIGHT_FACE_DOWN: i32 = 7;
+pub val GAMEPAD_BUTTON_RIGHT_FACE_LEFT: i32 = 8;
+pub val GAMEPAD_BUTTON_LEFT_TRIGGER_1: i32 = 9;
+pub val GAMEPAD_BUTTON_LEFT_TRIGGER_2: i32 = 10;
+pub val GAMEPAD_BUTTON_RIGHT_TRIGGER_1: i32 = 11;
+pub val GAMEPAD_BUTTON_RIGHT_TRIGGER_2: i32 = 12;
+pub val GAMEPAD_BUTTON_MIDDLE_LEFT: i32 = 13;
+pub val GAMEPAD_BUTTON_MIDDLE: i32 = 14;
+pub val GAMEPAD_BUTTON_MIDDLE_RIGHT: i32 = 15;
+pub val GAMEPAD_BUTTON_LEFT_THUMB: i32 = 16;
+pub val GAMEPAD_BUTTON_RIGHT_THUMB: i32 = 17;
+pub val GAMEPAD_AXIS_LEFT_X: i32 = 0;
+pub val GAMEPAD_AXIS_LEFT_Y: i32 = 1;
+pub val GAMEPAD_AXIS_RIGHT_X: i32 = 2;
+pub val GAMEPAD_AXIS_RIGHT_Y: i32 = 3;
+pub val GAMEPAD_AXIS_LEFT_TRIGGER: i32 = 4;
+pub val GAMEPAD_AXIS_RIGHT_TRIGGER: i32 = 5;
+pub val MATERIAL_MAP_ALBEDO: i32 = 0;
+pub val MATERIAL_MAP_METALNESS: i32 = 1;
+pub val MATERIAL_MAP_NORMAL: i32 = 2;
+pub val MATERIAL_MAP_ROUGHNESS: i32 = 3;
+pub val MATERIAL_MAP_OCCLUSION: i32 = 4;
+pub val MATERIAL_MAP_EMISSION: i32 = 5;
+pub val MATERIAL_MAP_HEIGHT: i32 = 6;
+pub val MATERIAL_MAP_CUBEMAP: i32 = 7;
+pub val MATERIAL_MAP_IRRADIANCE: i32 = 8;
+pub val MATERIAL_MAP_PREFILTER: i32 = 9;
+pub val MATERIAL_MAP_BRDF: i32 = 10;
+pub val SHADER_LOC_VERTEX_POSITION: i32 = 0;
+pub val SHADER_LOC_VERTEX_TEXCOORD01: i32 = 1;
+pub val SHADER_LOC_VERTEX_TEXCOORD02: i32 = 2;
+pub val SHADER_LOC_VERTEX_NORMAL: i32 = 3;
+pub val SHADER_LOC_VERTEX_TANGENT: i32 = 4;
+pub val SHADER_LOC_VERTEX_COLOR: i32 = 5;
+pub val SHADER_LOC_MATRIX_MVP: i32 = 6;
+pub val SHADER_LOC_MATRIX_VIEW: i32 = 7;
+pub val SHADER_LOC_MATRIX_PROJECTION: i32 = 8;
+pub val SHADER_LOC_MATRIX_MODEL: i32 = 9;
+pub val SHADER_LOC_MATRIX_NORMAL: i32 = 10;
+pub val SHADER_LOC_VECTOR_VIEW: i32 = 11;
+pub val SHADER_LOC_COLOR_DIFFUSE: i32 = 12;
+pub val SHADER_LOC_COLOR_SPECULAR: i32 = 13;
+pub val SHADER_LOC_COLOR_AMBIENT: i32 = 14;
+pub val SHADER_LOC_MAP_ALBEDO: i32 = 15;
+pub val SHADER_LOC_MAP_METALNESS: i32 = 16;
+pub val SHADER_LOC_MAP_NORMAL: i32 = 17;
+pub val SHADER_LOC_MAP_ROUGHNESS: i32 = 18;
+pub val SHADER_LOC_MAP_OCCLUSION: i32 = 19;
+pub val SHADER_LOC_MAP_EMISSION: i32 = 20;
+pub val SHADER_LOC_MAP_HEIGHT: i32 = 21;
+pub val SHADER_LOC_MAP_CUBEMAP: i32 = 22;
+pub val SHADER_LOC_MAP_IRRADIANCE: i32 = 23;
+pub val SHADER_LOC_MAP_PREFILTER: i32 = 24;
+pub val SHADER_LOC_MAP_BRDF: i32 = 25;
+pub val SHADER_LOC_VERTEX_BONEIDS: i32 = 26;
+pub val SHADER_LOC_VERTEX_BONEWEIGHTS: i32 = 27;
+pub val SHADER_LOC_MATRIX_BONETRANSFORMS: i32 = 28;
+pub val SHADER_LOC_VERTEX_INSTANCETRANSFORM: i32 = 29;
+pub val SHADER_UNIFORM_FLOAT: i32 = 0;
+pub val SHADER_UNIFORM_VEC2: i32 = 1;
+pub val SHADER_UNIFORM_VEC3: i32 = 2;
+pub val SHADER_UNIFORM_VEC4: i32 = 3;
+pub val SHADER_UNIFORM_INT: i32 = 4;
+pub val SHADER_UNIFORM_IVEC2: i32 = 5;
+pub val SHADER_UNIFORM_IVEC3: i32 = 6;
+pub val SHADER_UNIFORM_IVEC4: i32 = 7;
+pub val SHADER_UNIFORM_UINT: i32 = 8;
+pub val SHADER_UNIFORM_UIVEC2: i32 = 9;
+pub val SHADER_UNIFORM_UIVEC3: i32 = 10;
+pub val SHADER_UNIFORM_UIVEC4: i32 = 11;
+pub val SHADER_UNIFORM_SAMPLER2D: i32 = 12;
+pub val SHADER_ATTRIB_FLOAT: i32 = 0;
+pub val SHADER_ATTRIB_VEC2: i32 = 1;
+pub val SHADER_ATTRIB_VEC3: i32 = 2;
+pub val SHADER_ATTRIB_VEC4: i32 = 3;
+pub val PIXELFORMAT_UNCOMPRESSED_GRAYSCALE: i32 = 1;
+pub val PIXELFORMAT_UNCOMPRESSED_GRAY_ALPHA: i32 = 2;
+pub val PIXELFORMAT_UNCOMPRESSED_R5G6B5: i32 = 3;
+pub val PIXELFORMAT_UNCOMPRESSED_R8G8B8: i32 = 4;
+pub val PIXELFORMAT_UNCOMPRESSED_R5G5B5A1: i32 = 5;
+pub val PIXELFORMAT_UNCOMPRESSED_R4G4B4A4: i32 = 6;
+pub val PIXELFORMAT_UNCOMPRESSED_R8G8B8A8: i32 = 7;
+pub val PIXELFORMAT_UNCOMPRESSED_R32: i32 = 8;
+pub val PIXELFORMAT_UNCOMPRESSED_R32G32B32: i32 = 9;
+pub val PIXELFORMAT_UNCOMPRESSED_R32G32B32A32: i32 = 10;
+pub val PIXELFORMAT_UNCOMPRESSED_R16: i32 = 11;
+pub val PIXELFORMAT_UNCOMPRESSED_R16G16B16: i32 = 12;
+pub val PIXELFORMAT_UNCOMPRESSED_R16G16B16A16: i32 = 13;
+pub val PIXELFORMAT_COMPRESSED_DXT1_RGB: i32 = 14;
+pub val PIXELFORMAT_COMPRESSED_DXT1_RGBA: i32 = 15;
+pub val PIXELFORMAT_COMPRESSED_DXT3_RGBA: i32 = 16;
+pub val PIXELFORMAT_COMPRESSED_DXT5_RGBA: i32 = 17;
+pub val PIXELFORMAT_COMPRESSED_ETC1_RGB: i32 = 18;
+pub val PIXELFORMAT_COMPRESSED_ETC2_RGB: i32 = 19;
+pub val PIXELFORMAT_COMPRESSED_ETC2_EAC_RGBA: i32 = 20;
+pub val PIXELFORMAT_COMPRESSED_PVRT_RGB: i32 = 21;
+pub val PIXELFORMAT_COMPRESSED_PVRT_RGBA: i32 = 22;
+pub val PIXELFORMAT_COMPRESSED_ASTC_4x4_RGBA: i32 = 23;
+pub val PIXELFORMAT_COMPRESSED_ASTC_8x8_RGBA: i32 = 24;
+pub val TEXTURE_FILTER_POINT: i32 = 0;
+pub val TEXTURE_FILTER_BILINEAR: i32 = 1;
+pub val TEXTURE_FILTER_TRILINEAR: i32 = 2;
+pub val TEXTURE_FILTER_ANISOTROPIC_4X: i32 = 3;
+pub val TEXTURE_FILTER_ANISOTROPIC_8X: i32 = 4;
+pub val TEXTURE_FILTER_ANISOTROPIC_16X: i32 = 5;
+pub val TEXTURE_WRAP_REPEAT: i32 = 0;
+pub val TEXTURE_WRAP_CLAMP: i32 = 1;
+pub val TEXTURE_WRAP_MIRROR_REPEAT: i32 = 2;
+pub val TEXTURE_WRAP_MIRROR_CLAMP: i32 = 3;
+pub val CUBEMAP_LAYOUT_AUTO_DETECT: i32 = 0;
+pub val CUBEMAP_LAYOUT_LINE_VERTICAL: i32 = 1;
+pub val CUBEMAP_LAYOUT_LINE_HORIZONTAL: i32 = 2;
+pub val CUBEMAP_LAYOUT_CROSS_THREE_BY_FOUR: i32 = 3;
+pub val CUBEMAP_LAYOUT_CROSS_FOUR_BY_THREE: i32 = 4;
+pub val FONT_DEFAULT: i32 = 0;
+pub val FONT_BITMAP: i32 = 1;
+pub val FONT_SDF: i32 = 2;
+pub val BLEND_ALPHA: i32 = 0;
+pub val BLEND_ADDITIVE: i32 = 1;
+pub val BLEND_MULTIPLIED: i32 = 2;
+pub val BLEND_ADD_COLORS: i32 = 3;
+pub val BLEND_SUBTRACT_COLORS: i32 = 4;
+pub val BLEND_ALPHA_PREMULTIPLY: i32 = 5;
+pub val BLEND_CUSTOM: i32 = 6;
+pub val BLEND_CUSTOM_SEPARATE: i32 = 7;
+pub val GESTURE_NONE: i32 = 0;
+pub val GESTURE_TAP: i32 = 1;
+pub val GESTURE_DOUBLETAP: i32 = 2;
+pub val GESTURE_HOLD: i32 = 4;
+pub val GESTURE_DRAG: i32 = 8;
+pub val GESTURE_SWIPE_RIGHT: i32 = 16;
+pub val GESTURE_SWIPE_LEFT: i32 = 32;
+pub val GESTURE_SWIPE_UP: i32 = 64;
+pub val GESTURE_SWIPE_DOWN: i32 = 128;
+pub val GESTURE_PINCH_IN: i32 = 256;
+pub val GESTURE_PINCH_OUT: i32 = 512;
+pub val CAMERA_CUSTOM: i32 = 0;
+pub val CAMERA_FREE: i32 = 1;
+pub val CAMERA_ORBITAL: i32 = 2;
+pub val CAMERA_FIRST_PERSON: i32 = 3;
+pub val CAMERA_THIRD_PERSON: i32 = 4;
+pub val CAMERA_PERSPECTIVE: i32 = 0;
+pub val CAMERA_ORTHOGRAPHIC: i32 = 1;
+pub val NPATCH_NINE_PATCH: i32 = 0;
+pub val NPATCH_THREE_PATCH_VERTICAL: i32 = 1;
+pub val NPATCH_THREE_PATCH_HORIZONTAL: i32 = 2;
+#pub def TraceLogCallback: fun(i32, *u8, ...) u8;
+pub def LoadFileDataCallback: fun(*u8, *i32) *u8;
+pub def SaveFileDataCallback: fun(*u8, ptr, i32) bool;
+pub def LoadFileTextCallback: fun(*u8) *u8;
+pub def SaveFileTextCallback: fun(*u8, *u8) bool;
+pub def AudioCallback: fun(ptr, u32) u8;
+#[library("raylib")]
+ext fun InitWindow(width: i32, height: i32, title: *u8) u8;
+pub fun init_window(width: i32, height: i32, title: *u8) u8 { ret InitWindow(width, height, title); }
+#[library("raylib")]
+ext fun CloseWindow() u8;
+pub fun close_window() u8 { ret CloseWindow(); }
+#[library("raylib")]
+ext fun WindowShouldClose() bool;
+pub fun window_should_close() bool { ret WindowShouldClose(); }
+#[library("raylib")]
+ext fun IsWindowReady() bool;
+pub fun is_window_ready() bool { ret IsWindowReady(); }
+#[library("raylib")]
+ext fun IsWindowFullscreen() bool;
+pub fun is_window_fullscreen() bool { ret IsWindowFullscreen(); }
+#[library("raylib")]
+ext fun IsWindowHidden() bool;
+pub fun is_window_hidden() bool { ret IsWindowHidden(); }
+#[library("raylib")]
+ext fun IsWindowMinimized() bool;
+pub fun is_window_minimized() bool { ret IsWindowMinimized(); }
+#[library("raylib")]
+ext fun IsWindowMaximized() bool;
+pub fun is_window_maximized() bool { ret IsWindowMaximized(); }
+#[library("raylib")]
+ext fun IsWindowFocused() bool;
+pub fun is_window_focused() bool { ret IsWindowFocused(); }
+#[library("raylib")]
+ext fun IsWindowResized() bool;
+pub fun is_window_resized() bool { ret IsWindowResized(); }
+#[library("raylib")]
+ext fun IsWindowState(flag: u32) bool;
+pub fun is_window_state(flag: u32) bool { ret IsWindowState(flag); }
+#[library("raylib")]
+ext fun SetWindowState(flags: u32) u8;
+pub fun set_window_state(flags: u32) u8 { ret SetWindowState(flags); }
+#[library("raylib")]
+ext fun ClearWindowState(flags: u32) u8;
+pub fun clear_window_state(flags: u32) u8 { ret ClearWindowState(flags); }
+#[library("raylib")]
+ext fun ToggleFullscreen() u8;
+pub fun toggle_fullscreen() u8 { ret ToggleFullscreen(); }
+#[library("raylib")]
+ext fun ToggleBorderlessWindowed() u8;
+pub fun toggle_borderless_windowed() u8 { ret ToggleBorderlessWindowed(); }
+#[library("raylib")]
+ext fun MaximizeWindow() u8;
+pub fun maximize_window() u8 { ret MaximizeWindow(); }
+#[library("raylib")]
+ext fun MinimizeWindow() u8;
+pub fun minimize_window() u8 { ret MinimizeWindow(); }
+#[library("raylib")]
+ext fun RestoreWindow() u8;
+pub fun restore_window() u8 { ret RestoreWindow(); }
+#[library("raylib")]
+ext fun SetWindowIcon(image: Image) u8;
+pub fun set_window_icon(image: Image) u8 { ret SetWindowIcon(image); }
+#[library("raylib")]
+ext fun SetWindowIcons(images: *Image, count: i32) u8;
+pub fun set_window_icons(images: *Image, count: i32) u8 { ret SetWindowIcons(images, count); }
+#[library("raylib")]
+ext fun SetWindowTitle(title: *u8) u8;
+pub fun set_window_title(title: *u8) u8 { ret SetWindowTitle(title); }
+#[library("raylib")]
+ext fun SetWindowPosition(x: i32, y: i32) u8;
+pub fun set_window_position(x: i32, y: i32) u8 { ret SetWindowPosition(x, y); }
+#[library("raylib")]
+ext fun SetWindowMonitor(monitor: i32) u8;
+pub fun set_window_monitor(monitor: i32) u8 { ret SetWindowMonitor(monitor); }
+#[library("raylib")]
+ext fun SetWindowMinSize(width: i32, height: i32) u8;
+pub fun set_window_min_size(width: i32, height: i32) u8 { ret SetWindowMinSize(width, height); }
+#[library("raylib")]
+ext fun SetWindowMaxSize(width: i32, height: i32) u8;
+pub fun set_window_max_size(width: i32, height: i32) u8 { ret SetWindowMaxSize(width, height); }
+#[library("raylib")]
+ext fun SetWindowSize(width: i32, height: i32) u8;
+pub fun set_window_size(width: i32, height: i32) u8 { ret SetWindowSize(width, height); }
+#[library("raylib")]
+ext fun SetWindowOpacity(opacity: f32) u8;
+pub fun set_window_opacity(opacity: f32) u8 { ret SetWindowOpacity(opacity); }
+#[library("raylib")]
+ext fun SetWindowFocused() u8;
+pub fun set_window_focused() u8 { ret SetWindowFocused(); }
+#[library("raylib")]
+ext fun GetWindowHandle() ptr;
+pub fun get_window_handle() ptr { ret GetWindowHandle(); }
+#[library("raylib")]
+ext fun GetScreenWidth() i32;
+pub fun get_screen_width() i32 { ret GetScreenWidth(); }
+#[library("raylib")]
+ext fun GetScreenHeight() i32;
+pub fun get_screen_height() i32 { ret GetScreenHeight(); }
+#[library("raylib")]
+ext fun GetRenderWidth() i32;
+pub fun get_render_width() i32 { ret GetRenderWidth(); }
+#[library("raylib")]
+ext fun GetRenderHeight() i32;
+pub fun get_render_height() i32 { ret GetRenderHeight(); }
+#[library("raylib")]
+ext fun GetMonitorCount() i32;
+pub fun get_monitor_count() i32 { ret GetMonitorCount(); }
+#[library("raylib")]
+ext fun GetCurrentMonitor() i32;
+pub fun get_current_monitor() i32 { ret GetCurrentMonitor(); }
+#[library("raylib")]
+ext fun GetMonitorPosition(monitor: i32) Vector2;
+pub fun get_monitor_position(monitor: i32) Vector2 { ret GetMonitorPosition(monitor); }
+#[library("raylib")]
+ext fun GetMonitorWidth(monitor: i32) i32;
+pub fun get_monitor_width(monitor: i32) i32 { ret GetMonitorWidth(monitor); }
+#[library("raylib")]
+ext fun GetMonitorHeight(monitor: i32) i32;
+pub fun get_monitor_height(monitor: i32) i32 { ret GetMonitorHeight(monitor); }
+#[library("raylib")]
+ext fun GetMonitorPhysicalWidth(monitor: i32) i32;
+pub fun get_monitor_physical_width(monitor: i32) i32 { ret GetMonitorPhysicalWidth(monitor); }
+#[library("raylib")]
+ext fun GetMonitorPhysicalHeight(monitor: i32) i32;
+pub fun get_monitor_physical_height(monitor: i32) i32 { ret GetMonitorPhysicalHeight(monitor); }
+#[library("raylib")]
+ext fun GetMonitorRefreshRate(monitor: i32) i32;
+pub fun get_monitor_refresh_rate(monitor: i32) i32 { ret GetMonitorRefreshRate(monitor); }
+#[library("raylib")]
+ext fun GetWindowPosition() Vector2;
+pub fun get_window_position() Vector2 { ret GetWindowPosition(); }
+#[library("raylib")]
+ext fun GetWindowScaleDPI() Vector2;
+pub fun get_window_scale_dpi() Vector2 { ret GetWindowScaleDPI(); }
+#[library("raylib")]
+ext fun GetMonitorName(monitor: i32) *u8;
+pub fun get_monitor_name(monitor: i32) *u8 { ret GetMonitorName(monitor); }
+#[library("raylib")]
+ext fun SetClipboardText(text: *u8) u8;
+pub fun set_clipboard_text(text: *u8) u8 { ret SetClipboardText(text); }
+#[library("raylib")]
+ext fun GetClipboardText() *u8;
+pub fun get_clipboard_text() *u8 { ret GetClipboardText(); }
+#[library("raylib")]
+ext fun GetClipboardImage() Image;
+pub fun get_clipboard_image() Image { ret GetClipboardImage(); }
+#[library("raylib")]
+ext fun EnableEventWaiting() u8;
+pub fun enable_event_waiting() u8 { ret EnableEventWaiting(); }
+#[library("raylib")]
+ext fun DisableEventWaiting() u8;
+pub fun disable_event_waiting() u8 { ret DisableEventWaiting(); }
+#[library("raylib")]
+ext fun ShowCursor() u8;
+pub fun show_cursor() u8 { ret ShowCursor(); }
+#[library("raylib")]
+ext fun HideCursor() u8;
+pub fun hide_cursor() u8 { ret HideCursor(); }
+#[library("raylib")]
+ext fun IsCursorHidden() bool;
+pub fun is_cursor_hidden() bool { ret IsCursorHidden(); }
+#[library("raylib")]
+ext fun EnableCursor() u8;
+pub fun enable_cursor() u8 { ret EnableCursor(); }
+#[library("raylib")]
+ext fun DisableCursor() u8;
+pub fun disable_cursor() u8 { ret DisableCursor(); }
+#[library("raylib")]
+ext fun IsCursorOnScreen() bool;
+pub fun is_cursor_on_screen() bool { ret IsCursorOnScreen(); }
+#[library("raylib")]
+ext fun ClearBackground(color: Color) u8;
+pub fun clear_background(color: Color) u8 { ret ClearBackground(color); }
+#[library("raylib")]
+ext fun BeginDrawing() u8;
+pub fun begin_drawing() u8 { ret BeginDrawing(); }
+#[library("raylib")]
+ext fun EndDrawing() u8;
+pub fun end_drawing() u8 { ret EndDrawing(); }
+#[library("raylib")]
+ext fun BeginMode2D(camera: Camera2D) u8;
+pub fun begin_mode2_d(camera: Camera2D) u8 { ret BeginMode2D(camera); }
+#[library("raylib")]
+ext fun EndMode2D() u8;
+pub fun end_mode2_d() u8 { ret EndMode2D(); }
+#[library("raylib")]
+ext fun BeginMode3D(camera: Camera3D) u8;
+pub fun begin_mode3_d(camera: Camera3D) u8 { ret BeginMode3D(camera); }
+#[library("raylib")]
+ext fun EndMode3D() u8;
+pub fun end_mode3_d() u8 { ret EndMode3D(); }
+#[library("raylib")]
+ext fun BeginTextureMode(target: RenderTexture2D) u8;
+pub fun begin_texture_mode(target: RenderTexture2D) u8 { ret BeginTextureMode(target); }
+#[library("raylib")]
+ext fun EndTextureMode() u8;
+pub fun end_texture_mode() u8 { ret EndTextureMode(); }
+#[library("raylib")]
+ext fun BeginShaderMode(shader: Shader) u8;
+pub fun begin_shader_mode(shader: Shader) u8 { ret BeginShaderMode(shader); }
+#[library("raylib")]
+ext fun EndShaderMode() u8;
+pub fun end_shader_mode() u8 { ret EndShaderMode(); }
+#[library("raylib")]
+ext fun BeginBlendMode(mode: i32) u8;
+pub fun begin_blend_mode(mode: i32) u8 { ret BeginBlendMode(mode); }
+#[library("raylib")]
+ext fun EndBlendMode() u8;
+pub fun end_blend_mode() u8 { ret EndBlendMode(); }
+#[library("raylib")]
+ext fun BeginScissorMode(x: i32, y: i32, width: i32, height: i32) u8;
+pub fun begin_scissor_mode(x: i32, y: i32, width: i32, height: i32) u8 { ret BeginScissorMode(x, y, width, height); }
+#[library("raylib")]
+ext fun EndScissorMode() u8;
+pub fun end_scissor_mode() u8 { ret EndScissorMode(); }
+#[library("raylib")]
+ext fun BeginVrStereoMode(config: VrStereoConfig) u8;
+pub fun begin_vr_stereo_mode(config: VrStereoConfig) u8 { ret BeginVrStereoMode(config); }
+#[library("raylib")]
+ext fun EndVrStereoMode() u8;
+pub fun end_vr_stereo_mode() u8 { ret EndVrStereoMode(); }
+#[library("raylib")]
+ext fun LoadVrStereoConfig(device: VrDeviceInfo) VrStereoConfig;
+pub fun load_vr_stereo_config(device: VrDeviceInfo) VrStereoConfig { ret LoadVrStereoConfig(device); }
+#[library("raylib")]
+ext fun UnloadVrStereoConfig(config: VrStereoConfig) u8;
+pub fun unload_vr_stereo_config(config: VrStereoConfig) u8 { ret UnloadVrStereoConfig(config); }
+#[library("raylib")]
+ext fun LoadShader(vsFileName: *u8, fsFileName: *u8) Shader;
+pub fun load_shader(vsFileName: *u8, fsFileName: *u8) Shader { ret LoadShader(vsFileName, fsFileName); }
+#[library("raylib")]
+ext fun LoadShaderFromMemory(vsCode: *u8, fsCode: *u8) Shader;
+pub fun load_shader_from_memory(vsCode: *u8, fsCode: *u8) Shader { ret LoadShaderFromMemory(vsCode, fsCode); }
+#[library("raylib")]
+ext fun IsShaderValid(shader: Shader) bool;
+pub fun is_shader_valid(shader: Shader) bool { ret IsShaderValid(shader); }
+#[library("raylib")]
+ext fun GetShaderLocation(shader: Shader, uniformName: *u8) i32;
+pub fun get_shader_location(shader: Shader, uniformName: *u8) i32 { ret GetShaderLocation(shader, uniformName); }
+#[library("raylib")]
+ext fun GetShaderLocationAttrib(shader: Shader, attribName: *u8) i32;
+pub fun get_shader_location_attrib(shader: Shader, attribName: *u8) i32 { ret GetShaderLocationAttrib(shader, attribName); }
+#[library("raylib")]
+ext fun SetShaderValue(shader: Shader, locIndex: i32, value: ptr, uniformType: i32) u8;
+pub fun set_shader_value(shader: Shader, locIndex: i32, value: ptr, uniformType: i32) u8 { ret SetShaderValue(shader, locIndex, value, uniformType); }
+#[library("raylib")]
+ext fun SetShaderValueV(shader: Shader, locIndex: i32, value: ptr, uniformType: i32, count: i32) u8;
+pub fun set_shader_value_v(shader: Shader, locIndex: i32, value: ptr, uniformType: i32, count: i32) u8 { ret SetShaderValueV(shader, locIndex, value, uniformType, count); }
+#[library("raylib")]
+ext fun SetShaderValueMatrix(shader: Shader, locIndex: i32, mat: Matrix) u8;
+pub fun set_shader_value_matrix(shader: Shader, locIndex: i32, mat: Matrix) u8 { ret SetShaderValueMatrix(shader, locIndex, mat); }
+#[library("raylib")]
+ext fun SetShaderValueTexture(shader: Shader, locIndex: i32, texture: Texture2D) u8;
+pub fun set_shader_value_texture(shader: Shader, locIndex: i32, texture: Texture2D) u8 { ret SetShaderValueTexture(shader, locIndex, texture); }
+#[library("raylib")]
+ext fun UnloadShader(shader: Shader) u8;
+pub fun unload_shader(shader: Shader) u8 { ret UnloadShader(shader); }
+#[library("raylib")]
+ext fun GetScreenToWorldRay(position: Vector2, camera: Camera) Ray;
+pub fun get_screen_to_world_ray(position: Vector2, camera: Camera) Ray { ret GetScreenToWorldRay(position, camera); }
+#[library("raylib")]
+ext fun GetScreenToWorldRayEx(position: Vector2, camera: Camera, width: i32, height: i32) Ray;
+pub fun get_screen_to_world_ray_ex(position: Vector2, camera: Camera, width: i32, height: i32) Ray { ret GetScreenToWorldRayEx(position, camera, width, height); }
+#[library("raylib")]
+ext fun GetWorldToScreen(position: Vector3, camera: Camera) Vector2;
+pub fun get_world_to_screen(position: Vector3, camera: Camera) Vector2 { ret GetWorldToScreen(position, camera); }
+#[library("raylib")]
+ext fun GetWorldToScreenEx(position: Vector3, camera: Camera, width: i32, height: i32) Vector2;
+pub fun get_world_to_screen_ex(position: Vector3, camera: Camera, width: i32, height: i32) Vector2 { ret GetWorldToScreenEx(position, camera, width, height); }
+#[library("raylib")]
+ext fun GetWorldToScreen2D(position: Vector2, camera: Camera2D) Vector2;
+pub fun get_world_to_screen2_d(position: Vector2, camera: Camera2D) Vector2 { ret GetWorldToScreen2D(position, camera); }
+#[library("raylib")]
+ext fun GetScreenToWorld2D(position: Vector2, camera: Camera2D) Vector2;
+pub fun get_screen_to_world2_d(position: Vector2, camera: Camera2D) Vector2 { ret GetScreenToWorld2D(position, camera); }
+#[library("raylib")]
+ext fun GetCameraMatrix(camera: Camera) Matrix;
+pub fun get_camera_matrix(camera: Camera) Matrix { ret GetCameraMatrix(camera); }
+#[library("raylib")]
+ext fun GetCameraMatrix2D(camera: Camera2D) Matrix;
+pub fun get_camera_matrix2_d(camera: Camera2D) Matrix { ret GetCameraMatrix2D(camera); }
+#[library("raylib")]
+ext fun SetTargetFPS(fps: i32) u8;
+pub fun set_target_fps(fps: i32) u8 { ret SetTargetFPS(fps); }
+#[library("raylib")]
+ext fun GetFrameTime() f32;
+pub fun get_frame_time() f32 { ret GetFrameTime(); }
+#[library("raylib")]
+ext fun GetTime() f64;
+pub fun get_time() f64 { ret GetTime(); }
+#[library("raylib")]
+ext fun GetFPS() i32;
+pub fun get_fps() i32 { ret GetFPS(); }
+#[library("raylib")]
+ext fun SwapScreenBuffer() u8;
+pub fun swap_screen_buffer() u8 { ret SwapScreenBuffer(); }
+#[library("raylib")]
+ext fun PollInputEvents() u8;
+pub fun poll_input_events() u8 { ret PollInputEvents(); }
+#[library("raylib")]
+ext fun WaitTime(seconds: f64) u8;
+pub fun wait_time(seconds: f64) u8 { ret WaitTime(seconds); }
+#[library("raylib")]
+ext fun SetRandomSeed(seed: u32) u8;
+pub fun set_random_seed(seed: u32) u8 { ret SetRandomSeed(seed); }
+#[library("raylib")]
+ext fun GetRandomValue(min: i32, max: i32) i32;
+pub fun get_random_value(min: i32, max: i32) i32 { ret GetRandomValue(min, max); }
+#[library("raylib")]
+ext fun LoadRandomSequence(count: u32, min: i32, max: i32) *i32;
+pub fun load_random_sequence(count: u32, min: i32, max: i32) *i32 { ret LoadRandomSequence(count, min, max); }
+#[library("raylib")]
+ext fun UnloadRandomSequence(sequence: *i32) u8;
+pub fun unload_random_sequence(sequence: *i32) u8 { ret UnloadRandomSequence(sequence); }
+#[library("raylib")]
+ext fun TakeScreenshot(fileName: *u8) u8;
+pub fun take_screenshot(fileName: *u8) u8 { ret TakeScreenshot(fileName); }
+#[library("raylib")]
+ext fun SetConfigFlags(flags: u32) u8;
+pub fun set_config_flags(flags: u32) u8 { ret SetConfigFlags(flags); }
+#[library("raylib")]
+ext fun OpenURL(url: *u8) u8;
+pub fun open_url(url: *u8) u8 { ret OpenURL(url); }
+#[library("raylib")]
+ext fun SetTraceLogLevel(logLevel: i32) u8;
+pub fun set_trace_log_level(logLevel: i32) u8 { ret SetTraceLogLevel(logLevel); }
+#[library("raylib")]
+ext fun TraceLog(logLevel: i32, text: *u8, va: ...) u8;
+pub fun trace_log(logLevel: i32, text: *u8, va: ...) u8 { ret TraceLog(logLevel, text, va...); }
+##[library("raylib")]
+#ext fun SetTraceLogCallback(callback: TraceLogCallback) u8;
+#pub fun set_trace_log_callback(callback: TraceLogCallback) u8 { ret SetTraceLogCallback(callback); }
+#[library("raylib")]
+ext fun MemAlloc(size: u32) ptr;
+pub fun mem_alloc(size: u32) ptr { ret MemAlloc(size); }
+#[library("raylib")]
+ext fun MemRealloc(ptr: ptr, size: u32) ptr;
+pub fun mem_realloc(ptr: ptr, size: u32) ptr { ret MemRealloc(ptr, size); }
+#[library("raylib")]
+ext fun MemFree(ptr: ptr) u8;
+pub fun mem_free(ptr: ptr) u8 { ret MemFree(ptr); }
+#[library("raylib")]
+ext fun LoadFileData(fileName: *u8, dataSize: *i32) *u8;
+pub fun load_file_data(fileName: *u8, dataSize: *i32) *u8 { ret LoadFileData(fileName, dataSize); }
+#[library("raylib")]
+ext fun UnloadFileData(data: *u8) u8;
+pub fun unload_file_data(data: *u8) u8 { ret UnloadFileData(data); }
+#[library("raylib")]
+ext fun SaveFileData(fileName: *u8, data: ptr, dataSize: i32) bool;
+pub fun save_file_data(fileName: *u8, data: ptr, dataSize: i32) bool { ret SaveFileData(fileName, data, dataSize); }
+#[library("raylib")]
+ext fun ExportDataAsCode(data: *u8, dataSize: i32, fileName: *u8) bool;
+pub fun export_data_as_code(data: *u8, dataSize: i32, fileName: *u8) bool { ret ExportDataAsCode(data, dataSize, fileName); }
+#[library("raylib")]
+ext fun LoadFileText(fileName: *u8) *u8;
+pub fun load_file_text(fileName: *u8) *u8 { ret LoadFileText(fileName); }
+#[library("raylib")]
+ext fun UnloadFileText(text: *u8) u8;
+pub fun unload_file_text(text: *u8) u8 { ret UnloadFileText(text); }
+#[library("raylib")]
+ext fun SaveFileText(fileName: *u8, text: *u8) bool;
+pub fun save_file_text(fileName: *u8, text: *u8) bool { ret SaveFileText(fileName, text); }
+#[library("raylib")]
+ext fun SetLoadFileDataCallback(callback: LoadFileDataCallback) u8;
+pub fun set_load_file_data_callback(callback: LoadFileDataCallback) u8 { ret SetLoadFileDataCallback(callback); }
+#[library("raylib")]
+ext fun SetSaveFileDataCallback(callback: SaveFileDataCallback) u8;
+pub fun set_save_file_data_callback(callback: SaveFileDataCallback) u8 { ret SetSaveFileDataCallback(callback); }
+#[library("raylib")]
+ext fun SetLoadFileTextCallback(callback: LoadFileTextCallback) u8;
+pub fun set_load_file_text_callback(callback: LoadFileTextCallback) u8 { ret SetLoadFileTextCallback(callback); }
+#[library("raylib")]
+ext fun SetSaveFileTextCallback(callback: SaveFileTextCallback) u8;
+pub fun set_save_file_text_callback(callback: SaveFileTextCallback) u8 { ret SetSaveFileTextCallback(callback); }
+#[library("raylib")]
+ext fun FileRename(fileName: *u8, fileRename: *u8) i32;
+pub fun file_rename(fileName: *u8, fileRename: *u8) i32 { ret FileRename(fileName, fileRename); }
+#[library("raylib")]
+ext fun FileRemove(fileName: *u8) i32;
+pub fun file_remove(fileName: *u8) i32 { ret FileRemove(fileName); }
+#[library("raylib")]
+ext fun FileCopy(srcPath: *u8, dstPath: *u8) i32;
+pub fun file_copy(srcPath: *u8, dstPath: *u8) i32 { ret FileCopy(srcPath, dstPath); }
+#[library("raylib")]
+ext fun FileMove(srcPath: *u8, dstPath: *u8) i32;
+pub fun file_move(srcPath: *u8, dstPath: *u8) i32 { ret FileMove(srcPath, dstPath); }
+#[library("raylib")]
+ext fun FileTextReplace(fileName: *u8, search: *u8, replacement: *u8) i32;
+pub fun file_text_replace(fileName: *u8, search: *u8, replacement: *u8) i32 { ret FileTextReplace(fileName, search, replacement); }
+#[library("raylib")]
+ext fun FileTextFindIndex(fileName: *u8, search: *u8) i32;
+pub fun file_text_find_index(fileName: *u8, search: *u8) i32 { ret FileTextFindIndex(fileName, search); }
+#[library("raylib")]
+ext fun FileExists(fileName: *u8) bool;
+pub fun file_exists(fileName: *u8) bool { ret FileExists(fileName); }
+#[library("raylib")]
+ext fun DirectoryExists(dirPath: *u8) bool;
+pub fun directory_exists(dirPath: *u8) bool { ret DirectoryExists(dirPath); }
+#[library("raylib")]
+ext fun IsFileExtension(fileName: *u8, ext: *u8) bool;
+pub fun is_file_extension(fileName: *u8, ext: *u8) bool { ret IsFileExtension(fileName, ext); }
+#[library("raylib")]
+ext fun GetFileLength(fileName: *u8) i32;
+pub fun get_file_length(fileName: *u8) i32 { ret GetFileLength(fileName); }
+#[library("raylib")]
+ext fun GetFileModTime(fileName: *u8) i32;
+pub fun get_file_mod_time(fileName: *u8) i32 { ret GetFileModTime(fileName); }
+#[library("raylib")]
+ext fun GetFileExtension(fileName: *u8) *u8;
+pub fun get_file_extension(fileName: *u8) *u8 { ret GetFileExtension(fileName); }
+#[library("raylib")]
+ext fun GetFileName(filePath: *u8) *u8;
+pub fun get_file_name(filePath: *u8) *u8 { ret GetFileName(filePath); }
+#[library("raylib")]
+ext fun GetFileNameWithoutExt(filePath: *u8) *u8;
+pub fun get_file_name_without_ext(filePath: *u8) *u8 { ret GetFileNameWithoutExt(filePath); }
+#[library("raylib")]
+ext fun GetDirectoryPath(filePath: *u8) *u8;
+pub fun get_directory_path(filePath: *u8) *u8 { ret GetDirectoryPath(filePath); }
+#[library("raylib")]
+ext fun GetPrevDirectoryPath(dirPath: *u8) *u8;
+pub fun get_prev_directory_path(dirPath: *u8) *u8 { ret GetPrevDirectoryPath(dirPath); }
+#[library("raylib")]
+ext fun GetWorkingDirectory() *u8;
+pub fun get_working_directory() *u8 { ret GetWorkingDirectory(); }
+#[library("raylib")]
+ext fun GetApplicationDirectory() *u8;
+pub fun get_application_directory() *u8 { ret GetApplicationDirectory(); }
+#[library("raylib")]
+ext fun MakeDirectory(dirPath: *u8) i32;
+pub fun make_directory(dirPath: *u8) i32 { ret MakeDirectory(dirPath); }
+#[library("raylib")]
+ext fun ChangeDirectory(dirPath: *u8) i32;
+pub fun change_directory(dirPath: *u8) i32 { ret ChangeDirectory(dirPath); }
+#[library("raylib")]
+ext fun IsPathFile(path: *u8) bool;
+pub fun is_path_file(path: *u8) bool { ret IsPathFile(path); }
+#[library("raylib")]
+ext fun IsPathDirectory(path: *u8) bool;
+pub fun is_path_directory(path: *u8) bool { ret IsPathDirectory(path); }
+#[library("raylib")]
+ext fun IsPathAbsolute(path: *u8) bool;
+pub fun is_path_absolute(path: *u8) bool { ret IsPathAbsolute(path); }
+#[library("raylib")]
+ext fun IsFileNameValid(fileName: *u8) bool;
+pub fun is_file_name_valid(fileName: *u8) bool { ret IsFileNameValid(fileName); }
+#[library("raylib")]
+ext fun LoadDirectoryFiles(dirPath: *u8) FilePathList;
+pub fun load_directory_files(dirPath: *u8) FilePathList { ret LoadDirectoryFiles(dirPath); }
+#[library("raylib")]
+ext fun LoadDirectoryFilesEx(basePath: *u8, filter: *u8, scanSubdirs: bool) FilePathList;
+pub fun load_directory_files_ex(basePath: *u8, filter: *u8, scanSubdirs: bool) FilePathList { ret LoadDirectoryFilesEx(basePath, filter, scanSubdirs); }
+#[library("raylib")]
+ext fun UnloadDirectoryFiles(files: FilePathList) u8;
+pub fun unload_directory_files(files: FilePathList) u8 { ret UnloadDirectoryFiles(files); }
+#[library("raylib")]
+ext fun IsFileDropped() bool;
+pub fun is_file_dropped() bool { ret IsFileDropped(); }
+#[library("raylib")]
+ext fun LoadDroppedFiles() FilePathList;
+pub fun load_dropped_files() FilePathList { ret LoadDroppedFiles(); }
+#[library("raylib")]
+ext fun UnloadDroppedFiles(files: FilePathList) u8;
+pub fun unload_dropped_files(files: FilePathList) u8 { ret UnloadDroppedFiles(files); }
+#[library("raylib")]
+ext fun GetDirectoryFileCount(dirPath: *u8) u32;
+pub fun get_directory_file_count(dirPath: *u8) u32 { ret GetDirectoryFileCount(dirPath); }
+#[library("raylib")]
+ext fun GetDirectoryFileCountEx(basePath: *u8, filter: *u8, scanSubdirs: bool) u32;
+pub fun get_directory_file_count_ex(basePath: *u8, filter: *u8, scanSubdirs: bool) u32 { ret GetDirectoryFileCountEx(basePath, filter, scanSubdirs); }
+#[library("raylib")]
+ext fun CompressData(data: *u8, dataSize: i32, compDataSize: *i32) *u8;
+pub fun compress_data(data: *u8, dataSize: i32, compDataSize: *i32) *u8 { ret CompressData(data, dataSize, compDataSize); }
+#[library("raylib")]
+ext fun DecompressData(compData: *u8, compDataSize: i32, dataSize: *i32) *u8;
+pub fun decompress_data(compData: *u8, compDataSize: i32, dataSize: *i32) *u8 { ret DecompressData(compData, compDataSize, dataSize); }
+#[library("raylib")]
+ext fun EncodeDataBase64(data: *u8, dataSize: i32, outputSize: *i32) *u8;
+pub fun encode_data_base64(data: *u8, dataSize: i32, outputSize: *i32) *u8 { ret EncodeDataBase64(data, dataSize, outputSize); }
+#[library("raylib")]
+ext fun DecodeDataBase64(text: *u8, outputSize: *i32) *u8;
+pub fun decode_data_base64(text: *u8, outputSize: *i32) *u8 { ret DecodeDataBase64(text, outputSize); }
+#[library("raylib")]
+ext fun ComputeCRC32(data: *u8, dataSize: i32) u32;
+pub fun compute_crc32(data: *u8, dataSize: i32) u32 { ret ComputeCRC32(data, dataSize); }
+#[library("raylib")]
+ext fun ComputeMD5(data: *u8, dataSize: i32) *u32;
+pub fun compute_md5(data: *u8, dataSize: i32) *u32 { ret ComputeMD5(data, dataSize); }
+#[library("raylib")]
+ext fun ComputeSHA1(data: *u8, dataSize: i32) *u32;
+pub fun compute_sha1(data: *u8, dataSize: i32) *u32 { ret ComputeSHA1(data, dataSize); }
+#[library("raylib")]
+ext fun ComputeSHA256(data: *u8, dataSize: i32) *u32;
+pub fun compute_sha256(data: *u8, dataSize: i32) *u32 { ret ComputeSHA256(data, dataSize); }
+#[library("raylib")]
+ext fun LoadAutomationEventList(fileName: *u8) AutomationEventList;
+pub fun load_automation_event_list(fileName: *u8) AutomationEventList { ret LoadAutomationEventList(fileName); }
+#[library("raylib")]
+ext fun UnloadAutomationEventList(list: AutomationEventList) u8;
+pub fun unload_automation_event_list(list: AutomationEventList) u8 { ret UnloadAutomationEventList(list); }
+#[library("raylib")]
+ext fun ExportAutomationEventList(list: AutomationEventList, fileName: *u8) bool;
+pub fun export_automation_event_list(list: AutomationEventList, fileName: *u8) bool { ret ExportAutomationEventList(list, fileName); }
+#[library("raylib")]
+ext fun SetAutomationEventList(list: *AutomationEventList) u8;
+pub fun set_automation_event_list(list: *AutomationEventList) u8 { ret SetAutomationEventList(list); }
+#[library("raylib")]
+ext fun SetAutomationEventBaseFrame(frame: i32) u8;
+pub fun set_automation_event_base_frame(frame: i32) u8 { ret SetAutomationEventBaseFrame(frame); }
+#[library("raylib")]
+ext fun StartAutomationEventRecording() u8;
+pub fun start_automation_event_recording() u8 { ret StartAutomationEventRecording(); }
+#[library("raylib")]
+ext fun StopAutomationEventRecording() u8;
+pub fun stop_automation_event_recording() u8 { ret StopAutomationEventRecording(); }
+#[library("raylib")]
+ext fun PlayAutomationEvent(event: AutomationEvent) u8;
+pub fun play_automation_event(event: AutomationEvent) u8 { ret PlayAutomationEvent(event); }
+#[library("raylib")]
+ext fun IsKeyPressed(key: i32) bool;
+pub fun is_key_pressed(key: i32) bool { ret IsKeyPressed(key); }
+#[library("raylib")]
+ext fun IsKeyPressedRepeat(key: i32) bool;
+pub fun is_key_pressed_repeat(key: i32) bool { ret IsKeyPressedRepeat(key); }
+#[library("raylib")]
+ext fun IsKeyDown(key: i32) bool;
+pub fun is_key_down(key: i32) bool { ret IsKeyDown(key); }
+#[library("raylib")]
+ext fun IsKeyReleased(key: i32) bool;
+pub fun is_key_released(key: i32) bool { ret IsKeyReleased(key); }
+#[library("raylib")]
+ext fun IsKeyUp(key: i32) bool;
+pub fun is_key_up(key: i32) bool { ret IsKeyUp(key); }
+#[library("raylib")]
+ext fun GetKeyPressed() i32;
+pub fun get_key_pressed() i32 { ret GetKeyPressed(); }
+#[library("raylib")]
+ext fun GetCharPressed() i32;
+pub fun get_char_pressed() i32 { ret GetCharPressed(); }
+#[library("raylib")]
+ext fun GetKeyName(key: i32) *u8;
+pub fun get_key_name(key: i32) *u8 { ret GetKeyName(key); }
+#[library("raylib")]
+ext fun SetExitKey(key: i32) u8;
+pub fun set_exit_key(key: i32) u8 { ret SetExitKey(key); }
+#[library("raylib")]
+ext fun IsGamepadAvailable(gamepad: i32) bool;
+pub fun is_gamepad_available(gamepad: i32) bool { ret IsGamepadAvailable(gamepad); }
+#[library("raylib")]
+ext fun GetGamepadName(gamepad: i32) *u8;
+pub fun get_gamepad_name(gamepad: i32) *u8 { ret GetGamepadName(gamepad); }
+#[library("raylib")]
+ext fun IsGamepadButtonPressed(gamepad: i32, button: i32) bool;
+pub fun is_gamepad_button_pressed(gamepad: i32, button: i32) bool { ret IsGamepadButtonPressed(gamepad, button); }
+#[library("raylib")]
+ext fun IsGamepadButtonDown(gamepad: i32, button: i32) bool;
+pub fun is_gamepad_button_down(gamepad: i32, button: i32) bool { ret IsGamepadButtonDown(gamepad, button); }
+#[library("raylib")]
+ext fun IsGamepadButtonReleased(gamepad: i32, button: i32) bool;
+pub fun is_gamepad_button_released(gamepad: i32, button: i32) bool { ret IsGamepadButtonReleased(gamepad, button); }
+#[library("raylib")]
+ext fun IsGamepadButtonUp(gamepad: i32, button: i32) bool;
+pub fun is_gamepad_button_up(gamepad: i32, button: i32) bool { ret IsGamepadButtonUp(gamepad, button); }
+#[library("raylib")]
+ext fun GetGamepadButtonPressed() i32;
+pub fun get_gamepad_button_pressed() i32 { ret GetGamepadButtonPressed(); }
+#[library("raylib")]
+ext fun GetGamepadAxisCount(gamepad: i32) i32;
+pub fun get_gamepad_axis_count(gamepad: i32) i32 { ret GetGamepadAxisCount(gamepad); }
+#[library("raylib")]
+ext fun GetGamepadAxisMovement(gamepad: i32, axis: i32) f32;
+pub fun get_gamepad_axis_movement(gamepad: i32, axis: i32) f32 { ret GetGamepadAxisMovement(gamepad, axis); }
+#[library("raylib")]
+ext fun SetGamepadMappings(mappings: *u8) i32;
+pub fun set_gamepad_mappings(mappings: *u8) i32 { ret SetGamepadMappings(mappings); }
+#[library("raylib")]
+ext fun SetGamepadVibration(gamepad: i32, leftMotor: f32, rightMotor: f32, duration: f32) u8;
+pub fun set_gamepad_vibration(gamepad: i32, leftMotor: f32, rightMotor: f32, duration: f32) u8 { ret SetGamepadVibration(gamepad, leftMotor, rightMotor, duration); }
+#[library("raylib")]
+ext fun IsMouseButtonPressed(button: i32) bool;
+pub fun is_mouse_button_pressed(button: i32) bool { ret IsMouseButtonPressed(button); }
+#[library("raylib")]
+ext fun IsMouseButtonDown(button: i32) bool;
+pub fun is_mouse_button_down(button: i32) bool { ret IsMouseButtonDown(button); }
+#[library("raylib")]
+ext fun IsMouseButtonReleased(button: i32) bool;
+pub fun is_mouse_button_released(button: i32) bool { ret IsMouseButtonReleased(button); }
+#[library("raylib")]
+ext fun IsMouseButtonUp(button: i32) bool;
+pub fun is_mouse_button_up(button: i32) bool { ret IsMouseButtonUp(button); }
+#[library("raylib")]
+ext fun GetMouseX() i32;
+pub fun get_mouse_x() i32 { ret GetMouseX(); }
+#[library("raylib")]
+ext fun GetMouseY() i32;
+pub fun get_mouse_y() i32 { ret GetMouseY(); }
+#[library("raylib")]
+ext fun GetMousePosition() Vector2;
+pub fun get_mouse_position() Vector2 { ret GetMousePosition(); }
+#[library("raylib")]
+ext fun GetMouseDelta() Vector2;
+pub fun get_mouse_delta() Vector2 { ret GetMouseDelta(); }
+#[library("raylib")]
+ext fun SetMousePosition(x: i32, y: i32) u8;
+pub fun set_mouse_position(x: i32, y: i32) u8 { ret SetMousePosition(x, y); }
+#[library("raylib")]
+ext fun SetMouseOffset(offsetX: i32, offsetY: i32) u8;
+pub fun set_mouse_offset(offsetX: i32, offsetY: i32) u8 { ret SetMouseOffset(offsetX, offsetY); }
+#[library("raylib")]
+ext fun SetMouseScale(scaleX: f32, scaleY: f32) u8;
+pub fun set_mouse_scale(scaleX: f32, scaleY: f32) u8 { ret SetMouseScale(scaleX, scaleY); }
+#[library("raylib")]
+ext fun GetMouseWheelMove() f32;
+pub fun get_mouse_wheel_move() f32 { ret GetMouseWheelMove(); }
+#[library("raylib")]
+ext fun GetMouseWheelMoveV() Vector2;
+pub fun get_mouse_wheel_move_v() Vector2 { ret GetMouseWheelMoveV(); }
+#[library("raylib")]
+ext fun SetMouseCursor(cursor: i32) u8;
+pub fun set_mouse_cursor(cursor: i32) u8 { ret SetMouseCursor(cursor); }
+#[library("raylib")]
+ext fun GetTouchX() i32;
+pub fun get_touch_x() i32 { ret GetTouchX(); }
+#[library("raylib")]
+ext fun GetTouchY() i32;
+pub fun get_touch_y() i32 { ret GetTouchY(); }
+#[library("raylib")]
+ext fun GetTouchPosition(index: i32) Vector2;
+pub fun get_touch_position(index: i32) Vector2 { ret GetTouchPosition(index); }
+#[library("raylib")]
+ext fun GetTouchPointId(index: i32) i32;
+pub fun get_touch_point_id(index: i32) i32 { ret GetTouchPointId(index); }
+#[library("raylib")]
+ext fun GetTouchPointCount() i32;
+pub fun get_touch_point_count() i32 { ret GetTouchPointCount(); }
+#[library("raylib")]
+ext fun SetGesturesEnabled(flags: u32) u8;
+pub fun set_gestures_enabled(flags: u32) u8 { ret SetGesturesEnabled(flags); }
+#[library("raylib")]
+ext fun IsGestureDetected(gesture: u32) bool;
+pub fun is_gesture_detected(gesture: u32) bool { ret IsGestureDetected(gesture); }
+#[library("raylib")]
+ext fun GetGestureDetected() i32;
+pub fun get_gesture_detected() i32 { ret GetGestureDetected(); }
+#[library("raylib")]
+ext fun GetGestureHoldDuration() f32;
+pub fun get_gesture_hold_duration() f32 { ret GetGestureHoldDuration(); }
+#[library("raylib")]
+ext fun GetGestureDragVector() Vector2;
+pub fun get_gesture_drag_vector() Vector2 { ret GetGestureDragVector(); }
+#[library("raylib")]
+ext fun GetGestureDragAngle() f32;
+pub fun get_gesture_drag_angle() f32 { ret GetGestureDragAngle(); }
+#[library("raylib")]
+ext fun GetGesturePinchVector() Vector2;
+pub fun get_gesture_pinch_vector() Vector2 { ret GetGesturePinchVector(); }
+#[library("raylib")]
+ext fun GetGesturePinchAngle() f32;
+pub fun get_gesture_pinch_angle() f32 { ret GetGesturePinchAngle(); }
+#[library("raylib")]
+ext fun UpdateCamera(camera: *Camera, mode: i32) u8;
+pub fun update_camera(camera: *Camera, mode: i32) u8 { ret UpdateCamera(camera, mode); }
+#[library("raylib")]
+ext fun UpdateCameraPro(camera: *Camera, movement: Vector3, rotation: Vector3, zoom: f32) u8;
+pub fun update_camera_pro(camera: *Camera, movement: Vector3, rotation: Vector3, zoom: f32) u8 { ret UpdateCameraPro(camera, movement, rotation, zoom); }
+#[library("raylib")]
+ext fun SetShapesTexture(texture: Texture2D, rec: Rectangle) u8;
+pub fun set_shapes_texture(texture: Texture2D, rec: Rectangle) u8 { ret SetShapesTexture(texture, rec); }
+#[library("raylib")]
+ext fun GetShapesTexture() Texture2D;
+pub fun get_shapes_texture() Texture2D { ret GetShapesTexture(); }
+#[library("raylib")]
+ext fun GetShapesTextureRectangle() Rectangle;
+pub fun get_shapes_texture_rectangle() Rectangle { ret GetShapesTextureRectangle(); }
+#[library("raylib")]
+ext fun DrawPixel(posX: i32, posY: i32, color: Color) u8;
+pub fun draw_pixel(posX: i32, posY: i32, color: Color) u8 { ret DrawPixel(posX, posY, color); }
+#[library("raylib")]
+ext fun DrawPixelV(position: Vector2, color: Color) u8;
+pub fun draw_pixel_v(position: Vector2, color: Color) u8 { ret DrawPixelV(position, color); }
+#[library("raylib")]
+ext fun DrawLine(startPosX: i32, startPosY: i32, endPosX: i32, endPosY: i32, color: Color) u8;
+pub fun draw_line(startPosX: i32, startPosY: i32, endPosX: i32, endPosY: i32, color: Color) u8 { ret DrawLine(startPosX, startPosY, endPosX, endPosY, color); }
+#[library("raylib")]
+ext fun DrawLineV(startPos: Vector2, endPos: Vector2, color: Color) u8;
+pub fun draw_line_v(startPos: Vector2, endPos: Vector2, color: Color) u8 { ret DrawLineV(startPos, endPos, color); }
+#[library("raylib")]
+ext fun DrawLineEx(startPos: Vector2, endPos: Vector2, thick: f32, color: Color) u8;
+pub fun draw_line_ex(startPos: Vector2, endPos: Vector2, thick: f32, color: Color) u8 { ret DrawLineEx(startPos, endPos, thick, color); }
+#[library("raylib")]
+ext fun DrawLineStrip(points: *Vector2, pointCount: i32, color: Color) u8;
+pub fun draw_line_strip(points: *Vector2, pointCount: i32, color: Color) u8 { ret DrawLineStrip(points, pointCount, color); }
+#[library("raylib")]
+ext fun DrawLineBezier(startPos: Vector2, endPos: Vector2, thick: f32, color: Color) u8;
+pub fun draw_line_bezier(startPos: Vector2, endPos: Vector2, thick: f32, color: Color) u8 { ret DrawLineBezier(startPos, endPos, thick, color); }
+#[library("raylib")]
+ext fun DrawLineDashed(startPos: Vector2, endPos: Vector2, dashSize: i32, spaceSize: i32, color: Color) u8;
+pub fun draw_line_dashed(startPos: Vector2, endPos: Vector2, dashSize: i32, spaceSize: i32, color: Color) u8 { ret DrawLineDashed(startPos, endPos, dashSize, spaceSize, color); }
+#[library("raylib")]
+ext fun DrawTriangle(v1: Vector2, v2: Vector2, v3: Vector2, color: Color) u8;
+pub fun draw_triangle(v1: Vector2, v2: Vector2, v3: Vector2, color: Color) u8 { ret DrawTriangle(v1, v2, v3, color); }
+#[library("raylib")]
+ext fun DrawTriangleGradient(v1: Vector2, v2: Vector2, v3: Vector2, c1: Color, c2: Color, c3: Color) u8;
+pub fun draw_triangle_gradient(v1: Vector2, v2: Vector2, v3: Vector2, c1: Color, c2: Color, c3: Color) u8 { ret DrawTriangleGradient(v1, v2, v3, c1, c2, c3); }
+#[library("raylib")]
+ext fun DrawTriangleLines(v1: Vector2, v2: Vector2, v3: Vector2, color: Color) u8;
+pub fun draw_triangle_lines(v1: Vector2, v2: Vector2, v3: Vector2, color: Color) u8 { ret DrawTriangleLines(v1, v2, v3, color); }
+#[library("raylib")]
+ext fun DrawTriangleFan(points: *Vector2, pointCount: i32, color: Color) u8;
+pub fun draw_triangle_fan(points: *Vector2, pointCount: i32, color: Color) u8 { ret DrawTriangleFan(points, pointCount, color); }
+#[library("raylib")]
+ext fun DrawTriangleStrip(points: *Vector2, pointCount: i32, color: Color) u8;
+pub fun draw_triangle_strip(points: *Vector2, pointCount: i32, color: Color) u8 { ret DrawTriangleStrip(points, pointCount, color); }
+#[library("raylib")]
+ext fun DrawRectangle(posX: i32, posY: i32, width: i32, height: i32, color: Color) u8;
+pub fun draw_rectangle(posX: i32, posY: i32, width: i32, height: i32, color: Color) u8 { ret DrawRectangle(posX, posY, width, height, color); }
+#[library("raylib")]
+ext fun DrawRectangleV(position: Vector2, size: Vector2, color: Color) u8;
+pub fun draw_rectangle_v(position: Vector2, size: Vector2, color: Color) u8 { ret DrawRectangleV(position, size, color); }
+#[library("raylib")]
+ext fun DrawRectangleRec(rec: Rectangle, color: Color) u8;
+pub fun draw_rectangle_rec(rec: Rectangle, color: Color) u8 { ret DrawRectangleRec(rec, color); }
+#[library("raylib")]
+ext fun DrawRectanglePro(rec: Rectangle, origin: Vector2, rotation: f32, color: Color) u8;
+pub fun draw_rectangle_pro(rec: Rectangle, origin: Vector2, rotation: f32, color: Color) u8 { ret DrawRectanglePro(rec, origin, rotation, color); }
+#[library("raylib")]
+ext fun DrawRectangleGradientV(posX: i32, posY: i32, width: i32, height: i32, top: Color, bottom: Color) u8;
+pub fun draw_rectangle_gradient_v(posX: i32, posY: i32, width: i32, height: i32, top: Color, bottom: Color) u8 { ret DrawRectangleGradientV(posX, posY, width, height, top, bottom); }
+#[library("raylib")]
+ext fun DrawRectangleGradientH(posX: i32, posY: i32, width: i32, height: i32, left: Color, right: Color) u8;
+pub fun draw_rectangle_gradient_h(posX: i32, posY: i32, width: i32, height: i32, left: Color, right: Color) u8 { ret DrawRectangleGradientH(posX, posY, width, height, left, right); }
+#[library("raylib")]
+ext fun DrawRectangleGradientEx(rec: Rectangle, col1: Color, col2: Color, col3: Color, col4: Color) u8;
+pub fun draw_rectangle_gradient_ex(rec: Rectangle, col1: Color, col2: Color, col3: Color, col4: Color) u8 { ret DrawRectangleGradientEx(rec, col1, col2, col3, col4); }
+#[library("raylib")]
+ext fun DrawRectangleLines(posX: i32, posY: i32, width: i32, height: i32, color: Color) u8;
+pub fun draw_rectangle_lines(posX: i32, posY: i32, width: i32, height: i32, color: Color) u8 { ret DrawRectangleLines(posX, posY, width, height, color); }
+#[library("raylib")]
+ext fun DrawRectangleLinesEx(rec: Rectangle, thick: f32, color: Color) u8;
+pub fun draw_rectangle_lines_ex(rec: Rectangle, thick: f32, color: Color) u8 { ret DrawRectangleLinesEx(rec, thick, color); }
+#[library("raylib")]
+ext fun DrawRectangleRounded(rec: Rectangle, roundness: f32, segments: i32, color: Color) u8;
+pub fun draw_rectangle_rounded(rec: Rectangle, roundness: f32, segments: i32, color: Color) u8 { ret DrawRectangleRounded(rec, roundness, segments, color); }
+#[library("raylib")]
+ext fun DrawRectangleRoundedLines(rec: Rectangle, roundness: f32, segments: i32, color: Color) u8;
+pub fun draw_rectangle_rounded_lines(rec: Rectangle, roundness: f32, segments: i32, color: Color) u8 { ret DrawRectangleRoundedLines(rec, roundness, segments, color); }
+#[library("raylib")]
+ext fun DrawRectangleRoundedLinesEx(rec: Rectangle, roundness: f32, segments: i32, thick: f32, color: Color) u8;
+pub fun draw_rectangle_rounded_lines_ex(rec: Rectangle, roundness: f32, segments: i32, thick: f32, color: Color) u8 { ret DrawRectangleRoundedLinesEx(rec, roundness, segments, thick, color); }
+#[library("raylib")]
+ext fun DrawPoly(center: Vector2, sides: i32, radius: f32, rotation: f32, color: Color) u8;
+pub fun draw_poly(center: Vector2, sides: i32, radius: f32, rotation: f32, color: Color) u8 { ret DrawPoly(center, sides, radius, rotation, color); }
+#[library("raylib")]
+ext fun DrawPolyLines(center: Vector2, sides: i32, radius: f32, rotation: f32, color: Color) u8;
+pub fun draw_poly_lines(center: Vector2, sides: i32, radius: f32, rotation: f32, color: Color) u8 { ret DrawPolyLines(center, sides, radius, rotation, color); }
+#[library("raylib")]
+ext fun DrawPolyLinesEx(center: Vector2, sides: i32, radius: f32, rotation: f32, thick: f32, color: Color) u8;
+pub fun draw_poly_lines_ex(center: Vector2, sides: i32, radius: f32, rotation: f32, thick: f32, color: Color) u8 { ret DrawPolyLinesEx(center, sides, radius, rotation, thick, color); }
+#[library("raylib")]
+ext fun DrawCircle(centerX: i32, centerY: i32, radius: f32, color: Color) u8;
+pub fun draw_circle(centerX: i32, centerY: i32, radius: f32, color: Color) u8 { ret DrawCircle(centerX, centerY, radius, color); }
+#[library("raylib")]
+ext fun DrawCircleV(center: Vector2, radius: f32, color: Color) u8;
+pub fun draw_circle_v(center: Vector2, radius: f32, color: Color) u8 { ret DrawCircleV(center, radius, color); }
+#[library("raylib")]
+ext fun DrawCircleGradient(center: Vector2, radius: f32, inner: Color, outer: Color) u8;
+pub fun draw_circle_gradient(center: Vector2, radius: f32, inner: Color, outer: Color) u8 { ret DrawCircleGradient(center, radius, inner, outer); }
+#[library("raylib")]
+ext fun DrawCircleSector(center: Vector2, radius: f32, startAngle: f32, endAngle: f32, segments: i32, color: Color) u8;
+pub fun draw_circle_sector(center: Vector2, radius: f32, startAngle: f32, endAngle: f32, segments: i32, color: Color) u8 { ret DrawCircleSector(center, radius, startAngle, endAngle, segments, color); }
+#[library("raylib")]
+ext fun DrawCircleSectorLines(center: Vector2, radius: f32, startAngle: f32, endAngle: f32, segments: i32, color: Color) u8;
+pub fun draw_circle_sector_lines(center: Vector2, radius: f32, startAngle: f32, endAngle: f32, segments: i32, color: Color) u8 { ret DrawCircleSectorLines(center, radius, startAngle, endAngle, segments, color); }
+#[library("raylib")]
+ext fun DrawCircleLines(centerX: i32, centerY: i32, radius: f32, color: Color) u8;
+pub fun draw_circle_lines(centerX: i32, centerY: i32, radius: f32, color: Color) u8 { ret DrawCircleLines(centerX, centerY, radius, color); }
+#[library("raylib")]
+ext fun DrawCircleLinesV(center: Vector2, radius: f32, color: Color) u8;
+pub fun draw_circle_lines_v(center: Vector2, radius: f32, color: Color) u8 { ret DrawCircleLinesV(center, radius, color); }
+#[library("raylib")]
+ext fun DrawCircleLinesEx(center: Vector2, radius: f32, thick: f32, color: Color) u8;
+pub fun draw_circle_lines_ex(center: Vector2, radius: f32, thick: f32, color: Color) u8 { ret DrawCircleLinesEx(center, radius, thick, color); }
+#[library("raylib")]
+ext fun DrawEllipse(centerX: i32, centerY: i32, radiusH: f32, radiusV: f32, color: Color) u8;
+pub fun draw_ellipse(centerX: i32, centerY: i32, radiusH: f32, radiusV: f32, color: Color) u8 { ret DrawEllipse(centerX, centerY, radiusH, radiusV, color); }
+#[library("raylib")]
+ext fun DrawEllipseV(center: Vector2, radiusH: f32, radiusV: f32, color: Color) u8;
+pub fun draw_ellipse_v(center: Vector2, radiusH: f32, radiusV: f32, color: Color) u8 { ret DrawEllipseV(center, radiusH, radiusV, color); }
+#[library("raylib")]
+ext fun DrawEllipseLines(centerX: i32, centerY: i32, radiusH: f32, radiusV: f32, color: Color) u8;
+pub fun draw_ellipse_lines(centerX: i32, centerY: i32, radiusH: f32, radiusV: f32, color: Color) u8 { ret DrawEllipseLines(centerX, centerY, radiusH, radiusV, color); }
+#[library("raylib")]
+ext fun DrawEllipseLinesV(center: Vector2, radiusH: f32, radiusV: f32, color: Color) u8;
+pub fun draw_ellipse_lines_v(center: Vector2, radiusH: f32, radiusV: f32, color: Color) u8 { ret DrawEllipseLinesV(center, radiusH, radiusV, color); }
+#[library("raylib")]
+ext fun DrawRing(center: Vector2, innerRadius: f32, outerRadius: f32, startAngle: f32, endAngle: f32, segments: i32, color: Color) u8;
+pub fun draw_ring(center: Vector2, innerRadius: f32, outerRadius: f32, startAngle: f32, endAngle: f32, segments: i32, color: Color) u8 { ret DrawRing(center, innerRadius, outerRadius, startAngle, endAngle, segments, color); }
+#[library("raylib")]
+ext fun DrawRingLines(center: Vector2, innerRadius: f32, outerRadius: f32, startAngle: f32, endAngle: f32, segments: i32, color: Color) u8;
+pub fun draw_ring_lines(center: Vector2, innerRadius: f32, outerRadius: f32, startAngle: f32, endAngle: f32, segments: i32, color: Color) u8 { ret DrawRingLines(center, innerRadius, outerRadius, startAngle, endAngle, segments, color); }
+#[library("raylib")]
+ext fun DrawSplineLinear(points: *Vector2, pointCount: i32, thick: f32, color: Color) u8;
+pub fun draw_spline_linear(points: *Vector2, pointCount: i32, thick: f32, color: Color) u8 { ret DrawSplineLinear(points, pointCount, thick, color); }
+#[library("raylib")]
+ext fun DrawSplineBasis(points: *Vector2, pointCount: i32, thick: f32, color: Color) u8;
+pub fun draw_spline_basis(points: *Vector2, pointCount: i32, thick: f32, color: Color) u8 { ret DrawSplineBasis(points, pointCount, thick, color); }
+#[library("raylib")]
+ext fun DrawSplineCatmullRom(points: *Vector2, pointCount: i32, thick: f32, color: Color) u8;
+pub fun draw_spline_catmull_rom(points: *Vector2, pointCount: i32, thick: f32, color: Color) u8 { ret DrawSplineCatmullRom(points, pointCount, thick, color); }
+#[library("raylib")]
+ext fun DrawSplineBezierQuadratic(points: *Vector2, pointCount: i32, thick: f32, color: Color) u8;
+pub fun draw_spline_bezier_quadratic(points: *Vector2, pointCount: i32, thick: f32, color: Color) u8 { ret DrawSplineBezierQuadratic(points, pointCount, thick, color); }
+#[library("raylib")]
+ext fun DrawSplineBezierCubic(points: *Vector2, pointCount: i32, thick: f32, color: Color) u8;
+pub fun draw_spline_bezier_cubic(points: *Vector2, pointCount: i32, thick: f32, color: Color) u8 { ret DrawSplineBezierCubic(points, pointCount, thick, color); }
+#[library("raylib")]
+ext fun DrawSplineSegmentLinear(p1: Vector2, p2: Vector2, thick: f32, color: Color) u8;
+pub fun draw_spline_segment_linear(p1: Vector2, p2: Vector2, thick: f32, color: Color) u8 { ret DrawSplineSegmentLinear(p1, p2, thick, color); }
+#[library("raylib")]
+ext fun DrawSplineSegmentBasis(p1: Vector2, p2: Vector2, p3: Vector2, p4: Vector2, thick: f32, color: Color) u8;
+pub fun draw_spline_segment_basis(p1: Vector2, p2: Vector2, p3: Vector2, p4: Vector2, thick: f32, color: Color) u8 { ret DrawSplineSegmentBasis(p1, p2, p3, p4, thick, color); }
+#[library("raylib")]
+ext fun DrawSplineSegmentCatmullRom(p1: Vector2, p2: Vector2, p3: Vector2, p4: Vector2, thick: f32, color: Color) u8;
+pub fun draw_spline_segment_catmull_rom(p1: Vector2, p2: Vector2, p3: Vector2, p4: Vector2, thick: f32, color: Color) u8 { ret DrawSplineSegmentCatmullRom(p1, p2, p3, p4, thick, color); }
+#[library("raylib")]
+ext fun DrawSplineSegmentBezierQuadratic(p1: Vector2, c2: Vector2, p3: Vector2, thick: f32, color: Color) u8;
+pub fun draw_spline_segment_bezier_quadratic(p1: Vector2, c2: Vector2, p3: Vector2, thick: f32, color: Color) u8 { ret DrawSplineSegmentBezierQuadratic(p1, c2, p3, thick, color); }
+#[library("raylib")]
+ext fun DrawSplineSegmentBezierCubic(p1: Vector2, c2: Vector2, c3: Vector2, p4: Vector2, thick: f32, color: Color) u8;
+pub fun draw_spline_segment_bezier_cubic(p1: Vector2, c2: Vector2, c3: Vector2, p4: Vector2, thick: f32, color: Color) u8 { ret DrawSplineSegmentBezierCubic(p1, c2, c3, p4, thick, color); }
+#[library("raylib")]
+ext fun GetSplinePointLinear(startPos: Vector2, endPos: Vector2, t: f32) Vector2;
+pub fun get_spline_point_linear(startPos: Vector2, endPos: Vector2, t: f32) Vector2 { ret GetSplinePointLinear(startPos, endPos, t); }
+#[library("raylib")]
+ext fun GetSplinePointBasis(p1: Vector2, p2: Vector2, p3: Vector2, p4: Vector2, t: f32) Vector2;
+pub fun get_spline_point_basis(p1: Vector2, p2: Vector2, p3: Vector2, p4: Vector2, t: f32) Vector2 { ret GetSplinePointBasis(p1, p2, p3, p4, t); }
+#[library("raylib")]
+ext fun GetSplinePointCatmullRom(p1: Vector2, p2: Vector2, p3: Vector2, p4: Vector2, t: f32) Vector2;
+pub fun get_spline_point_catmull_rom(p1: Vector2, p2: Vector2, p3: Vector2, p4: Vector2, t: f32) Vector2 { ret GetSplinePointCatmullRom(p1, p2, p3, p4, t); }
+#[library("raylib")]
+ext fun GetSplinePointBezierQuadratic(p1: Vector2, c2: Vector2, p3: Vector2, t: f32) Vector2;
+pub fun get_spline_point_bezier_quadratic(p1: Vector2, c2: Vector2, p3: Vector2, t: f32) Vector2 { ret GetSplinePointBezierQuadratic(p1, c2, p3, t); }
+#[library("raylib")]
+ext fun GetSplinePointBezierCubic(p1: Vector2, c2: Vector2, c3: Vector2, p4: Vector2, t: f32) Vector2;
+pub fun get_spline_point_bezier_cubic(p1: Vector2, c2: Vector2, c3: Vector2, p4: Vector2, t: f32) Vector2 { ret GetSplinePointBezierCubic(p1, c2, c3, p4, t); }
+#[library("raylib")]
+ext fun CheckCollisionRecs(rec1: Rectangle, rec2: Rectangle) bool;
+pub fun check_collision_recs(rec1: Rectangle, rec2: Rectangle) bool { ret CheckCollisionRecs(rec1, rec2); }
+#[library("raylib")]
+ext fun CheckCollisionCircles(center1: Vector2, radius1: f32, center2: Vector2, radius2: f32) bool;
+pub fun check_collision_circles(center1: Vector2, radius1: f32, center2: Vector2, radius2: f32) bool { ret CheckCollisionCircles(center1, radius1, center2, radius2); }
+#[library("raylib")]
+ext fun CheckCollisionCircleRec(center: Vector2, radius: f32, rec: Rectangle) bool;
+pub fun check_collision_circle_rec(center: Vector2, radius: f32, rec: Rectangle) bool { ret CheckCollisionCircleRec(center, radius, rec); }
+#[library("raylib")]
+ext fun CheckCollisionCircleLine(center: Vector2, radius: f32, p1: Vector2, p2: Vector2) bool;
+pub fun check_collision_circle_line(center: Vector2, radius: f32, p1: Vector2, p2: Vector2) bool { ret CheckCollisionCircleLine(center, radius, p1, p2); }
+#[library("raylib")]
+ext fun CheckCollisionPointRec(point: Vector2, rec: Rectangle) bool;
+pub fun check_collision_point_rec(point: Vector2, rec: Rectangle) bool { ret CheckCollisionPointRec(point, rec); }
+#[library("raylib")]
+ext fun CheckCollisionPointCircle(point: Vector2, center: Vector2, radius: f32) bool;
+pub fun check_collision_point_circle(point: Vector2, center: Vector2, radius: f32) bool { ret CheckCollisionPointCircle(point, center, radius); }
+#[library("raylib")]
+ext fun CheckCollisionPointTriangle(point: Vector2, p1: Vector2, p2: Vector2, p3: Vector2) bool;
+pub fun check_collision_point_triangle(point: Vector2, p1: Vector2, p2: Vector2, p3: Vector2) bool { ret CheckCollisionPointTriangle(point, p1, p2, p3); }
+#[library("raylib")]
+ext fun CheckCollisionPointLine(point: Vector2, p1: Vector2, p2: Vector2, threshold: i32) bool;
+pub fun check_collision_point_line(point: Vector2, p1: Vector2, p2: Vector2, threshold: i32) bool { ret CheckCollisionPointLine(point, p1, p2, threshold); }
+#[library("raylib")]
+ext fun CheckCollisionPointPoly(point: Vector2, points: *Vector2, pointCount: i32) bool;
+pub fun check_collision_point_poly(point: Vector2, points: *Vector2, pointCount: i32) bool { ret CheckCollisionPointPoly(point, points, pointCount); }
+#[library("raylib")]
+ext fun CheckCollisionLines(startPos1: Vector2, endPos1: Vector2, startPos2: Vector2, endPos2: Vector2, collisionPoint: *Vector2) bool;
+pub fun check_collision_lines(startPos1: Vector2, endPos1: Vector2, startPos2: Vector2, endPos2: Vector2, collisionPoint: *Vector2) bool { ret CheckCollisionLines(startPos1, endPos1, startPos2, endPos2, collisionPoint); }
+#[library("raylib")]
+ext fun GetCollisionRec(rec1: Rectangle, rec2: Rectangle) Rectangle;
+pub fun get_collision_rec(rec1: Rectangle, rec2: Rectangle) Rectangle { ret GetCollisionRec(rec1, rec2); }
+#[library("raylib")]
+ext fun LoadImage(fileName: *u8) Image;
+pub fun load_image(fileName: *u8) Image { ret LoadImage(fileName); }
+#[library("raylib")]
+ext fun LoadImageRaw(fileName: *u8, width: i32, height: i32, format: i32, headerSize: i32) Image;
+pub fun load_image_raw(fileName: *u8, width: i32, height: i32, format: i32, headerSize: i32) Image { ret LoadImageRaw(fileName, width, height, format, headerSize); }
+#[library("raylib")]
+ext fun LoadImageAnim(fileName: *u8, frames: *i32) Image;
+pub fun load_image_anim(fileName: *u8, frames: *i32) Image { ret LoadImageAnim(fileName, frames); }
+#[library("raylib")]
+ext fun LoadImageAnimFromMemory(fileType: *u8, fileData: *u8, dataSize: i32, frames: *i32) Image;
+pub fun load_image_anim_from_memory(fileType: *u8, fileData: *u8, dataSize: i32, frames: *i32) Image { ret LoadImageAnimFromMemory(fileType, fileData, dataSize, frames); }
+#[library("raylib")]
+ext fun LoadImageFromMemory(fileType: *u8, fileData: *u8, dataSize: i32) Image;
+pub fun load_image_from_memory(fileType: *u8, fileData: *u8, dataSize: i32) Image { ret LoadImageFromMemory(fileType, fileData, dataSize); }
+#[library("raylib")]
+ext fun LoadImageFromTexture(texture: Texture2D) Image;
+pub fun load_image_from_texture(texture: Texture2D) Image { ret LoadImageFromTexture(texture); }
+#[library("raylib")]
+ext fun LoadImageFromScreen() Image;
+pub fun load_image_from_screen() Image { ret LoadImageFromScreen(); }
+#[library("raylib")]
+ext fun IsImageValid(image: Image) bool;
+pub fun is_image_valid(image: Image) bool { ret IsImageValid(image); }
+#[library("raylib")]
+ext fun UnloadImage(image: Image) u8;
+pub fun unload_image(image: Image) u8 { ret UnloadImage(image); }
+#[library("raylib")]
+ext fun ExportImage(image: Image, fileName: *u8) bool;
+pub fun export_image(image: Image, fileName: *u8) bool { ret ExportImage(image, fileName); }
+#[library("raylib")]
+ext fun ExportImageToMemory(image: Image, fileType: *u8, fileSize: *i32) *u8;
+pub fun export_image_to_memory(image: Image, fileType: *u8, fileSize: *i32) *u8 { ret ExportImageToMemory(image, fileType, fileSize); }
+#[library("raylib")]
+ext fun ExportImageAsCode(image: Image, fileName: *u8) bool;
+pub fun export_image_as_code(image: Image, fileName: *u8) bool { ret ExportImageAsCode(image, fileName); }
+#[library("raylib")]
+ext fun GenImageColor(width: i32, height: i32, color: Color) Image;
+pub fun gen_image_color(width: i32, height: i32, color: Color) Image { ret GenImageColor(width, height, color); }
+#[library("raylib")]
+ext fun GenImageGradientLinear(width: i32, height: i32, direction: i32, start: Color, end: Color) Image;
+pub fun gen_image_gradient_linear(width: i32, height: i32, direction: i32, start: Color, end: Color) Image { ret GenImageGradientLinear(width, height, direction, start, end); }
+#[library("raylib")]
+ext fun GenImageGradientRadial(width: i32, height: i32, density: f32, inner: Color, outer: Color) Image;
+pub fun gen_image_gradient_radial(width: i32, height: i32, density: f32, inner: Color, outer: Color) Image { ret GenImageGradientRadial(width, height, density, inner, outer); }
+#[library("raylib")]
+ext fun GenImageGradientSquare(width: i32, height: i32, density: f32, inner: Color, outer: Color) Image;
+pub fun gen_image_gradient_square(width: i32, height: i32, density: f32, inner: Color, outer: Color) Image { ret GenImageGradientSquare(width, height, density, inner, outer); }
+#[library("raylib")]
+ext fun GenImageChecked(width: i32, height: i32, checksX: i32, checksY: i32, col1: Color, col2: Color) Image;
+pub fun gen_image_checked(width: i32, height: i32, checksX: i32, checksY: i32, col1: Color, col2: Color) Image { ret GenImageChecked(width, height, checksX, checksY, col1, col2); }
+#[library("raylib")]
+ext fun GenImageWhiteNoise(width: i32, height: i32, factor: f32) Image;
+pub fun gen_image_white_noise(width: i32, height: i32, factor: f32) Image { ret GenImageWhiteNoise(width, height, factor); }
+#[library("raylib")]
+ext fun GenImagePerlinNoise(width: i32, height: i32, offsetX: i32, offsetY: i32, scale: f32) Image;
+pub fun gen_image_perlin_noise(width: i32, height: i32, offsetX: i32, offsetY: i32, scale: f32) Image { ret GenImagePerlinNoise(width, height, offsetX, offsetY, scale); }
+#[library("raylib")]
+ext fun GenImageCellular(width: i32, height: i32, tileSize: i32) Image;
+pub fun gen_image_cellular(width: i32, height: i32, tileSize: i32) Image { ret GenImageCellular(width, height, tileSize); }
+#[library("raylib")]
+ext fun GenImageText(width: i32, height: i32, text: *u8) Image;
+pub fun gen_image_text(width: i32, height: i32, text: *u8) Image { ret GenImageText(width, height, text); }
+#[library("raylib")]
+ext fun ImageCopy(image: Image) Image;
+pub fun image_copy(image: Image) Image { ret ImageCopy(image); }
+#[library("raylib")]
+ext fun ImageFromImage(image: Image, rec: Rectangle) Image;
+pub fun image_from_image(image: Image, rec: Rectangle) Image { ret ImageFromImage(image, rec); }
+#[library("raylib")]
+ext fun ImageFromChannel(image: Image, selectedChannel: i32) Image;
+pub fun image_from_channel(image: Image, selectedChannel: i32) Image { ret ImageFromChannel(image, selectedChannel); }
+#[library("raylib")]
+ext fun ImageText(text: *u8, fontSize: i32, color: Color) Image;
+pub fun image_text(text: *u8, fontSize: i32, color: Color) Image { ret ImageText(text, fontSize, color); }
+#[library("raylib")]
+ext fun ImageTextEx(font: Font, text: *u8, fontSize: f32, spacing: f32, tint: Color) Image;
+pub fun image_text_ex(font: Font, text: *u8, fontSize: f32, spacing: f32, tint: Color) Image { ret ImageTextEx(font, text, fontSize, spacing, tint); }
+#[library("raylib")]
+ext fun ImageFormat(image: *Image, newFormat: i32) u8;
+pub fun image_format(image: *Image, newFormat: i32) u8 { ret ImageFormat(image, newFormat); }
+#[library("raylib")]
+ext fun ImageToPOT(image: *Image, fill: Color) u8;
+pub fun image_to_pot(image: *Image, fill: Color) u8 { ret ImageToPOT(image, fill); }
+#[library("raylib")]
+ext fun ImageCrop(image: *Image, crop: Rectangle) u8;
+pub fun image_crop(image: *Image, crop: Rectangle) u8 { ret ImageCrop(image, crop); }
+#[library("raylib")]
+ext fun ImageAlphaCrop(image: *Image, threshold: f32) u8;
+pub fun image_alpha_crop(image: *Image, threshold: f32) u8 { ret ImageAlphaCrop(image, threshold); }
+#[library("raylib")]
+ext fun ImageAlphaClear(image: *Image, color: Color, threshold: f32) u8;
+pub fun image_alpha_clear(image: *Image, color: Color, threshold: f32) u8 { ret ImageAlphaClear(image, color, threshold); }
+#[library("raylib")]
+ext fun ImageAlphaMask(image: *Image, alphaMask: Image) u8;
+pub fun image_alpha_mask(image: *Image, alphaMask: Image) u8 { ret ImageAlphaMask(image, alphaMask); }
+#[library("raylib")]
+ext fun ImageAlphaPremultiply(image: *Image) u8;
+pub fun image_alpha_premultiply(image: *Image) u8 { ret ImageAlphaPremultiply(image); }
+#[library("raylib")]
+ext fun ImageBlurGaussian(image: *Image, blurSize: i32) u8;
+pub fun image_blur_gaussian(image: *Image, blurSize: i32) u8 { ret ImageBlurGaussian(image, blurSize); }
+#[library("raylib")]
+ext fun ImageKernelConvolution(image: *Image, kernel: *f32, kernelSize: i32) u8;
+pub fun image_kernel_convolution(image: *Image, kernel: *f32, kernelSize: i32) u8 { ret ImageKernelConvolution(image, kernel, kernelSize); }
+#[library("raylib")]
+ext fun ImageResize(image: *Image, newWidth: i32, newHeight: i32) u8;
+pub fun image_resize(image: *Image, newWidth: i32, newHeight: i32) u8 { ret ImageResize(image, newWidth, newHeight); }
+#[library("raylib")]
+ext fun ImageResizeNN(image: *Image, newWidth: i32, newHeight: i32) u8;
+pub fun image_resize_nn(image: *Image, newWidth: i32, newHeight: i32) u8 { ret ImageResizeNN(image, newWidth, newHeight); }
+#[library("raylib")]
+ext fun ImageResizeCanvas(image: *Image, newWidth: i32, newHeight: i32, offsetX: i32, offsetY: i32, fill: Color) u8;
+pub fun image_resize_canvas(image: *Image, newWidth: i32, newHeight: i32, offsetX: i32, offsetY: i32, fill: Color) u8 { ret ImageResizeCanvas(image, newWidth, newHeight, offsetX, offsetY, fill); }
+#[library("raylib")]
+ext fun ImageMipmaps(image: *Image) u8;
+pub fun image_mipmaps(image: *Image) u8 { ret ImageMipmaps(image); }
+#[library("raylib")]
+ext fun ImageDither(image: *Image, rBpp: i32, gBpp: i32, bBpp: i32, aBpp: i32) u8;
+pub fun image_dither(image: *Image, rBpp: i32, gBpp: i32, bBpp: i32, aBpp: i32) u8 { ret ImageDither(image, rBpp, gBpp, bBpp, aBpp); }
+#[library("raylib")]
+ext fun ImageFlipVertical(image: *Image) u8;
+pub fun image_flip_vertical(image: *Image) u8 { ret ImageFlipVertical(image); }
+#[library("raylib")]
+ext fun ImageFlipHorizontal(image: *Image) u8;
+pub fun image_flip_horizontal(image: *Image) u8 { ret ImageFlipHorizontal(image); }
+#[library("raylib")]
+ext fun ImageRotate(image: *Image, degrees: i32) u8;
+pub fun image_rotate(image: *Image, degrees: i32) u8 { ret ImageRotate(image, degrees); }
+#[library("raylib")]
+ext fun ImageRotateCW(image: *Image) u8;
+pub fun image_rotate_cw(image: *Image) u8 { ret ImageRotateCW(image); }
+#[library("raylib")]
+ext fun ImageRotateCCW(image: *Image) u8;
+pub fun image_rotate_ccw(image: *Image) u8 { ret ImageRotateCCW(image); }
+#[library("raylib")]
+ext fun ImageColorTint(image: *Image, color: Color) u8;
+pub fun image_color_tint(image: *Image, color: Color) u8 { ret ImageColorTint(image, color); }
+#[library("raylib")]
+ext fun ImageColorInvert(image: *Image) u8;
+pub fun image_color_invert(image: *Image) u8 { ret ImageColorInvert(image); }
+#[library("raylib")]
+ext fun ImageColorGrayscale(image: *Image) u8;
+pub fun image_color_grayscale(image: *Image) u8 { ret ImageColorGrayscale(image); }
+#[library("raylib")]
+ext fun ImageColorContrast(image: *Image, contrast: i32) u8;
+pub fun image_color_contrast(image: *Image, contrast: i32) u8 { ret ImageColorContrast(image, contrast); }
+#[library("raylib")]
+ext fun ImageColorBrightness(image: *Image, brightness: i32) u8;
+pub fun image_color_brightness(image: *Image, brightness: i32) u8 { ret ImageColorBrightness(image, brightness); }
+#[library("raylib")]
+ext fun ImageColorReplace(image: *Image, color: Color, replace: Color) u8;
+pub fun image_color_replace(image: *Image, color: Color, replace: Color) u8 { ret ImageColorReplace(image, color, replace); }
+#[library("raylib")]
+ext fun LoadImageColors(image: Image) *Color;
+pub fun load_image_colors(image: Image) *Color { ret LoadImageColors(image); }
+#[library("raylib")]
+ext fun LoadImagePalette(image: Image, maxPaletteSize: i32, colorCount: *i32) *Color;
+pub fun load_image_palette(image: Image, maxPaletteSize: i32, colorCount: *i32) *Color { ret LoadImagePalette(image, maxPaletteSize, colorCount); }
+#[library("raylib")]
+ext fun UnloadImageColors(colors: *Color) u8;
+pub fun unload_image_colors(colors: *Color) u8 { ret UnloadImageColors(colors); }
+#[library("raylib")]
+ext fun UnloadImagePalette(colors: *Color) u8;
+pub fun unload_image_palette(colors: *Color) u8 { ret UnloadImagePalette(colors); }
+#[library("raylib")]
+ext fun GetImageAlphaBorder(image: Image, threshold: f32) Rectangle;
+pub fun get_image_alpha_border(image: Image, threshold: f32) Rectangle { ret GetImageAlphaBorder(image, threshold); }
+#[library("raylib")]
+ext fun GetImageColor(image: Image, x: i32, y: i32) Color;
+pub fun get_image_color(image: Image, x: i32, y: i32) Color { ret GetImageColor(image, x, y); }
+#[library("raylib")]
+ext fun ImageClearBackground(dst: *Image, color: Color) u8;
+pub fun image_clear_background(dst: *Image, color: Color) u8 { ret ImageClearBackground(dst, color); }
+#[library("raylib")]
+ext fun ImageDrawPixel(dst: *Image, posX: i32, posY: i32, color: Color) u8;
+pub fun image_draw_pixel(dst: *Image, posX: i32, posY: i32, color: Color) u8 { ret ImageDrawPixel(dst, posX, posY, color); }
+#[library("raylib")]
+ext fun ImageDrawPixelV(dst: *Image, position: Vector2, color: Color) u8;
+pub fun image_draw_pixel_v(dst: *Image, position: Vector2, color: Color) u8 { ret ImageDrawPixelV(dst, position, color); }
+#[library("raylib")]
+ext fun ImageDrawLine(dst: *Image, startPosX: i32, startPosY: i32, endPosX: i32, endPosY: i32, color: Color) u8;
+pub fun image_draw_line(dst: *Image, startPosX: i32, startPosY: i32, endPosX: i32, endPosY: i32, color: Color) u8 { ret ImageDrawLine(dst, startPosX, startPosY, endPosX, endPosY, color); }
+#[library("raylib")]
+ext fun ImageDrawLineV(dst: *Image, start: Vector2, end: Vector2, color: Color) u8;
+pub fun image_draw_line_v(dst: *Image, start: Vector2, end: Vector2, color: Color) u8 { ret ImageDrawLineV(dst, start, end, color); }
+#[library("raylib")]
+ext fun ImageDrawLineEx(dst: *Image, start: Vector2, end: Vector2, thick: i32, color: Color) u8;
+pub fun image_draw_line_ex(dst: *Image, start: Vector2, end: Vector2, thick: i32, color: Color) u8 { ret ImageDrawLineEx(dst, start, end, thick, color); }
+#[library("raylib")]
+ext fun ImageDrawLineStrip(dst: *Image, points: *Vector2, pointCount: i32, color: Color) u8;
+pub fun image_draw_line_strip(dst: *Image, points: *Vector2, pointCount: i32, color: Color) u8 { ret ImageDrawLineStrip(dst, points, pointCount, color); }
+#[library("raylib")]
+ext fun ImageDrawTriangle(dst: *Image, v1: Vector2, v2: Vector2, v3: Vector2, color: Color) u8;
+pub fun image_draw_triangle(dst: *Image, v1: Vector2, v2: Vector2, v3: Vector2, color: Color) u8 { ret ImageDrawTriangle(dst, v1, v2, v3, color); }
+#[library("raylib")]
+ext fun ImageDrawTriangleGradient(dst: *Image, v1: Vector2, v2: Vector2, v3: Vector2, c1: Color, c2: Color, c3: Color) u8;
+pub fun image_draw_triangle_gradient(dst: *Image, v1: Vector2, v2: Vector2, v3: Vector2, c1: Color, c2: Color, c3: Color) u8 { ret ImageDrawTriangleGradient(dst, v1, v2, v3, c1, c2, c3); }
+#[library("raylib")]
+ext fun ImageDrawTriangleLines(dst: *Image, v1: Vector2, v2: Vector2, v3: Vector2, color: Color) u8;
+pub fun image_draw_triangle_lines(dst: *Image, v1: Vector2, v2: Vector2, v3: Vector2, color: Color) u8 { ret ImageDrawTriangleLines(dst, v1, v2, v3, color); }
+#[library("raylib")]
+ext fun ImageDrawTriangleFan(dst: *Image, points: *Vector2, pointCount: i32, color: Color) u8;
+pub fun image_draw_triangle_fan(dst: *Image, points: *Vector2, pointCount: i32, color: Color) u8 { ret ImageDrawTriangleFan(dst, points, pointCount, color); }
+#[library("raylib")]
+ext fun ImageDrawTriangleStrip(dst: *Image, points: *Vector2, pointCount: i32, color: Color) u8;
+pub fun image_draw_triangle_strip(dst: *Image, points: *Vector2, pointCount: i32, color: Color) u8 { ret ImageDrawTriangleStrip(dst, points, pointCount, color); }
+#[library("raylib")]
+ext fun ImageDrawRectangle(dst: *Image, posX: i32, posY: i32, width: i32, height: i32, color: Color) u8;
+pub fun image_draw_rectangle(dst: *Image, posX: i32, posY: i32, width: i32, height: i32, color: Color) u8 { ret ImageDrawRectangle(dst, posX, posY, width, height, color); }
+#[library("raylib")]
+ext fun ImageDrawRectangleV(dst: *Image, position: Vector2, size: Vector2, color: Color) u8;
+pub fun image_draw_rectangle_v(dst: *Image, position: Vector2, size: Vector2, color: Color) u8 { ret ImageDrawRectangleV(dst, position, size, color); }
+#[library("raylib")]
+ext fun ImageDrawRectangleRec(dst: *Image, rec: Rectangle, color: Color) u8;
+pub fun image_draw_rectangle_rec(dst: *Image, rec: Rectangle, color: Color) u8 { ret ImageDrawRectangleRec(dst, rec, color); }
+#[library("raylib")]
+ext fun ImageDrawRectanglePro(dst: *Image, rec: Rectangle, origin: Vector2, rotation: f32, color: Color) u8;
+pub fun image_draw_rectangle_pro(dst: *Image, rec: Rectangle, origin: Vector2, rotation: f32, color: Color) u8 { ret ImageDrawRectanglePro(dst, rec, origin, rotation, color); }
+#[library("raylib")]
+ext fun ImageDrawRectangleLines(dst: *Image, posX: i32, posY: i32, width: i32, height: i32, color: Color) u8;
+pub fun image_draw_rectangle_lines(dst: *Image, posX: i32, posY: i32, width: i32, height: i32, color: Color) u8 { ret ImageDrawRectangleLines(dst, posX, posY, width, height, color); }
+#[library("raylib")]
+ext fun ImageDrawRectangleLinesEx(dst: *Image, rec: Rectangle, thick: i32, color: Color) u8;
+pub fun image_draw_rectangle_lines_ex(dst: *Image, rec: Rectangle, thick: i32, color: Color) u8 { ret ImageDrawRectangleLinesEx(dst, rec, thick, color); }
+#[library("raylib")]
+ext fun ImageDrawRectangleGradientEx(dst: *Image, rec: Rectangle, col1: Color, col2: Color, col3: Color, col4: Color) u8;
+pub fun image_draw_rectangle_gradient_ex(dst: *Image, rec: Rectangle, col1: Color, col2: Color, col3: Color, col4: Color) u8 { ret ImageDrawRectangleGradientEx(dst, rec, col1, col2, col3, col4); }
+#[library("raylib")]
+ext fun ImageDrawCircle(dst: *Image, centerX: i32, centerY: i32, radius: i32, color: Color) u8;
+pub fun image_draw_circle(dst: *Image, centerX: i32, centerY: i32, radius: i32, color: Color) u8 { ret ImageDrawCircle(dst, centerX, centerY, radius, color); }
+#[library("raylib")]
+ext fun ImageDrawCircleV(dst: *Image, center: Vector2, radius: i32, color: Color) u8;
+pub fun image_draw_circle_v(dst: *Image, center: Vector2, radius: i32, color: Color) u8 { ret ImageDrawCircleV(dst, center, radius, color); }
+#[library("raylib")]
+ext fun ImageDrawCircleLines(dst: *Image, centerX: i32, centerY: i32, radius: i32, color: Color) u8;
+pub fun image_draw_circle_lines(dst: *Image, centerX: i32, centerY: i32, radius: i32, color: Color) u8 { ret ImageDrawCircleLines(dst, centerX, centerY, radius, color); }
+#[library("raylib")]
+ext fun ImageDrawCircleLinesV(dst: *Image, center: Vector2, radius: i32, color: Color) u8;
+pub fun image_draw_circle_lines_v(dst: *Image, center: Vector2, radius: i32, color: Color) u8 { ret ImageDrawCircleLinesV(dst, center, radius, color); }
+#[library("raylib")]
+ext fun ImageDrawCircleGradient(dst: *Image, center: Vector2, radius: f32, inner: Color, outer: Color) u8;
+pub fun image_draw_circle_gradient(dst: *Image, center: Vector2, radius: f32, inner: Color, outer: Color) u8 { ret ImageDrawCircleGradient(dst, center, radius, inner, outer); }
+#[library("raylib")]
+ext fun ImageDrawImage(dst: *Image, src: Image, posX: i32, posY: i32, tint: Color) u8;
+pub fun image_draw_image(dst: *Image, src: Image, posX: i32, posY: i32, tint: Color) u8 { ret ImageDrawImage(dst, src, posX, posY, tint); }
+#[library("raylib")]
+ext fun ImageDrawImageEx(dst: *Image, src: Image, position: Vector2, rotation: f32, scale: f32, tint: Color) u8;
+pub fun image_draw_image_ex(dst: *Image, src: Image, position: Vector2, rotation: f32, scale: f32, tint: Color) u8 { ret ImageDrawImageEx(dst, src, position, rotation, scale, tint); }
+#[library("raylib")]
+ext fun ImageDrawImageRec(dst: *Image, src: Image, srcRec: Rectangle, position: Vector2, tint: Color) u8;
+pub fun image_draw_image_rec(dst: *Image, src: Image, srcRec: Rectangle, position: Vector2, tint: Color) u8 { ret ImageDrawImageRec(dst, src, srcRec, position, tint); }
+#[library("raylib")]
+ext fun ImageDrawImagePro(dst: *Image, src: Image, srcRec: Rectangle, dstRec: Rectangle, origin: Vector2, rotation: f32, tint: Color) u8;
+pub fun image_draw_image_pro(dst: *Image, src: Image, srcRec: Rectangle, dstRec: Rectangle, origin: Vector2, rotation: f32, tint: Color) u8 { ret ImageDrawImagePro(dst, src, srcRec, dstRec, origin, rotation, tint); }
+#[library("raylib")]
+ext fun ImageDrawText(dst: *Image, text: *u8, posX: i32, posY: i32, fontSize: i32, color: Color) u8;
+pub fun image_draw_text(dst: *Image, text: *u8, posX: i32, posY: i32, fontSize: i32, color: Color) u8 { ret ImageDrawText(dst, text, posX, posY, fontSize, color); }
+#[library("raylib")]
+ext fun ImageDrawTextEx(dst: *Image, font: Font, text: *u8, position: Vector2, fontSize: f32, spacing: f32, tint: Color) u8;
+pub fun image_draw_text_ex(dst: *Image, font: Font, text: *u8, position: Vector2, fontSize: f32, spacing: f32, tint: Color) u8 { ret ImageDrawTextEx(dst, font, text, position, fontSize, spacing, tint); }
+#[library("raylib")]
+ext fun ImageDrawTextPro(dst: *Image, font: Font, text: *u8, position: Vector2, origin: Vector2, rotation: f32, fontSize: f32, spacing: f32, tint: Color) u8;
+pub fun image_draw_text_pro(dst: *Image, font: Font, text: *u8, position: Vector2, origin: Vector2, rotation: f32, fontSize: f32, spacing: f32, tint: Color) u8 { ret ImageDrawTextPro(dst, font, text, position, origin, rotation, fontSize, spacing, tint); }
+#[library("raylib")]
+ext fun LoadTexture(fileName: *u8) Texture2D;
+pub fun load_texture(fileName: *u8) Texture2D { ret LoadTexture(fileName); }
+#[library("raylib")]
+ext fun LoadTextureFromImage(image: Image) Texture2D;
+pub fun load_texture_from_image(image: Image) Texture2D { ret LoadTextureFromImage(image); }
+#[library("raylib")]
+ext fun LoadTextureCubemap(image: Image, layout: i32) TextureCubemap;
+pub fun load_texture_cubemap(image: Image, layout: i32) TextureCubemap { ret LoadTextureCubemap(image, layout); }
+#[library("raylib")]
+ext fun LoadRenderTexture(width: i32, height: i32) RenderTexture2D;
+pub fun load_render_texture(width: i32, height: i32) RenderTexture2D { ret LoadRenderTexture(width, height); }
+#[library("raylib")]
+ext fun IsTextureValid(texture: Texture2D) bool;
+pub fun is_texture_valid(texture: Texture2D) bool { ret IsTextureValid(texture); }
+#[library("raylib")]
+ext fun UnloadTexture(texture: Texture2D) u8;
+pub fun unload_texture(texture: Texture2D) u8 { ret UnloadTexture(texture); }
+#[library("raylib")]
+ext fun IsRenderTextureValid(target: RenderTexture2D) bool;
+pub fun is_render_texture_valid(target: RenderTexture2D) bool { ret IsRenderTextureValid(target); }
+#[library("raylib")]
+ext fun UnloadRenderTexture(target: RenderTexture2D) u8;
+pub fun unload_render_texture(target: RenderTexture2D) u8 { ret UnloadRenderTexture(target); }
+#[library("raylib")]
+ext fun UpdateTexture(texture: Texture2D, pixels: ptr) u8;
+pub fun update_texture(texture: Texture2D, pixels: ptr) u8 { ret UpdateTexture(texture, pixels); }
+#[library("raylib")]
+ext fun UpdateTextureRec(texture: Texture2D, rec: Rectangle, pixels: ptr) u8;
+pub fun update_texture_rec(texture: Texture2D, rec: Rectangle, pixels: ptr) u8 { ret UpdateTextureRec(texture, rec, pixels); }
+#[library("raylib")]
+ext fun GenTextureMipmaps(texture: *Texture2D) u8;
+pub fun gen_texture_mipmaps(texture: *Texture2D) u8 { ret GenTextureMipmaps(texture); }
+#[library("raylib")]
+ext fun SetTextureFilter(texture: Texture2D, filter: i32) u8;
+pub fun set_texture_filter(texture: Texture2D, filter: i32) u8 { ret SetTextureFilter(texture, filter); }
+#[library("raylib")]
+ext fun SetTextureWrap(texture: Texture2D, wrap: i32) u8;
+pub fun set_texture_wrap(texture: Texture2D, wrap: i32) u8 { ret SetTextureWrap(texture, wrap); }
+#[library("raylib")]
+ext fun DrawTexture(texture: Texture2D, posX: i32, posY: i32, tint: Color) u8;
+pub fun draw_texture(texture: Texture2D, posX: i32, posY: i32, tint: Color) u8 { ret DrawTexture(texture, posX, posY, tint); }
+#[library("raylib")]
+ext fun DrawTextureV(texture: Texture2D, position: Vector2, tint: Color) u8;
+pub fun draw_texture_v(texture: Texture2D, position: Vector2, tint: Color) u8 { ret DrawTextureV(texture, position, tint); }
+#[library("raylib")]
+ext fun DrawTextureEx(texture: Texture2D, position: Vector2, rotation: f32, scale: f32, tint: Color) u8;
+pub fun draw_texture_ex(texture: Texture2D, position: Vector2, rotation: f32, scale: f32, tint: Color) u8 { ret DrawTextureEx(texture, position, rotation, scale, tint); }
+#[library("raylib")]
+ext fun DrawTextureRec(texture: Texture2D, rec: Rectangle, position: Vector2, tint: Color) u8;
+pub fun draw_texture_rec(texture: Texture2D, rec: Rectangle, position: Vector2, tint: Color) u8 { ret DrawTextureRec(texture, rec, position, tint); }
+#[library("raylib")]
+ext fun DrawTexturePro(texture: Texture2D, srcrec: Rectangle, dstrec: Rectangle, origin: Vector2, rotation: f32, tint: Color) u8;
+pub fun draw_texture_pro(texture: Texture2D, srcrec: Rectangle, dstrec: Rectangle, origin: Vector2, rotation: f32, tint: Color) u8 { ret DrawTexturePro(texture, srcrec, dstrec, origin, rotation, tint); }
+#[library("raylib")]
+ext fun DrawTextureNPatch(texture: Texture2D, nPatchInfo: NPatchInfo, dstrec: Rectangle, origin: Vector2, rotation: f32, tint: Color) u8;
+pub fun draw_texture_n_patch(texture: Texture2D, nPatchInfo: NPatchInfo, dstrec: Rectangle, origin: Vector2, rotation: f32, tint: Color) u8 { ret DrawTextureNPatch(texture, nPatchInfo, dstrec, origin, rotation, tint); }
+#[library("raylib")]
+ext fun ColorIsEqual(col1: Color, col2: Color) bool;
+pub fun color_is_equal(col1: Color, col2: Color) bool { ret ColorIsEqual(col1, col2); }
+#[library("raylib")]
+ext fun Fade(color: Color, alpha: f32) Color;
+pub fun fade(color: Color, alpha: f32) Color { ret Fade(color, alpha); }
+#[library("raylib")]
+ext fun ColorToInt(color: Color) i32;
+pub fun color_to_int(color: Color) i32 { ret ColorToInt(color); }
+#[library("raylib")]
+ext fun ColorNormalize(color: Color) Vector4;
+pub fun color_normalize(color: Color) Vector4 { ret ColorNormalize(color); }
+#[library("raylib")]
+ext fun ColorFromNormalized(normalized: Vector4) Color;
+pub fun color_from_normalized(normalized: Vector4) Color { ret ColorFromNormalized(normalized); }
+#[library("raylib")]
+ext fun ColorToHSV(color: Color) Vector3;
+pub fun color_to_hsv(color: Color) Vector3 { ret ColorToHSV(color); }
+#[library("raylib")]
+ext fun ColorFromHSV(hue: f32, saturation: f32, value: f32) Color;
+pub fun color_from_hsv(hue: f32, saturation: f32, value: f32) Color { ret ColorFromHSV(hue, saturation, value); }
+#[library("raylib")]
+ext fun ColorTint(color: Color, tint: Color) Color;
+pub fun color_tint(color: Color, tint: Color) Color { ret ColorTint(color, tint); }
+#[library("raylib")]
+ext fun ColorBrightness(color: Color, factor: f32) Color;
+pub fun color_brightness(color: Color, factor: f32) Color { ret ColorBrightness(color, factor); }
+#[library("raylib")]
+ext fun ColorContrast(color: Color, contrast: f32) Color;
+pub fun color_contrast(color: Color, contrast: f32) Color { ret ColorContrast(color, contrast); }
+#[library("raylib")]
+ext fun ColorAlpha(color: Color, alpha: f32) Color;
+pub fun color_alpha(color: Color, alpha: f32) Color { ret ColorAlpha(color, alpha); }
+#[library("raylib")]
+ext fun ColorAlphaBlend(dst: Color, src: Color, tint: Color) Color;
+pub fun color_alpha_blend(dst: Color, src: Color, tint: Color) Color { ret ColorAlphaBlend(dst, src, tint); }
+#[library("raylib")]
+ext fun ColorLerp(color1: Color, color2: Color, factor: f32) Color;
+pub fun color_lerp(color1: Color, color2: Color, factor: f32) Color { ret ColorLerp(color1, color2, factor); }
+#[library("raylib")]
+ext fun GetColor(hexValue: u32) Color;
+pub fun get_color(hexValue: u32) Color { ret GetColor(hexValue); }
+#[library("raylib")]
+ext fun GetPixelColor(srcPtr: ptr, format: i32) Color;
+pub fun get_pixel_color(srcPtr: ptr, format: i32) Color { ret GetPixelColor(srcPtr, format); }
+#[library("raylib")]
+ext fun SetPixelColor(dstPtr: ptr, color: Color, format: i32) u8;
+pub fun set_pixel_color(dstPtr: ptr, color: Color, format: i32) u8 { ret SetPixelColor(dstPtr, color, format); }
+#[library("raylib")]
+ext fun GetPixelDataSize(width: i32, height: i32, format: i32) i32;
+pub fun get_pixel_data_size(width: i32, height: i32, format: i32) i32 { ret GetPixelDataSize(width, height, format); }
+#[library("raylib")]
+ext fun GetFontDefault() Font;
+pub fun get_font_default() Font { ret GetFontDefault(); }
+#[library("raylib")]
+ext fun LoadFont(fileName: *u8) Font;
+pub fun load_font(fileName: *u8) Font { ret LoadFont(fileName); }
+#[library("raylib")]
+ext fun LoadFontEx(fileName: *u8, fontSize: i32, codepoints: *i32, codepointCount: i32) Font;
+pub fun load_font_ex(fileName: *u8, fontSize: i32, codepoints: *i32, codepointCount: i32) Font { ret LoadFontEx(fileName, fontSize, codepoints, codepointCount); }
+#[library("raylib")]
+ext fun LoadFontFromImage(image: Image, key: Color, firstChar: i32) Font;
+pub fun load_font_from_image(image: Image, key: Color, firstChar: i32) Font { ret LoadFontFromImage(image, key, firstChar); }
+#[library("raylib")]
+ext fun LoadFontFromMemory(fileType: *u8, fileData: *u8, dataSize: i32, fontSize: i32, codepoints: *i32, codepointCount: i32) Font;
+pub fun load_font_from_memory(fileType: *u8, fileData: *u8, dataSize: i32, fontSize: i32, codepoints: *i32, codepointCount: i32) Font { ret LoadFontFromMemory(fileType, fileData, dataSize, fontSize, codepoints, codepointCount); }
+#[library("raylib")]
+ext fun IsFontValid(font: Font) bool;
+pub fun is_font_valid(font: Font) bool { ret IsFontValid(font); }
+#[library("raylib")]
+ext fun LoadFontData(fileData: *u8, dataSize: i32, fontSize: i32, codepoints: *i32, codepointCount: i32, type: i32, glyphCount: *i32) *GlyphInfo;
+pub fun load_font_data(fileData: *u8, dataSize: i32, fontSize: i32, codepoints: *i32, codepointCount: i32, type: i32, glyphCount: *i32) *GlyphInfo { ret LoadFontData(fileData, dataSize, fontSize, codepoints, codepointCount, type, glyphCount); }
+#[library("raylib")]
+ext fun GenImageFontAtlas(glyphs: *GlyphInfo, glyphRecs: *Rectangle, glyphCount: i32, fontSize: i32, padding: i32, packMethod: i32) Image;
+pub fun gen_image_font_atlas(glyphs: *GlyphInfo, glyphRecs: *Rectangle, glyphCount: i32, fontSize: i32, padding: i32, packMethod: i32) Image { ret GenImageFontAtlas(glyphs, glyphRecs, glyphCount, fontSize, padding, packMethod); }
+#[library("raylib")]
+ext fun UnloadFontData(glyphs: *GlyphInfo, glyphCount: i32) u8;
+pub fun unload_font_data(glyphs: *GlyphInfo, glyphCount: i32) u8 { ret UnloadFontData(glyphs, glyphCount); }
+#[library("raylib")]
+ext fun UnloadFont(font: Font) u8;
+pub fun unload_font(font: Font) u8 { ret UnloadFont(font); }
+#[library("raylib")]
+ext fun ExportFontAsCode(font: Font, fileName: *u8) bool;
+pub fun export_font_as_code(font: Font, fileName: *u8) bool { ret ExportFontAsCode(font, fileName); }
+#[library("raylib")]
+ext fun DrawFPS(posX: i32, posY: i32) u8;
+pub fun draw_fps(posX: i32, posY: i32) u8 { ret DrawFPS(posX, posY); }
+#[library("raylib")]
+ext fun DrawText(text: *u8, posX: i32, posY: i32, fontSize: i32, color: Color) u8;
+pub fun draw_text(text: *u8, posX: i32, posY: i32, fontSize: i32, color: Color) u8 { ret DrawText(text, posX, posY, fontSize, color); }
+#[library("raylib")]
+ext fun DrawTextEx(font: Font, text: *u8, position: Vector2, fontSize: f32, spacing: f32, tint: Color) u8;
+pub fun draw_text_ex(font: Font, text: *u8, position: Vector2, fontSize: f32, spacing: f32, tint: Color) u8 { ret DrawTextEx(font, text, position, fontSize, spacing, tint); }
+#[library("raylib")]
+ext fun DrawTextPro(font: Font, text: *u8, position: Vector2, origin: Vector2, rotation: f32, fontSize: f32, spacing: f32, tint: Color) u8;
+pub fun draw_text_pro(font: Font, text: *u8, position: Vector2, origin: Vector2, rotation: f32, fontSize: f32, spacing: f32, tint: Color) u8 { ret DrawTextPro(font, text, position, origin, rotation, fontSize, spacing, tint); }
+#[library("raylib")]
+ext fun DrawTextCodepoint(font: Font, codepoint: i32, position: Vector2, fontSize: f32, tint: Color) u8;
+pub fun draw_text_codepoint(font: Font, codepoint: i32, position: Vector2, fontSize: f32, tint: Color) u8 { ret DrawTextCodepoint(font, codepoint, position, fontSize, tint); }
+#[library("raylib")]
+ext fun DrawTextCodepoints(font: Font, codepoints: *i32, codepointCount: i32, position: Vector2, fontSize: f32, spacing: f32, tint: Color) u8;
+pub fun draw_text_codepoints(font: Font, codepoints: *i32, codepointCount: i32, position: Vector2, fontSize: f32, spacing: f32, tint: Color) u8 { ret DrawTextCodepoints(font, codepoints, codepointCount, position, fontSize, spacing, tint); }
+#[library("raylib")]
+ext fun SetTextLineSpacing(spacing: i32) u8;
+pub fun set_text_line_spacing(spacing: i32) u8 { ret SetTextLineSpacing(spacing); }
+#[library("raylib")]
+ext fun MeasureText(text: *u8, fontSize: i32) i32;
+pub fun measure_text(text: *u8, fontSize: i32) i32 { ret MeasureText(text, fontSize); }
+#[library("raylib")]
+ext fun MeasureTextEx(font: Font, text: *u8, fontSize: f32, spacing: f32) Vector2;
+pub fun measure_text_ex(font: Font, text: *u8, fontSize: f32, spacing: f32) Vector2 { ret MeasureTextEx(font, text, fontSize, spacing); }
+#[library("raylib")]
+ext fun MeasureTextCodepoints(font: Font, codepoints: *i32, length: i32, fontSize: f32, spacing: f32) Vector2;
+pub fun measure_text_codepoints(font: Font, codepoints: *i32, length: i32, fontSize: f32, spacing: f32) Vector2 { ret MeasureTextCodepoints(font, codepoints, length, fontSize, spacing); }
+#[library("raylib")]
+ext fun GetGlyphIndex(font: Font, codepoint: i32) i32;
+pub fun get_glyph_index(font: Font, codepoint: i32) i32 { ret GetGlyphIndex(font, codepoint); }
+#[library("raylib")]
+ext fun GetGlyphInfo(font: Font, codepoint: i32) GlyphInfo;
+pub fun get_glyph_info(font: Font, codepoint: i32) GlyphInfo { ret GetGlyphInfo(font, codepoint); }
+#[library("raylib")]
+ext fun GetGlyphAtlasRec(font: Font, codepoint: i32) Rectangle;
+pub fun get_glyph_atlas_rec(font: Font, codepoint: i32) Rectangle { ret GetGlyphAtlasRec(font, codepoint); }
+#[library("raylib")]
+ext fun LoadUTF8(codepoints: *i32, length: i32) *u8;
+pub fun load_utf8(codepoints: *i32, length: i32) *u8 { ret LoadUTF8(codepoints, length); }
+#[library("raylib")]
+ext fun UnloadUTF8(text: *u8) u8;
+pub fun unload_utf8(text: *u8) u8 { ret UnloadUTF8(text); }
+#[library("raylib")]
+ext fun LoadCodepoints(text: *u8, count: *i32) *i32;
+pub fun load_codepoints(text: *u8, count: *i32) *i32 { ret LoadCodepoints(text, count); }
+#[library("raylib")]
+ext fun UnloadCodepoints(codepoints: *i32) u8;
+pub fun unload_codepoints(codepoints: *i32) u8 { ret UnloadCodepoints(codepoints); }
+#[library("raylib")]
+ext fun GetCodepointCount(text: *u8) i32;
+pub fun get_codepoint_count(text: *u8) i32 { ret GetCodepointCount(text); }
+#[library("raylib")]
+ext fun GetCodepoint(text: *u8, codepointSize: *i32) i32;
+pub fun get_codepoint(text: *u8, codepointSize: *i32) i32 { ret GetCodepoint(text, codepointSize); }
+#[library("raylib")]
+ext fun GetCodepointNext(text: *u8, codepointSize: *i32) i32;
+pub fun get_codepoint_next(text: *u8, codepointSize: *i32) i32 { ret GetCodepointNext(text, codepointSize); }
+#[library("raylib")]
+ext fun GetCodepointPrevious(text: *u8, codepointSize: *i32) i32;
+pub fun get_codepoint_previous(text: *u8, codepointSize: *i32) i32 { ret GetCodepointPrevious(text, codepointSize); }
+#[library("raylib")]
+ext fun CodepointToUTF8(codepoint: i32, utf8Size: *i32) *u8;
+pub fun codepoint_to_utf8(codepoint: i32, utf8Size: *i32) *u8 { ret CodepointToUTF8(codepoint, utf8Size); }
+#[library("raylib")]
+ext fun LoadTextLines(text: *u8, count: *i32) *u8;
+pub fun load_text_lines(text: *u8, count: *i32) *u8 { ret LoadTextLines(text, count); }
+#[library("raylib")]
+ext fun UnloadTextLines(text: *u8, lineCount: i32) u8;
+pub fun unload_text_lines(text: *u8, lineCount: i32) u8 { ret UnloadTextLines(text, lineCount); }
+#[library("raylib")]
+ext fun TextCopy(dst: *u8, src: *u8) i32;
+pub fun text_copy(dst: *u8, src: *u8) i32 { ret TextCopy(dst, src); }
+#[library("raylib")]
+ext fun TextIsEqual(text1: *u8, text2: *u8) bool;
+pub fun text_is_equal(text1: *u8, text2: *u8) bool { ret TextIsEqual(text1, text2); }
+#[library("raylib")]
+ext fun TextLength(text: *u8) u32;
+pub fun text_length(text: *u8) u32 { ret TextLength(text); }
+#[library("raylib")]
+ext fun TextFormat(text: *u8, va: ...) *u8;
+pub fun text_format(text: *u8, va: ...) *u8 { ret TextFormat(text, va...); }
+#[library("raylib")]
+ext fun TextSubtext(text: *u8, position: i32, length: i32) *u8;
+pub fun text_subtext(text: *u8, position: i32, length: i32) *u8 { ret TextSubtext(text, position, length); }
+#[library("raylib")]
+ext fun TextRemoveSpaces(text: *u8) *u8;
+pub fun text_remove_spaces(text: *u8) *u8 { ret TextRemoveSpaces(text); }
+#[library("raylib")]
+ext fun GetTextBetween(text: *u8, begin: *u8, end: *u8) *u8;
+pub fun get_text_between(text: *u8, begin: *u8, end: *u8) *u8 { ret GetTextBetween(text, begin, end); }
+#[library("raylib")]
+ext fun TextReplace(text: *u8, search: *u8, replacement: *u8) *u8;
+pub fun text_replace(text: *u8, search: *u8, replacement: *u8) *u8 { ret TextReplace(text, search, replacement); }
+#[library("raylib")]
+ext fun TextReplaceAlloc(text: *u8, search: *u8, replacement: *u8) *u8;
+pub fun text_replace_alloc(text: *u8, search: *u8, replacement: *u8) *u8 { ret TextReplaceAlloc(text, search, replacement); }
+#[library("raylib")]
+ext fun TextReplaceBetween(text: *u8, begin: *u8, end: *u8, replacement: *u8) *u8;
+pub fun text_replace_between(text: *u8, begin: *u8, end: *u8, replacement: *u8) *u8 { ret TextReplaceBetween(text, begin, end, replacement); }
+#[library("raylib")]
+ext fun TextReplaceBetweenAlloc(text: *u8, begin: *u8, end: *u8, replacement: *u8) *u8;
+pub fun text_replace_between_alloc(text: *u8, begin: *u8, end: *u8, replacement: *u8) *u8 { ret TextReplaceBetweenAlloc(text, begin, end, replacement); }
+#[library("raylib")]
+ext fun TextInsert(text: *u8, insert: *u8, position: i32) *u8;
+pub fun text_insert(text: *u8, insert: *u8, position: i32) *u8 { ret TextInsert(text, insert, position); }
+#[library("raylib")]
+ext fun TextInsertAlloc(text: *u8, insert: *u8, position: i32) *u8;
+pub fun text_insert_alloc(text: *u8, insert: *u8, position: i32) *u8 { ret TextInsertAlloc(text, insert, position); }
+#[library("raylib")]
+ext fun TextJoin(textList: *u8, count: i32, delimiter: *u8) *u8;
+pub fun text_join(textList: *u8, count: i32, delimiter: *u8) *u8 { ret TextJoin(textList, count, delimiter); }
+#[library("raylib")]
+ext fun TextSplit(text: *u8, delimiter: u8, count: *i32) *u8;
+pub fun text_split(text: *u8, delimiter: u8, count: *i32) *u8 { ret TextSplit(text, delimiter, count); }
+#[library("raylib")]
+ext fun TextAppend(text: *u8, append: *u8, position: *i32) u8;
+pub fun text_append(text: *u8, append: *u8, position: *i32) u8 { ret TextAppend(text, append, position); }
+#[library("raylib")]
+ext fun TextFindIndex(text: *u8, search: *u8) i32;
+pub fun text_find_index(text: *u8, search: *u8) i32 { ret TextFindIndex(text, search); }
+#[library("raylib")]
+ext fun TextToUpper(text: *u8) *u8;
+pub fun text_to_upper(text: *u8) *u8 { ret TextToUpper(text); }
+#[library("raylib")]
+ext fun TextToLower(text: *u8) *u8;
+pub fun text_to_lower(text: *u8) *u8 { ret TextToLower(text); }
+#[library("raylib")]
+ext fun TextToPascal(text: *u8) *u8;
+pub fun text_to_pascal(text: *u8) *u8 { ret TextToPascal(text); }
+#[library("raylib")]
+ext fun TextToSnake(text: *u8) *u8;
+pub fun text_to_snake(text: *u8) *u8 { ret TextToSnake(text); }
+#[library("raylib")]
+ext fun TextToCamel(text: *u8) *u8;
+pub fun text_to_camel(text: *u8) *u8 { ret TextToCamel(text); }
+#[library("raylib")]
+ext fun TextToInteger(text: *u8) i32;
+pub fun text_to_integer(text: *u8) i32 { ret TextToInteger(text); }
+#[library("raylib")]
+ext fun TextToFloat(text: *u8) f32;
+pub fun text_to_float(text: *u8) f32 { ret TextToFloat(text); }
+#[library("raylib")]
+ext fun DrawLine3D(startPos: Vector3, endPos: Vector3, color: Color) u8;
+pub fun draw_line3_d(startPos: Vector3, endPos: Vector3, color: Color) u8 { ret DrawLine3D(startPos, endPos, color); }
+#[library("raylib")]
+ext fun DrawPoint3D(position: Vector3, color: Color) u8;
+pub fun draw_point3_d(position: Vector3, color: Color) u8 { ret DrawPoint3D(position, color); }
+#[library("raylib")]
+ext fun DrawCircle3D(center: Vector3, radius: f32, rotationAxis: Vector3, rotationAngle: f32, color: Color) u8;
+pub fun draw_circle3_d(center: Vector3, radius: f32, rotationAxis: Vector3, rotationAngle: f32, color: Color) u8 { ret DrawCircle3D(center, radius, rotationAxis, rotationAngle, color); }
+#[library("raylib")]
+ext fun DrawTriangle3D(v1: Vector3, v2: Vector3, v3: Vector3, color: Color) u8;
+pub fun draw_triangle3_d(v1: Vector3, v2: Vector3, v3: Vector3, color: Color) u8 { ret DrawTriangle3D(v1, v2, v3, color); }
+#[library("raylib")]
+ext fun DrawTriangleStrip3D(points: *Vector3, pointCount: i32, color: Color) u8;
+pub fun draw_triangle_strip3_d(points: *Vector3, pointCount: i32, color: Color) u8 { ret DrawTriangleStrip3D(points, pointCount, color); }
+#[library("raylib")]
+ext fun DrawCube(position: Vector3, width: f32, height: f32, length: f32, color: Color) u8;
+pub fun draw_cube(position: Vector3, width: f32, height: f32, length: f32, color: Color) u8 { ret DrawCube(position, width, height, length, color); }
+#[library("raylib")]
+ext fun DrawCubeV(position: Vector3, size: Vector3, color: Color) u8;
+pub fun draw_cube_v(position: Vector3, size: Vector3, color: Color) u8 { ret DrawCubeV(position, size, color); }
+#[library("raylib")]
+ext fun DrawCubeWires(position: Vector3, width: f32, height: f32, length: f32, color: Color) u8;
+pub fun draw_cube_wires(position: Vector3, width: f32, height: f32, length: f32, color: Color) u8 { ret DrawCubeWires(position, width, height, length, color); }
+#[library("raylib")]
+ext fun DrawCubeWiresV(position: Vector3, size: Vector3, color: Color) u8;
+pub fun draw_cube_wires_v(position: Vector3, size: Vector3, color: Color) u8 { ret DrawCubeWiresV(position, size, color); }
+#[library("raylib")]
+ext fun DrawSphere(centerPos: Vector3, radius: f32, color: Color) u8;
+pub fun draw_sphere(centerPos: Vector3, radius: f32, color: Color) u8 { ret DrawSphere(centerPos, radius, color); }
+#[library("raylib")]
+ext fun DrawSphereEx(centerPos: Vector3, radius: f32, rings: i32, slices: i32, color: Color) u8;
+pub fun draw_sphere_ex(centerPos: Vector3, radius: f32, rings: i32, slices: i32, color: Color) u8 { ret DrawSphereEx(centerPos, radius, rings, slices, color); }
+#[library("raylib")]
+ext fun DrawSphereWires(centerPos: Vector3, radius: f32, rings: i32, slices: i32, color: Color) u8;
+pub fun draw_sphere_wires(centerPos: Vector3, radius: f32, rings: i32, slices: i32, color: Color) u8 { ret DrawSphereWires(centerPos, radius, rings, slices, color); }
+#[library("raylib")]
+ext fun DrawCylinder(position: Vector3, radiusTop: f32, radiusBottom: f32, height: f32, sides: i32, color: Color) u8;
+pub fun draw_cylinder(position: Vector3, radiusTop: f32, radiusBottom: f32, height: f32, sides: i32, color: Color) u8 { ret DrawCylinder(position, radiusTop, radiusBottom, height, sides, color); }
+#[library("raylib")]
+ext fun DrawCylinderEx(startPos: Vector3, endPos: Vector3, startRadius: f32, endRadius: f32, sides: i32, color: Color) u8;
+pub fun draw_cylinder_ex(startPos: Vector3, endPos: Vector3, startRadius: f32, endRadius: f32, sides: i32, color: Color) u8 { ret DrawCylinderEx(startPos, endPos, startRadius, endRadius, sides, color); }
+#[library("raylib")]
+ext fun DrawCylinderWires(position: Vector3, radiusTop: f32, radiusBottom: f32, height: f32, sides: i32, color: Color) u8;
+pub fun draw_cylinder_wires(position: Vector3, radiusTop: f32, radiusBottom: f32, height: f32, sides: i32, color: Color) u8 { ret DrawCylinderWires(position, radiusTop, radiusBottom, height, sides, color); }
+#[library("raylib")]
+ext fun DrawCylinderWiresEx(startPos: Vector3, endPos: Vector3, startRadius: f32, endRadius: f32, sides: i32, color: Color) u8;
+pub fun draw_cylinder_wires_ex(startPos: Vector3, endPos: Vector3, startRadius: f32, endRadius: f32, sides: i32, color: Color) u8 { ret DrawCylinderWiresEx(startPos, endPos, startRadius, endRadius, sides, color); }
+#[library("raylib")]
+ext fun DrawCapsule(startPos: Vector3, endPos: Vector3, radius: f32, rings: i32, slices: i32, color: Color) u8;
+pub fun draw_capsule(startPos: Vector3, endPos: Vector3, radius: f32, rings: i32, slices: i32, color: Color) u8 { ret DrawCapsule(startPos, endPos, radius, rings, slices, color); }
+#[library("raylib")]
+ext fun DrawCapsuleWires(startPos: Vector3, endPos: Vector3, radius: f32, rings: i32, slices: i32, color: Color) u8;
+pub fun draw_capsule_wires(startPos: Vector3, endPos: Vector3, radius: f32, rings: i32, slices: i32, color: Color) u8 { ret DrawCapsuleWires(startPos, endPos, radius, rings, slices, color); }
+#[library("raylib")]
+ext fun DrawPlane(centerPos: Vector3, size: Vector2, color: Color) u8;
+pub fun draw_plane(centerPos: Vector3, size: Vector2, color: Color) u8 { ret DrawPlane(centerPos, size, color); }
+#[library("raylib")]
+ext fun DrawRay(ray: Ray, color: Color) u8;
+pub fun draw_ray(ray: Ray, color: Color) u8 { ret DrawRay(ray, color); }
+#[library("raylib")]
+ext fun DrawGrid(slices: i32, spacing: f32) u8;
+pub fun draw_grid(slices: i32, spacing: f32) u8 { ret DrawGrid(slices, spacing); }
+#[library("raylib")]
+ext fun LoadModel(fileName: *u8) Model;
+pub fun load_model(fileName: *u8) Model { ret LoadModel(fileName); }
+#[library("raylib")]
+ext fun LoadModelFromMesh(mesh: Mesh) Model;
+pub fun load_model_from_mesh(mesh: Mesh) Model { ret LoadModelFromMesh(mesh); }
+#[library("raylib")]
+ext fun IsModelValid(model: Model) bool;
+pub fun is_model_valid(model: Model) bool { ret IsModelValid(model); }
+#[library("raylib")]
+ext fun UnloadModel(model: Model) u8;
+pub fun unload_model(model: Model) u8 { ret UnloadModel(model); }
+#[library("raylib")]
+ext fun GetModelBoundingBox(model: Model) BoundingBox;
+pub fun get_model_bounding_box(model: Model) BoundingBox { ret GetModelBoundingBox(model); }
+#[library("raylib")]
+ext fun DrawModel(model: Model, position: Vector3, scale: f32, tint: Color) u8;
+pub fun draw_model(model: Model, position: Vector3, scale: f32, tint: Color) u8 { ret DrawModel(model, position, scale, tint); }
+#[library("raylib")]
+ext fun DrawModelEx(model: Model, position: Vector3, rotationAxis: Vector3, rotationAngle: f32, scale: Vector3, tint: Color) u8;
+pub fun draw_model_ex(model: Model, position: Vector3, rotationAxis: Vector3, rotationAngle: f32, scale: Vector3, tint: Color) u8 { ret DrawModelEx(model, position, rotationAxis, rotationAngle, scale, tint); }
+#[library("raylib")]
+ext fun DrawModelWires(model: Model, position: Vector3, scale: f32, tint: Color) u8;
+pub fun draw_model_wires(model: Model, position: Vector3, scale: f32, tint: Color) u8 { ret DrawModelWires(model, position, scale, tint); }
+#[library("raylib")]
+ext fun DrawModelWiresEx(model: Model, position: Vector3, rotationAxis: Vector3, rotationAngle: f32, scale: Vector3, tint: Color) u8;
+pub fun draw_model_wires_ex(model: Model, position: Vector3, rotationAxis: Vector3, rotationAngle: f32, scale: Vector3, tint: Color) u8 { ret DrawModelWiresEx(model, position, rotationAxis, rotationAngle, scale, tint); }
+#[library("raylib")]
+ext fun DrawBoundingBox(box: BoundingBox, color: Color) u8;
+pub fun draw_bounding_box(box: BoundingBox, color: Color) u8 { ret DrawBoundingBox(box, color); }
+#[library("raylib")]
+ext fun DrawBillboard(camera: Camera, texture: Texture2D, position: Vector3, scale: f32, tint: Color) u8;
+pub fun draw_billboard(camera: Camera, texture: Texture2D, position: Vector3, scale: f32, tint: Color) u8 { ret DrawBillboard(camera, texture, position, scale, tint); }
+#[library("raylib")]
+ext fun DrawBillboardRec(camera: Camera, texture: Texture2D, rec: Rectangle, position: Vector3, size: Vector2, tint: Color) u8;
+pub fun draw_billboard_rec(camera: Camera, texture: Texture2D, rec: Rectangle, position: Vector3, size: Vector2, tint: Color) u8 { ret DrawBillboardRec(camera, texture, rec, position, size, tint); }
+#[library("raylib")]
+ext fun DrawBillboardPro(camera: Camera, texture: Texture2D, rec: Rectangle, position: Vector3, up: Vector3, size: Vector2, origin: Vector2, rotation: f32, tint: Color) u8;
+pub fun draw_billboard_pro(camera: Camera, texture: Texture2D, rec: Rectangle, position: Vector3, up: Vector3, size: Vector2, origin: Vector2, rotation: f32, tint: Color) u8 { ret DrawBillboardPro(camera, texture, rec, position, up, size, origin, rotation, tint); }
+#[library("raylib")]
+ext fun UploadMesh(mesh: *Mesh, dynamic: bool) u8;
+pub fun upload_mesh(mesh: *Mesh, dynamic: bool) u8 { ret UploadMesh(mesh, dynamic); }
+#[library("raylib")]
+ext fun UpdateMeshBuffer(mesh: Mesh, index: i32, data: ptr, dataSize: i32, offset: i32) u8;
+pub fun update_mesh_buffer(mesh: Mesh, index: i32, data: ptr, dataSize: i32, offset: i32) u8 { ret UpdateMeshBuffer(mesh, index, data, dataSize, offset); }
+#[library("raylib")]
+ext fun UnloadMesh(mesh: Mesh) u8;
+pub fun unload_mesh(mesh: Mesh) u8 { ret UnloadMesh(mesh); }
+#[library("raylib")]
+ext fun DrawMesh(mesh: Mesh, material: Material, transform: Matrix) u8;
+pub fun draw_mesh(mesh: Mesh, material: Material, transform: Matrix) u8 { ret DrawMesh(mesh, material, transform); }
+#[library("raylib")]
+ext fun DrawMeshInstanced(mesh: Mesh, material: Material, transforms: *Matrix, instances: i32) u8;
+pub fun draw_mesh_instanced(mesh: Mesh, material: Material, transforms: *Matrix, instances: i32) u8 { ret DrawMeshInstanced(mesh, material, transforms, instances); }
+#[library("raylib")]
+ext fun GetMeshBoundingBox(mesh: Mesh) BoundingBox;
+pub fun get_mesh_bounding_box(mesh: Mesh) BoundingBox { ret GetMeshBoundingBox(mesh); }
+#[library("raylib")]
+ext fun GenMeshTangents(mesh: *Mesh) u8;
+pub fun gen_mesh_tangents(mesh: *Mesh) u8 { ret GenMeshTangents(mesh); }
+#[library("raylib")]
+ext fun ExportMesh(mesh: Mesh, fileName: *u8) bool;
+pub fun export_mesh(mesh: Mesh, fileName: *u8) bool { ret ExportMesh(mesh, fileName); }
+#[library("raylib")]
+ext fun ExportMeshAsCode(mesh: Mesh, fileName: *u8) bool;
+pub fun export_mesh_as_code(mesh: Mesh, fileName: *u8) bool { ret ExportMeshAsCode(mesh, fileName); }
+#[library("raylib")]
+ext fun GenMeshPoly(sides: i32, radius: f32) Mesh;
+pub fun gen_mesh_poly(sides: i32, radius: f32) Mesh { ret GenMeshPoly(sides, radius); }
+#[library("raylib")]
+ext fun GenMeshPlane(width: f32, length: f32, resX: i32, resZ: i32) Mesh;
+pub fun gen_mesh_plane(width: f32, length: f32, resX: i32, resZ: i32) Mesh { ret GenMeshPlane(width, length, resX, resZ); }
+#[library("raylib")]
+ext fun GenMeshCube(width: f32, height: f32, length: f32) Mesh;
+pub fun gen_mesh_cube(width: f32, height: f32, length: f32) Mesh { ret GenMeshCube(width, height, length); }
+#[library("raylib")]
+ext fun GenMeshSphere(radius: f32, rings: i32, slices: i32) Mesh;
+pub fun gen_mesh_sphere(radius: f32, rings: i32, slices: i32) Mesh { ret GenMeshSphere(radius, rings, slices); }
+#[library("raylib")]
+ext fun GenMeshHemiSphere(radius: f32, rings: i32, slices: i32) Mesh;
+pub fun gen_mesh_hemi_sphere(radius: f32, rings: i32, slices: i32) Mesh { ret GenMeshHemiSphere(radius, rings, slices); }
+#[library("raylib")]
+ext fun GenMeshCylinder(radius: f32, height: f32, slices: i32) Mesh;
+pub fun gen_mesh_cylinder(radius: f32, height: f32, slices: i32) Mesh { ret GenMeshCylinder(radius, height, slices); }
+#[library("raylib")]
+ext fun GenMeshCone(radius: f32, height: f32, slices: i32) Mesh;
+pub fun gen_mesh_cone(radius: f32, height: f32, slices: i32) Mesh { ret GenMeshCone(radius, height, slices); }
+#[library("raylib")]
+ext fun GenMeshTorus(radius: f32, size: f32, radSeg: i32, sides: i32) Mesh;
+pub fun gen_mesh_torus(radius: f32, size: f32, radSeg: i32, sides: i32) Mesh { ret GenMeshTorus(radius, size, radSeg, sides); }
+#[library("raylib")]
+ext fun GenMeshKnot(radius: f32, size: f32, radSeg: i32, sides: i32) Mesh;
+pub fun gen_mesh_knot(radius: f32, size: f32, radSeg: i32, sides: i32) Mesh { ret GenMeshKnot(radius, size, radSeg, sides); }
+#[library("raylib")]
+ext fun GenMeshHeightmap(heightmap: Image, size: Vector3) Mesh;
+pub fun gen_mesh_heightmap(heightmap: Image, size: Vector3) Mesh { ret GenMeshHeightmap(heightmap, size); }
+#[library("raylib")]
+ext fun GenMeshCubicmap(cubicmap: Image, cubeSize: Vector3) Mesh;
+pub fun gen_mesh_cubicmap(cubicmap: Image, cubeSize: Vector3) Mesh { ret GenMeshCubicmap(cubicmap, cubeSize); }
+#[library("raylib")]
+ext fun LoadMaterials(fileName: *u8, materialCount: *i32) *Material;
+pub fun load_materials(fileName: *u8, materialCount: *i32) *Material { ret LoadMaterials(fileName, materialCount); }
+#[library("raylib")]
+ext fun LoadMaterialDefault() Material;
+pub fun load_material_default() Material { ret LoadMaterialDefault(); }
+#[library("raylib")]
+ext fun IsMaterialValid(material: Material) bool;
+pub fun is_material_valid(material: Material) bool { ret IsMaterialValid(material); }
+#[library("raylib")]
+ext fun UnloadMaterial(material: Material) u8;
+pub fun unload_material(material: Material) u8 { ret UnloadMaterial(material); }
+#[library("raylib")]
+ext fun SetMaterialTexture(material: *Material, mapType: i32, texture: Texture2D) u8;
+pub fun set_material_texture(material: *Material, mapType: i32, texture: Texture2D) u8 { ret SetMaterialTexture(material, mapType, texture); }
+#[library("raylib")]
+ext fun SetModelMeshMaterial(model: *Model, meshId: i32, materialId: i32) u8;
+pub fun set_model_mesh_material(model: *Model, meshId: i32, materialId: i32) u8 { ret SetModelMeshMaterial(model, meshId, materialId); }
+#[library("raylib")]
+ext fun LoadModelAnimations(fileName: *u8, animCount: *i32) *ModelAnimation;
+pub fun load_model_animations(fileName: *u8, animCount: *i32) *ModelAnimation { ret LoadModelAnimations(fileName, animCount); }
+#[library("raylib")]
+ext fun UpdateModelAnimation(model: Model, anim: ModelAnimation, frame: f32) u8;
+pub fun update_model_animation(model: Model, anim: ModelAnimation, frame: f32) u8 { ret UpdateModelAnimation(model, anim, frame); }
+#[library("raylib")]
+ext fun UpdateModelAnimationEx(model: Model, animA: ModelAnimation, frameA: f32, animB: ModelAnimation, frameB: f32, blend: f32) u8;
+pub fun update_model_animation_ex(model: Model, animA: ModelAnimation, frameA: f32, animB: ModelAnimation, frameB: f32, blend: f32) u8 { ret UpdateModelAnimationEx(model, animA, frameA, animB, frameB, blend); }
+#[library("raylib")]
+ext fun UnloadModelAnimations(animations: *ModelAnimation, animCount: i32) u8;
+pub fun unload_model_animations(animations: *ModelAnimation, animCount: i32) u8 { ret UnloadModelAnimations(animations, animCount); }
+#[library("raylib")]
+ext fun IsModelAnimationValid(model: Model, anim: ModelAnimation) bool;
+pub fun is_model_animation_valid(model: Model, anim: ModelAnimation) bool { ret IsModelAnimationValid(model, anim); }
+#[library("raylib")]
+ext fun CheckCollisionSpheres(center1: Vector3, radius1: f32, center2: Vector3, radius2: f32) bool;
+pub fun check_collision_spheres(center1: Vector3, radius1: f32, center2: Vector3, radius2: f32) bool { ret CheckCollisionSpheres(center1, radius1, center2, radius2); }
+#[library("raylib")]
+ext fun CheckCollisionBoxes(box1: BoundingBox, box2: BoundingBox) bool;
+pub fun check_collision_boxes(box1: BoundingBox, box2: BoundingBox) bool { ret CheckCollisionBoxes(box1, box2); }
+#[library("raylib")]
+ext fun CheckCollisionBoxSphere(box: BoundingBox, center: Vector3, radius: f32) bool;
+pub fun check_collision_box_sphere(box: BoundingBox, center: Vector3, radius: f32) bool { ret CheckCollisionBoxSphere(box, center, radius); }
+#[library("raylib")]
+ext fun GetRayCollisionSphere(ray: Ray, center: Vector3, radius: f32) RayCollision;
+pub fun get_ray_collision_sphere(ray: Ray, center: Vector3, radius: f32) RayCollision { ret GetRayCollisionSphere(ray, center, radius); }
+#[library("raylib")]
+ext fun GetRayCollisionBox(ray: Ray, box: BoundingBox) RayCollision;
+pub fun get_ray_collision_box(ray: Ray, box: BoundingBox) RayCollision { ret GetRayCollisionBox(ray, box); }
+#[library("raylib")]
+ext fun GetRayCollisionMesh(ray: Ray, mesh: Mesh, transform: Matrix) RayCollision;
+pub fun get_ray_collision_mesh(ray: Ray, mesh: Mesh, transform: Matrix) RayCollision { ret GetRayCollisionMesh(ray, mesh, transform); }
+#[library("raylib")]
+ext fun GetRayCollisionTriangle(ray: Ray, p1: Vector3, p2: Vector3, p3: Vector3) RayCollision;
+pub fun get_ray_collision_triangle(ray: Ray, p1: Vector3, p2: Vector3, p3: Vector3) RayCollision { ret GetRayCollisionTriangle(ray, p1, p2, p3); }
+#[library("raylib")]
+ext fun GetRayCollisionQuad(ray: Ray, p1: Vector3, p2: Vector3, p3: Vector3, p4: Vector3) RayCollision;
+pub fun get_ray_collision_quad(ray: Ray, p1: Vector3, p2: Vector3, p3: Vector3, p4: Vector3) RayCollision { ret GetRayCollisionQuad(ray, p1, p2, p3, p4); }
+#[library("raylib")]
+ext fun InitAudioDevice() u8;
+pub fun init_audio_device() u8 { ret InitAudioDevice(); }
+#[library("raylib")]
+ext fun CloseAudioDevice() u8;
+pub fun close_audio_device() u8 { ret CloseAudioDevice(); }
+#[library("raylib")]
+ext fun IsAudioDeviceReady() bool;
+pub fun is_audio_device_ready() bool { ret IsAudioDeviceReady(); }
+#[library("raylib")]
+ext fun SetMasterVolume(volume: f32) u8;
+pub fun set_master_volume(volume: f32) u8 { ret SetMasterVolume(volume); }
+#[library("raylib")]
+ext fun GetMasterVolume() f32;
+pub fun get_master_volume() f32 { ret GetMasterVolume(); }
+#[library("raylib")]
+ext fun LoadWave(fileName: *u8) Wave;
+pub fun load_wave(fileName: *u8) Wave { ret LoadWave(fileName); }
+#[library("raylib")]
+ext fun LoadWaveFromMemory(fileType: *u8, fileData: *u8, dataSize: i32) Wave;
+pub fun load_wave_from_memory(fileType: *u8, fileData: *u8, dataSize: i32) Wave { ret LoadWaveFromMemory(fileType, fileData, dataSize); }
+#[library("raylib")]
+ext fun IsWaveValid(wave: Wave) bool;
+pub fun is_wave_valid(wave: Wave) bool { ret IsWaveValid(wave); }
+#[library("raylib")]
+ext fun LoadSound(fileName: *u8) Sound;
+pub fun load_sound(fileName: *u8) Sound { ret LoadSound(fileName); }
+#[library("raylib")]
+ext fun LoadSoundFromWave(wave: Wave) Sound;
+pub fun load_sound_from_wave(wave: Wave) Sound { ret LoadSoundFromWave(wave); }
+#[library("raylib")]
+ext fun LoadSoundAlias(source: Sound) Sound;
+pub fun load_sound_alias(source: Sound) Sound { ret LoadSoundAlias(source); }
+#[library("raylib")]
+ext fun IsSoundValid(sound: Sound) bool;
+pub fun is_sound_valid(sound: Sound) bool { ret IsSoundValid(sound); }
+#[library("raylib")]
+ext fun UpdateSound(sound: Sound, data: ptr, frameCount: i32) u8;
+pub fun update_sound(sound: Sound, data: ptr, frameCount: i32) u8 { ret UpdateSound(sound, data, frameCount); }
+#[library("raylib")]
+ext fun UnloadWave(wave: Wave) u8;
+pub fun unload_wave(wave: Wave) u8 { ret UnloadWave(wave); }
+#[library("raylib")]
+ext fun UnloadSound(sound: Sound) u8;
+pub fun unload_sound(sound: Sound) u8 { ret UnloadSound(sound); }
+#[library("raylib")]
+ext fun UnloadSoundAlias(alias: Sound) u8;
+pub fun unload_sound_alias(alias: Sound) u8 { ret UnloadSoundAlias(alias); }
+#[library("raylib")]
+ext fun ExportWave(wave: Wave, fileName: *u8) bool;
+pub fun export_wave(wave: Wave, fileName: *u8) bool { ret ExportWave(wave, fileName); }
+#[library("raylib")]
+ext fun ExportWaveAsCode(wave: Wave, fileName: *u8) bool;
+pub fun export_wave_as_code(wave: Wave, fileName: *u8) bool { ret ExportWaveAsCode(wave, fileName); }
+#[library("raylib")]
+ext fun PlaySound(sound: Sound) u8;
+pub fun play_sound(sound: Sound) u8 { ret PlaySound(sound); }
+#[library("raylib")]
+ext fun StopSound(sound: Sound) u8;
+pub fun stop_sound(sound: Sound) u8 { ret StopSound(sound); }
+#[library("raylib")]
+ext fun PauseSound(sound: Sound) u8;
+pub fun pause_sound(sound: Sound) u8 { ret PauseSound(sound); }
+#[library("raylib")]
+ext fun ResumeSound(sound: Sound) u8;
+pub fun resume_sound(sound: Sound) u8 { ret ResumeSound(sound); }
+#[library("raylib")]
+ext fun IsSoundPlaying(sound: Sound) bool;
+pub fun is_sound_playing(sound: Sound) bool { ret IsSoundPlaying(sound); }
+#[library("raylib")]
+ext fun SetSoundVolume(sound: Sound, volume: f32) u8;
+pub fun set_sound_volume(sound: Sound, volume: f32) u8 { ret SetSoundVolume(sound, volume); }
+#[library("raylib")]
+ext fun SetSoundPitch(sound: Sound, pitch: f32) u8;
+pub fun set_sound_pitch(sound: Sound, pitch: f32) u8 { ret SetSoundPitch(sound, pitch); }
+#[library("raylib")]
+ext fun SetSoundPan(sound: Sound, pan: f32) u8;
+pub fun set_sound_pan(sound: Sound, pan: f32) u8 { ret SetSoundPan(sound, pan); }
+#[library("raylib")]
+ext fun WaveCopy(wave: Wave) Wave;
+pub fun wave_copy(wave: Wave) Wave { ret WaveCopy(wave); }
+#[library("raylib")]
+ext fun WaveCrop(wave: *Wave, initFrame: i32, finalFrame: i32) u8;
+pub fun wave_crop(wave: *Wave, initFrame: i32, finalFrame: i32) u8 { ret WaveCrop(wave, initFrame, finalFrame); }
+#[library("raylib")]
+ext fun WaveFormat(wave: *Wave, sampleRate: i32, sampleSize: i32, channels: i32) u8;
+pub fun wave_format(wave: *Wave, sampleRate: i32, sampleSize: i32, channels: i32) u8 { ret WaveFormat(wave, sampleRate, sampleSize, channels); }
+#[library("raylib")]
+ext fun LoadWaveSamples(wave: Wave) *f32;
+pub fun load_wave_samples(wave: Wave) *f32 { ret LoadWaveSamples(wave); }
+#[library("raylib")]
+ext fun UnloadWaveSamples(samples: *f32) u8;
+pub fun unload_wave_samples(samples: *f32) u8 { ret UnloadWaveSamples(samples); }
+#[library("raylib")]
+ext fun LoadMusicStream(fileName: *u8) Music;
+pub fun load_music_stream(fileName: *u8) Music { ret LoadMusicStream(fileName); }
+#[library("raylib")]
+ext fun LoadMusicStreamFromMemory(fileType: *u8, data: *u8, dataSize: i32) Music;
+pub fun load_music_stream_from_memory(fileType: *u8, data: *u8, dataSize: i32) Music { ret LoadMusicStreamFromMemory(fileType, data, dataSize); }
+#[library("raylib")]
+ext fun IsMusicValid(music: Music) bool;
+pub fun is_music_valid(music: Music) bool { ret IsMusicValid(music); }
+#[library("raylib")]
+ext fun UnloadMusicStream(music: Music) u8;
+pub fun unload_music_stream(music: Music) u8 { ret UnloadMusicStream(music); }
+#[library("raylib")]
+ext fun PlayMusicStream(music: Music) u8;
+pub fun play_music_stream(music: Music) u8 { ret PlayMusicStream(music); }
+#[library("raylib")]
+ext fun IsMusicStreamPlaying(music: Music) bool;
+pub fun is_music_stream_playing(music: Music) bool { ret IsMusicStreamPlaying(music); }
+#[library("raylib")]
+ext fun UpdateMusicStream(music: Music) u8;
+pub fun update_music_stream(music: Music) u8 { ret UpdateMusicStream(music); }
+#[library("raylib")]
+ext fun StopMusicStream(music: Music) u8;
+pub fun stop_music_stream(music: Music) u8 { ret StopMusicStream(music); }
+#[library("raylib")]
+ext fun PauseMusicStream(music: Music) u8;
+pub fun pause_music_stream(music: Music) u8 { ret PauseMusicStream(music); }
+#[library("raylib")]
+ext fun ResumeMusicStream(music: Music) u8;
+pub fun resume_music_stream(music: Music) u8 { ret ResumeMusicStream(music); }
+#[library("raylib")]
+ext fun SeekMusicStream(music: Music, position: f32) u8;
+pub fun seek_music_stream(music: Music, position: f32) u8 { ret SeekMusicStream(music, position); }
+#[library("raylib")]
+ext fun SetMusicVolume(music: Music, volume: f32) u8;
+pub fun set_music_volume(music: Music, volume: f32) u8 { ret SetMusicVolume(music, volume); }
+#[library("raylib")]
+ext fun SetMusicPitch(music: Music, pitch: f32) u8;
+pub fun set_music_pitch(music: Music, pitch: f32) u8 { ret SetMusicPitch(music, pitch); }
+#[library("raylib")]
+ext fun SetMusicPan(music: Music, pan: f32) u8;
+pub fun set_music_pan(music: Music, pan: f32) u8 { ret SetMusicPan(music, pan); }
+#[library("raylib")]
+ext fun GetMusicTimeLength(music: Music) f32;
+pub fun get_music_time_length(music: Music) f32 { ret GetMusicTimeLength(music); }
+#[library("raylib")]
+ext fun GetMusicTimePlayed(music: Music) f32;
+pub fun get_music_time_played(music: Music) f32 { ret GetMusicTimePlayed(music); }
+#[library("raylib")]
+ext fun LoadAudioStream(sampleRate: u32, sampleSize: u32, channels: u32) AudioStream;
+pub fun load_audio_stream(sampleRate: u32, sampleSize: u32, channels: u32) AudioStream { ret LoadAudioStream(sampleRate, sampleSize, channels); }
+#[library("raylib")]
+ext fun IsAudioStreamValid(stream: AudioStream) bool;
+pub fun is_audio_stream_valid(stream: AudioStream) bool { ret IsAudioStreamValid(stream); }
+#[library("raylib")]
+ext fun UnloadAudioStream(stream: AudioStream) u8;
+pub fun unload_audio_stream(stream: AudioStream) u8 { ret UnloadAudioStream(stream); }
+#[library("raylib")]
+ext fun UpdateAudioStream(stream: AudioStream, data: ptr, frameCount: i32) u8;
+pub fun update_audio_stream(stream: AudioStream, data: ptr, frameCount: i32) u8 { ret UpdateAudioStream(stream, data, frameCount); }
+#[library("raylib")]
+ext fun IsAudioStreamProcessed(stream: AudioStream) bool;
+pub fun is_audio_stream_processed(stream: AudioStream) bool { ret IsAudioStreamProcessed(stream); }
+#[library("raylib")]
+ext fun PlayAudioStream(stream: AudioStream) u8;
+pub fun play_audio_stream(stream: AudioStream) u8 { ret PlayAudioStream(stream); }
+#[library("raylib")]
+ext fun PauseAudioStream(stream: AudioStream) u8;
+pub fun pause_audio_stream(stream: AudioStream) u8 { ret PauseAudioStream(stream); }
+#[library("raylib")]
+ext fun ResumeAudioStream(stream: AudioStream) u8;
+pub fun resume_audio_stream(stream: AudioStream) u8 { ret ResumeAudioStream(stream); }
+#[library("raylib")]
+ext fun IsAudioStreamPlaying(stream: AudioStream) bool;
+pub fun is_audio_stream_playing(stream: AudioStream) bool { ret IsAudioStreamPlaying(stream); }
+#[library("raylib")]
+ext fun StopAudioStream(stream: AudioStream) u8;
+pub fun stop_audio_stream(stream: AudioStream) u8 { ret StopAudioStream(stream); }
+#[library("raylib")]
+ext fun SetAudioStreamVolume(stream: AudioStream, volume: f32) u8;
+pub fun set_audio_stream_volume(stream: AudioStream, volume: f32) u8 { ret SetAudioStreamVolume(stream, volume); }
+#[library("raylib")]
+ext fun SetAudioStreamPitch(stream: AudioStream, pitch: f32) u8;
+pub fun set_audio_stream_pitch(stream: AudioStream, pitch: f32) u8 { ret SetAudioStreamPitch(stream, pitch); }
+#[library("raylib")]
+ext fun SetAudioStreamPan(stream: AudioStream, pan: f32) u8;
+pub fun set_audio_stream_pan(stream: AudioStream, pan: f32) u8 { ret SetAudioStreamPan(stream, pan); }
+#[library("raylib")]
+ext fun SetAudioStreamBufferSizeDefault(size: i32) u8;
+pub fun set_audio_stream_buffer_size_default(size: i32) u8 { ret SetAudioStreamBufferSizeDefault(size); }
+#[library("raylib")]
+ext fun SetAudioStreamCallback(stream: AudioStream, callback: AudioCallback) u8;
+pub fun set_audio_stream_callback(stream: AudioStream, callback: AudioCallback) u8 { ret SetAudioStreamCallback(stream, callback); }
+#[library("raylib")]
+ext fun AttachAudioStreamProcessor(stream: AudioStream, processor: AudioCallback) u8;
+pub fun attach_audio_stream_processor(stream: AudioStream, processor: AudioCallback) u8 { ret AttachAudioStreamProcessor(stream, processor); }
+#[library("raylib")]
+ext fun DetachAudioStreamProcessor(stream: AudioStream, processor: AudioCallback) u8;
+pub fun detach_audio_stream_processor(stream: AudioStream, processor: AudioCallback) u8 { ret DetachAudioStreamProcessor(stream, processor); }
+#[library("raylib")]
+ext fun AttachAudioMixedProcessor(processor: AudioCallback) u8;
+pub fun attach_audio_mixed_processor(processor: AudioCallback) u8 { ret AttachAudioMixedProcessor(processor); }
+#[library("raylib")]
+ext fun DetachAudioMixedProcessor(processor: AudioCallback) u8;
+pub fun detach_audio_mixed_processor(processor: AudioCallback) u8 { ret DetachAudioMixedProcessor(processor); }

@@ -1,0 +1,487 @@
+fwd std.types.bool.bool;
+fwd std.types.bool.true;
+fwd std.types.bool.false;
+fwd std.types.string.str;
+
+pub val PI: f32 = 3.14159265358979323846;
+pub val EPSILON: f32 = 0.000001;
+pub val DEG2RAD: f32 = (PI/180.0f);
+pub val RAD2DEG: f32 = (180.0f/PI);
+pub rec Vector2 {
+      x: f32;
+      y: f32;
+}
+pub rec Vector3 {
+      x: f32;
+      y: f32;
+      z: f32;
+}
+pub rec Vector4 {
+      x: f32;
+      y: f32;
+      z: f32;
+      w: f32;
+}
+pub rec Matrix {
+      m0: f32;
+      m4: f32;
+      m8: f32;
+      m12: f32;
+      m1: f32;
+      m5: f32;
+      m9: f32;
+      m13: f32;
+      m2: f32;
+      m6: f32;
+      m10: f32;
+      m14: f32;
+      m3: f32;
+      m7: f32;
+      m11: f32;
+      m15: f32;
+}
+pub rec float3 {
+      v: [3]f32;
+}
+pub rec float16 {
+      v: [16]f32;
+}
+pub def Quaternion: Vector4;
+#[library("raylib")]
+ext fun Clamp(value: f32, min: f32, max: f32) f32;
+pub fun clamp(value: f32, min: f32, max: f32) f32 { ret Clamp(value, min, max); }
+#[library("raylib")]
+ext fun Lerp(start: f32, end: f32, amount: f32) f32;
+pub fun lerp(start: f32, end: f32, amount: f32) f32 { ret Lerp(start, end, amount); }
+#[library("raylib")]
+ext fun Normalize(value: f32, start: f32, end: f32) f32;
+pub fun normalize(value: f32, start: f32, end: f32) f32 { ret Normalize(value, start, end); }
+#[library("raylib")]
+ext fun Remap(value: f32, inputStart: f32, inputEnd: f32, outputStart: f32, outputEnd: f32) f32;
+pub fun remap(value: f32, inputStart: f32, inputEnd: f32, outputStart: f32, outputEnd: f32) f32 { ret Remap(value, inputStart, inputEnd, outputStart, outputEnd); }
+#[library("raylib")]
+ext fun Wrap(value: f32, min: f32, max: f32) f32;
+pub fun wrap(value: f32, min: f32, max: f32) f32 { ret Wrap(value, min, max); }
+#[library("raylib")]
+ext fun FloatEquals(x: f32, y: f32) i32;
+pub fun float_equals(x: f32, y: f32) i32 { ret FloatEquals(x, y); }
+#[library("raylib")]
+ext fun Vector2Zero() Vector2;
+pub fun vector2_zero() Vector2 { ret Vector2Zero(); }
+#[library("raylib")]
+ext fun Vector2One() Vector2;
+pub fun vector2_one() Vector2 { ret Vector2One(); }
+#[library("raylib")]
+ext fun Vector2Add(v1: Vector2, v2: Vector2) Vector2;
+pub fun vector2_add(v1: Vector2, v2: Vector2) Vector2 { ret Vector2Add(v1, v2); }
+#[library("raylib")]
+ext fun Vector2AddValue(v: Vector2, add: f32) Vector2;
+pub fun vector2_add_value(v: Vector2, add: f32) Vector2 { ret Vector2AddValue(v, add); }
+#[library("raylib")]
+ext fun Vector2Subtract(v1: Vector2, v2: Vector2) Vector2;
+pub fun vector2_subtract(v1: Vector2, v2: Vector2) Vector2 { ret Vector2Subtract(v1, v2); }
+#[library("raylib")]
+ext fun Vector2SubtractValue(v: Vector2, sub: f32) Vector2;
+pub fun vector2_subtract_value(v: Vector2, sub: f32) Vector2 { ret Vector2SubtractValue(v, sub); }
+#[library("raylib")]
+ext fun Vector2Length(v: Vector2) f32;
+pub fun vector2_length(v: Vector2) f32 { ret Vector2Length(v); }
+#[library("raylib")]
+ext fun Vector2LengthSqr(v: Vector2) f32;
+pub fun vector2_length_sqr(v: Vector2) f32 { ret Vector2LengthSqr(v); }
+#[library("raylib")]
+ext fun Vector2DotProduct(v1: Vector2, v2: Vector2) f32;
+pub fun vector2_dot_product(v1: Vector2, v2: Vector2) f32 { ret Vector2DotProduct(v1, v2); }
+#[library("raylib")]
+ext fun Vector2CrossProduct(v1: Vector2, v2: Vector2) f32;
+pub fun vector2_cross_product(v1: Vector2, v2: Vector2) f32 { ret Vector2CrossProduct(v1, v2); }
+#[library("raylib")]
+ext fun Vector2Distance(v1: Vector2, v2: Vector2) f32;
+pub fun vector2_distance(v1: Vector2, v2: Vector2) f32 { ret Vector2Distance(v1, v2); }
+#[library("raylib")]
+ext fun Vector2DistanceSqr(v1: Vector2, v2: Vector2) f32;
+pub fun vector2_distance_sqr(v1: Vector2, v2: Vector2) f32 { ret Vector2DistanceSqr(v1, v2); }
+#[library("raylib")]
+ext fun Vector2Angle(v1: Vector2, v2: Vector2) f32;
+pub fun vector2_angle(v1: Vector2, v2: Vector2) f32 { ret Vector2Angle(v1, v2); }
+#[library("raylib")]
+ext fun Vector2LineAngle(start: Vector2, end: Vector2) f32;
+pub fun vector2_line_angle(start: Vector2, end: Vector2) f32 { ret Vector2LineAngle(start, end); }
+#[library("raylib")]
+ext fun Vector2Scale(v: Vector2, scale: f32) Vector2;
+pub fun vector2_scale(v: Vector2, scale: f32) Vector2 { ret Vector2Scale(v, scale); }
+#[library("raylib")]
+ext fun Vector2Multiply(v1: Vector2, v2: Vector2) Vector2;
+pub fun vector2_multiply(v1: Vector2, v2: Vector2) Vector2 { ret Vector2Multiply(v1, v2); }
+#[library("raylib")]
+ext fun Vector2Negate(v: Vector2) Vector2;
+pub fun vector2_negate(v: Vector2) Vector2 { ret Vector2Negate(v); }
+#[library("raylib")]
+ext fun Vector2Divide(v1: Vector2, v2: Vector2) Vector2;
+pub fun vector2_divide(v1: Vector2, v2: Vector2) Vector2 { ret Vector2Divide(v1, v2); }
+#[library("raylib")]
+ext fun Vector2Normalize(v: Vector2) Vector2;
+pub fun vector2_normalize(v: Vector2) Vector2 { ret Vector2Normalize(v); }
+#[library("raylib")]
+ext fun Vector2Transform(v: Vector2, mat: Matrix) Vector2;
+pub fun vector2_transform(v: Vector2, mat: Matrix) Vector2 { ret Vector2Transform(v, mat); }
+#[library("raylib")]
+ext fun Vector2Lerp(v1: Vector2, v2: Vector2, amount: f32) Vector2;
+pub fun vector2_lerp(v1: Vector2, v2: Vector2, amount: f32) Vector2 { ret Vector2Lerp(v1, v2, amount); }
+#[library("raylib")]
+ext fun Vector2Reflect(v: Vector2, normal: Vector2) Vector2;
+pub fun vector2_reflect(v: Vector2, normal: Vector2) Vector2 { ret Vector2Reflect(v, normal); }
+#[library("raylib")]
+ext fun Vector2Min(v1: Vector2, v2: Vector2) Vector2;
+pub fun vector2_min(v1: Vector2, v2: Vector2) Vector2 { ret Vector2Min(v1, v2); }
+#[library("raylib")]
+ext fun Vector2Max(v1: Vector2, v2: Vector2) Vector2;
+pub fun vector2_max(v1: Vector2, v2: Vector2) Vector2 { ret Vector2Max(v1, v2); }
+#[library("raylib")]
+ext fun Vector2Rotate(v: Vector2, angle: f32) Vector2;
+pub fun vector2_rotate(v: Vector2, angle: f32) Vector2 { ret Vector2Rotate(v, angle); }
+#[library("raylib")]
+ext fun Vector2MoveTowards(v: Vector2, target: Vector2, maxDistance: f32) Vector2;
+pub fun vector2_move_towards(v: Vector2, target: Vector2, maxDistance: f32) Vector2 { ret Vector2MoveTowards(v, target, maxDistance); }
+#[library("raylib")]
+ext fun Vector2Invert(v: Vector2) Vector2;
+pub fun vector2_invert(v: Vector2) Vector2 { ret Vector2Invert(v); }
+#[library("raylib")]
+ext fun Vector2Clamp(v: Vector2, min: Vector2, max: Vector2) Vector2;
+pub fun vector2_clamp(v: Vector2, min: Vector2, max: Vector2) Vector2 { ret Vector2Clamp(v, min, max); }
+#[library("raylib")]
+ext fun Vector2ClampValue(v: Vector2, min: f32, max: f32) Vector2;
+pub fun vector2_clamp_value(v: Vector2, min: f32, max: f32) Vector2 { ret Vector2ClampValue(v, min, max); }
+#[library("raylib")]
+ext fun Vector2Equals(p: Vector2, q: Vector2) i32;
+pub fun vector2_equals(p: Vector2, q: Vector2) i32 { ret Vector2Equals(p, q); }
+#[library("raylib")]
+ext fun Vector2Refract(v: Vector2, n: Vector2, r: f32) Vector2;
+pub fun vector2_refract(v: Vector2, n: Vector2, r: f32) Vector2 { ret Vector2Refract(v, n, r); }
+#[library("raylib")]
+ext fun Vector3Zero() Vector3;
+pub fun vector3_zero() Vector3 { ret Vector3Zero(); }
+#[library("raylib")]
+ext fun Vector3One() Vector3;
+pub fun vector3_one() Vector3 { ret Vector3One(); }
+#[library("raylib")]
+ext fun Vector3Add(v1: Vector3, v2: Vector3) Vector3;
+pub fun vector3_add(v1: Vector3, v2: Vector3) Vector3 { ret Vector3Add(v1, v2); }
+#[library("raylib")]
+ext fun Vector3AddValue(v: Vector3, add: f32) Vector3;
+pub fun vector3_add_value(v: Vector3, add: f32) Vector3 { ret Vector3AddValue(v, add); }
+#[library("raylib")]
+ext fun Vector3Subtract(v1: Vector3, v2: Vector3) Vector3;
+pub fun vector3_subtract(v1: Vector3, v2: Vector3) Vector3 { ret Vector3Subtract(v1, v2); }
+#[library("raylib")]
+ext fun Vector3SubtractValue(v: Vector3, sub: f32) Vector3;
+pub fun vector3_subtract_value(v: Vector3, sub: f32) Vector3 { ret Vector3SubtractValue(v, sub); }
+#[library("raylib")]
+ext fun Vector3Scale(v: Vector3, scalar: f32) Vector3;
+pub fun vector3_scale(v: Vector3, scalar: f32) Vector3 { ret Vector3Scale(v, scalar); }
+#[library("raylib")]
+ext fun Vector3Multiply(v1: Vector3, v2: Vector3) Vector3;
+pub fun vector3_multiply(v1: Vector3, v2: Vector3) Vector3 { ret Vector3Multiply(v1, v2); }
+#[library("raylib")]
+ext fun Vector3CrossProduct(v1: Vector3, v2: Vector3) Vector3;
+pub fun vector3_cross_product(v1: Vector3, v2: Vector3) Vector3 { ret Vector3CrossProduct(v1, v2); }
+#[library("raylib")]
+ext fun Vector3Perpendicular(v: Vector3) Vector3;
+pub fun vector3_perpendicular(v: Vector3) Vector3 { ret Vector3Perpendicular(v); }
+#[library("raylib")]
+ext fun Vector3Length(v: Vector3) f32;
+pub fun vector3_length(v: Vector3) f32 { ret Vector3Length(v); }
+#[library("raylib")]
+ext fun Vector3LengthSqr(v: Vector3) f32;
+pub fun vector3_length_sqr(v: Vector3) f32 { ret Vector3LengthSqr(v); }
+#[library("raylib")]
+ext fun Vector3DotProduct(v1: Vector3, v2: Vector3) f32;
+pub fun vector3_dot_product(v1: Vector3, v2: Vector3) f32 { ret Vector3DotProduct(v1, v2); }
+#[library("raylib")]
+ext fun Vector3Distance(v1: Vector3, v2: Vector3) f32;
+pub fun vector3_distance(v1: Vector3, v2: Vector3) f32 { ret Vector3Distance(v1, v2); }
+#[library("raylib")]
+ext fun Vector3DistanceSqr(v1: Vector3, v2: Vector3) f32;
+pub fun vector3_distance_sqr(v1: Vector3, v2: Vector3) f32 { ret Vector3DistanceSqr(v1, v2); }
+#[library("raylib")]
+ext fun Vector3Angle(v1: Vector3, v2: Vector3) f32;
+pub fun vector3_angle(v1: Vector3, v2: Vector3) f32 { ret Vector3Angle(v1, v2); }
+#[library("raylib")]
+ext fun Vector3Negate(v: Vector3) Vector3;
+pub fun vector3_negate(v: Vector3) Vector3 { ret Vector3Negate(v); }
+#[library("raylib")]
+ext fun Vector3Divide(v1: Vector3, v2: Vector3) Vector3;
+pub fun vector3_divide(v1: Vector3, v2: Vector3) Vector3 { ret Vector3Divide(v1, v2); }
+#[library("raylib")]
+ext fun Vector3Normalize(v: Vector3) Vector3;
+pub fun vector3_normalize(v: Vector3) Vector3 { ret Vector3Normalize(v); }
+#[library("raylib")]
+ext fun Vector3Project(v1: Vector3, v2: Vector3) Vector3;
+pub fun vector3_project(v1: Vector3, v2: Vector3) Vector3 { ret Vector3Project(v1, v2); }
+#[library("raylib")]
+ext fun Vector3Reject(v1: Vector3, v2: Vector3) Vector3;
+pub fun vector3_reject(v1: Vector3, v2: Vector3) Vector3 { ret Vector3Reject(v1, v2); }
+#[library("raylib")]
+ext fun Vector3OrthoNormalize(v1: *Vector3, v2: *Vector3) u8;
+pub fun vector3_ortho_normalize(v1: *Vector3, v2: *Vector3) u8 { ret Vector3OrthoNormalize(v1, v2); }
+#[library("raylib")]
+ext fun Vector3Transform(v: Vector3, mat: Matrix) Vector3;
+pub fun vector3_transform(v: Vector3, mat: Matrix) Vector3 { ret Vector3Transform(v, mat); }
+#[library("raylib")]
+ext fun Vector3RotateByQuaternion(v: Vector3, q: Quaternion) Vector3;
+pub fun vector3_rotate_by_quaternion(v: Vector3, q: Quaternion) Vector3 { ret Vector3RotateByQuaternion(v, q); }
+#[library("raylib")]
+ext fun Vector3RotateByAxisAngle(v: Vector3, axis: Vector3, angle: f32) Vector3;
+pub fun vector3_rotate_by_axis_angle(v: Vector3, axis: Vector3, angle: f32) Vector3 { ret Vector3RotateByAxisAngle(v, axis, angle); }
+#[library("raylib")]
+ext fun Vector3MoveTowards(v: Vector3, target: Vector3, maxDistance: f32) Vector3;
+pub fun vector3_move_towards(v: Vector3, target: Vector3, maxDistance: f32) Vector3 { ret Vector3MoveTowards(v, target, maxDistance); }
+#[library("raylib")]
+ext fun Vector3Lerp(v1: Vector3, v2: Vector3, amount: f32) Vector3;
+pub fun vector3_lerp(v1: Vector3, v2: Vector3, amount: f32) Vector3 { ret Vector3Lerp(v1, v2, amount); }
+#[library("raylib")]
+ext fun Vector3CubicHermite(v1: Vector3, tangent1: Vector3, v2: Vector3, tangent2: Vector3, amount: f32) Vector3;
+pub fun vector3_cubic_hermite(v1: Vector3, tangent1: Vector3, v2: Vector3, tangent2: Vector3, amount: f32) Vector3 { ret Vector3CubicHermite(v1, tangent1, v2, tangent2, amount); }
+#[library("raylib")]
+ext fun Vector3Reflect(v: Vector3, normal: Vector3) Vector3;
+pub fun vector3_reflect(v: Vector3, normal: Vector3) Vector3 { ret Vector3Reflect(v, normal); }
+#[library("raylib")]
+ext fun Vector3Min(v1: Vector3, v2: Vector3) Vector3;
+pub fun vector3_min(v1: Vector3, v2: Vector3) Vector3 { ret Vector3Min(v1, v2); }
+#[library("raylib")]
+ext fun Vector3Max(v1: Vector3, v2: Vector3) Vector3;
+pub fun vector3_max(v1: Vector3, v2: Vector3) Vector3 { ret Vector3Max(v1, v2); }
+#[library("raylib")]
+ext fun Vector3Barycenter(p: Vector3, a: Vector3, b: Vector3, c: Vector3) Vector3;
+pub fun vector3_barycenter(p: Vector3, a: Vector3, b: Vector3, c: Vector3) Vector3 { ret Vector3Barycenter(p, a, b, c); }
+#[library("raylib")]
+ext fun Vector3Unproject(source: Vector3, projection: Matrix, view: Matrix) Vector3;
+pub fun vector3_unproject(source: Vector3, projection: Matrix, view: Matrix) Vector3 { ret Vector3Unproject(source, projection, view); }
+#[library("raylib")]
+ext fun Vector3ToFloatV(v: Vector3) float3;
+pub fun vector3_to_float_v(v: Vector3) float3 { ret Vector3ToFloatV(v); }
+#[library("raylib")]
+ext fun Vector3Invert(v: Vector3) Vector3;
+pub fun vector3_invert(v: Vector3) Vector3 { ret Vector3Invert(v); }
+#[library("raylib")]
+ext fun Vector3Clamp(v: Vector3, min: Vector3, max: Vector3) Vector3;
+pub fun vector3_clamp(v: Vector3, min: Vector3, max: Vector3) Vector3 { ret Vector3Clamp(v, min, max); }
+#[library("raylib")]
+ext fun Vector3ClampValue(v: Vector3, min: f32, max: f32) Vector3;
+pub fun vector3_clamp_value(v: Vector3, min: f32, max: f32) Vector3 { ret Vector3ClampValue(v, min, max); }
+#[library("raylib")]
+ext fun Vector3Equals(p: Vector3, q: Vector3) i32;
+pub fun vector3_equals(p: Vector3, q: Vector3) i32 { ret Vector3Equals(p, q); }
+#[library("raylib")]
+ext fun Vector3Refract(v: Vector3, n: Vector3, r: f32) Vector3;
+pub fun vector3_refract(v: Vector3, n: Vector3, r: f32) Vector3 { ret Vector3Refract(v, n, r); }
+#[library("raylib")]
+ext fun Vector4Zero() Vector4;
+pub fun vector4_zero() Vector4 { ret Vector4Zero(); }
+#[library("raylib")]
+ext fun Vector4One() Vector4;
+pub fun vector4_one() Vector4 { ret Vector4One(); }
+#[library("raylib")]
+ext fun Vector4Add(v1: Vector4, v2: Vector4) Vector4;
+pub fun vector4_add(v1: Vector4, v2: Vector4) Vector4 { ret Vector4Add(v1, v2); }
+#[library("raylib")]
+ext fun Vector4AddValue(v: Vector4, add: f32) Vector4;
+pub fun vector4_add_value(v: Vector4, add: f32) Vector4 { ret Vector4AddValue(v, add); }
+#[library("raylib")]
+ext fun Vector4Subtract(v1: Vector4, v2: Vector4) Vector4;
+pub fun vector4_subtract(v1: Vector4, v2: Vector4) Vector4 { ret Vector4Subtract(v1, v2); }
+#[library("raylib")]
+ext fun Vector4SubtractValue(v: Vector4, add: f32) Vector4;
+pub fun vector4_subtract_value(v: Vector4, add: f32) Vector4 { ret Vector4SubtractValue(v, add); }
+#[library("raylib")]
+ext fun Vector4Length(v: Vector4) f32;
+pub fun vector4_length(v: Vector4) f32 { ret Vector4Length(v); }
+#[library("raylib")]
+ext fun Vector4LengthSqr(v: Vector4) f32;
+pub fun vector4_length_sqr(v: Vector4) f32 { ret Vector4LengthSqr(v); }
+#[library("raylib")]
+ext fun Vector4DotProduct(v1: Vector4, v2: Vector4) f32;
+pub fun vector4_dot_product(v1: Vector4, v2: Vector4) f32 { ret Vector4DotProduct(v1, v2); }
+#[library("raylib")]
+ext fun Vector4Distance(v1: Vector4, v2: Vector4) f32;
+pub fun vector4_distance(v1: Vector4, v2: Vector4) f32 { ret Vector4Distance(v1, v2); }
+#[library("raylib")]
+ext fun Vector4DistanceSqr(v1: Vector4, v2: Vector4) f32;
+pub fun vector4_distance_sqr(v1: Vector4, v2: Vector4) f32 { ret Vector4DistanceSqr(v1, v2); }
+#[library("raylib")]
+ext fun Vector4Scale(v: Vector4, scale: f32) Vector4;
+pub fun vector4_scale(v: Vector4, scale: f32) Vector4 { ret Vector4Scale(v, scale); }
+#[library("raylib")]
+ext fun Vector4Multiply(v1: Vector4, v2: Vector4) Vector4;
+pub fun vector4_multiply(v1: Vector4, v2: Vector4) Vector4 { ret Vector4Multiply(v1, v2); }
+#[library("raylib")]
+ext fun Vector4Negate(v: Vector4) Vector4;
+pub fun vector4_negate(v: Vector4) Vector4 { ret Vector4Negate(v); }
+#[library("raylib")]
+ext fun Vector4Divide(v1: Vector4, v2: Vector4) Vector4;
+pub fun vector4_divide(v1: Vector4, v2: Vector4) Vector4 { ret Vector4Divide(v1, v2); }
+#[library("raylib")]
+ext fun Vector4Normalize(v: Vector4) Vector4;
+pub fun vector4_normalize(v: Vector4) Vector4 { ret Vector4Normalize(v); }
+#[library("raylib")]
+ext fun Vector4Min(v1: Vector4, v2: Vector4) Vector4;
+pub fun vector4_min(v1: Vector4, v2: Vector4) Vector4 { ret Vector4Min(v1, v2); }
+#[library("raylib")]
+ext fun Vector4Max(v1: Vector4, v2: Vector4) Vector4;
+pub fun vector4_max(v1: Vector4, v2: Vector4) Vector4 { ret Vector4Max(v1, v2); }
+#[library("raylib")]
+ext fun Vector4Lerp(v1: Vector4, v2: Vector4, amount: f32) Vector4;
+pub fun vector4_lerp(v1: Vector4, v2: Vector4, amount: f32) Vector4 { ret Vector4Lerp(v1, v2, amount); }
+#[library("raylib")]
+ext fun Vector4MoveTowards(v: Vector4, target: Vector4, maxDistance: f32) Vector4;
+pub fun vector4_move_towards(v: Vector4, target: Vector4, maxDistance: f32) Vector4 { ret Vector4MoveTowards(v, target, maxDistance); }
+#[library("raylib")]
+ext fun Vector4Invert(v: Vector4) Vector4;
+pub fun vector4_invert(v: Vector4) Vector4 { ret Vector4Invert(v); }
+#[library("raylib")]
+ext fun Vector4Equals(p: Vector4, q: Vector4) i32;
+pub fun vector4_equals(p: Vector4, q: Vector4) i32 { ret Vector4Equals(p, q); }
+#[library("raylib")]
+ext fun MatrixDeterminant(mat: Matrix) f32;
+pub fun matrix_determinant(mat: Matrix) f32 { ret MatrixDeterminant(mat); }
+#[library("raylib")]
+ext fun MatrixTrace(mat: Matrix) f32;
+pub fun matrix_trace(mat: Matrix) f32 { ret MatrixTrace(mat); }
+#[library("raylib")]
+ext fun MatrixTranspose(mat: Matrix) Matrix;
+pub fun matrix_transpose(mat: Matrix) Matrix { ret MatrixTranspose(mat); }
+#[library("raylib")]
+ext fun MatrixInvert(mat: Matrix) Matrix;
+pub fun matrix_invert(mat: Matrix) Matrix { ret MatrixInvert(mat); }
+#[library("raylib")]
+ext fun MatrixIdentity() Matrix;
+pub fun matrix_identity() Matrix { ret MatrixIdentity(); }
+#[library("raylib")]
+ext fun MatrixAdd(left: Matrix, right: Matrix) Matrix;
+pub fun matrix_add(left: Matrix, right: Matrix) Matrix { ret MatrixAdd(left, right); }
+#[library("raylib")]
+ext fun MatrixSubtract(left: Matrix, right: Matrix) Matrix;
+pub fun matrix_subtract(left: Matrix, right: Matrix) Matrix { ret MatrixSubtract(left, right); }
+#[library("raylib")]
+ext fun MatrixMultiply(left: Matrix, right: Matrix) Matrix;
+pub fun matrix_multiply(left: Matrix, right: Matrix) Matrix { ret MatrixMultiply(left, right); }
+#[library("raylib")]
+ext fun MatrixMultiplyValue(left: Matrix, value: f32) Matrix;
+pub fun matrix_multiply_value(left: Matrix, value: f32) Matrix { ret MatrixMultiplyValue(left, value); }
+#[library("raylib")]
+ext fun MatrixTranslate(x: f32, y: f32, z: f32) Matrix;
+pub fun matrix_translate(x: f32, y: f32, z: f32) Matrix { ret MatrixTranslate(x, y, z); }
+#[library("raylib")]
+ext fun MatrixRotate(axis: Vector3, angle: f32) Matrix;
+pub fun matrix_rotate(axis: Vector3, angle: f32) Matrix { ret MatrixRotate(axis, angle); }
+#[library("raylib")]
+ext fun MatrixRotateX(angle: f32) Matrix;
+pub fun matrix_rotate_x(angle: f32) Matrix { ret MatrixRotateX(angle); }
+#[library("raylib")]
+ext fun MatrixRotateY(angle: f32) Matrix;
+pub fun matrix_rotate_y(angle: f32) Matrix { ret MatrixRotateY(angle); }
+#[library("raylib")]
+ext fun MatrixRotateZ(angle: f32) Matrix;
+pub fun matrix_rotate_z(angle: f32) Matrix { ret MatrixRotateZ(angle); }
+#[library("raylib")]
+ext fun MatrixRotateXYZ(angle: Vector3) Matrix;
+pub fun matrix_rotate_xyz(angle: Vector3) Matrix { ret MatrixRotateXYZ(angle); }
+#[library("raylib")]
+ext fun MatrixRotateZYX(angle: Vector3) Matrix;
+pub fun matrix_rotate_zyx(angle: Vector3) Matrix { ret MatrixRotateZYX(angle); }
+#[library("raylib")]
+ext fun MatrixScale(x: f32, y: f32, z: f32) Matrix;
+pub fun matrix_scale(x: f32, y: f32, z: f32) Matrix { ret MatrixScale(x, y, z); }
+#[library("raylib")]
+ext fun MatrixFrustum(left: f64, right: f64, bottom: f64, top: f64, nearPlane: f64, farPlane: f64) Matrix;
+pub fun matrix_frustum(left: f64, right: f64, bottom: f64, top: f64, nearPlane: f64, farPlane: f64) Matrix { ret MatrixFrustum(left, right, bottom, top, nearPlane, farPlane); }
+#[library("raylib")]
+ext fun MatrixPerspective(fovY: f64, aspect: f64, nearPlane: f64, farPlane: f64) Matrix;
+pub fun matrix_perspective(fovY: f64, aspect: f64, nearPlane: f64, farPlane: f64) Matrix { ret MatrixPerspective(fovY, aspect, nearPlane, farPlane); }
+#[library("raylib")]
+ext fun MatrixOrtho(left: f64, right: f64, bottom: f64, top: f64, nearPlane: f64, farPlane: f64) Matrix;
+pub fun matrix_ortho(left: f64, right: f64, bottom: f64, top: f64, nearPlane: f64, farPlane: f64) Matrix { ret MatrixOrtho(left, right, bottom, top, nearPlane, farPlane); }
+#[library("raylib")]
+ext fun MatrixLookAt(eye: Vector3, target: Vector3, up: Vector3) Matrix;
+pub fun matrix_look_at(eye: Vector3, target: Vector3, up: Vector3) Matrix { ret MatrixLookAt(eye, target, up); }
+#[library("raylib")]
+ext fun MatrixToFloatV(mat: Matrix) float16;
+pub fun matrix_to_float_v(mat: Matrix) float16 { ret MatrixToFloatV(mat); }
+#[library("raylib")]
+ext fun QuaternionAdd(q1: Quaternion, q2: Quaternion) Quaternion;
+pub fun quaternion_add(q1: Quaternion, q2: Quaternion) Quaternion { ret QuaternionAdd(q1, q2); }
+#[library("raylib")]
+ext fun QuaternionAddValue(q: Quaternion, add: f32) Quaternion;
+pub fun quaternion_add_value(q: Quaternion, add: f32) Quaternion { ret QuaternionAddValue(q, add); }
+#[library("raylib")]
+ext fun QuaternionSubtract(q1: Quaternion, q2: Quaternion) Quaternion;
+pub fun quaternion_subtract(q1: Quaternion, q2: Quaternion) Quaternion { ret QuaternionSubtract(q1, q2); }
+#[library("raylib")]
+ext fun QuaternionSubtractValue(q: Quaternion, sub: f32) Quaternion;
+pub fun quaternion_subtract_value(q: Quaternion, sub: f32) Quaternion { ret QuaternionSubtractValue(q, sub); }
+#[library("raylib")]
+ext fun QuaternionIdentity() Quaternion;
+pub fun quaternion_identity() Quaternion { ret QuaternionIdentity(); }
+#[library("raylib")]
+ext fun QuaternionLength(q: Quaternion) f32;
+pub fun quaternion_length(q: Quaternion) f32 { ret QuaternionLength(q); }
+#[library("raylib")]
+ext fun QuaternionNormalize(q: Quaternion) Quaternion;
+pub fun quaternion_normalize(q: Quaternion) Quaternion { ret QuaternionNormalize(q); }
+#[library("raylib")]
+ext fun QuaternionInvert(q: Quaternion) Quaternion;
+pub fun quaternion_invert(q: Quaternion) Quaternion { ret QuaternionInvert(q); }
+#[library("raylib")]
+ext fun QuaternionMultiply(q1: Quaternion, q2: Quaternion) Quaternion;
+pub fun quaternion_multiply(q1: Quaternion, q2: Quaternion) Quaternion { ret QuaternionMultiply(q1, q2); }
+#[library("raylib")]
+ext fun QuaternionScale(q: Quaternion, mul: f32) Quaternion;
+pub fun quaternion_scale(q: Quaternion, mul: f32) Quaternion { ret QuaternionScale(q, mul); }
+#[library("raylib")]
+ext fun QuaternionDivide(q1: Quaternion, q2: Quaternion) Quaternion;
+pub fun quaternion_divide(q1: Quaternion, q2: Quaternion) Quaternion { ret QuaternionDivide(q1, q2); }
+#[library("raylib")]
+ext fun QuaternionLerp(q1: Quaternion, q2: Quaternion, amount: f32) Quaternion;
+pub fun quaternion_lerp(q1: Quaternion, q2: Quaternion, amount: f32) Quaternion { ret QuaternionLerp(q1, q2, amount); }
+#[library("raylib")]
+ext fun QuaternionNlerp(q1: Quaternion, q2: Quaternion, amount: f32) Quaternion;
+pub fun quaternion_nlerp(q1: Quaternion, q2: Quaternion, amount: f32) Quaternion { ret QuaternionNlerp(q1, q2, amount); }
+#[library("raylib")]
+ext fun QuaternionSlerp(q1: Quaternion, q2: Quaternion, amount: f32) Quaternion;
+pub fun quaternion_slerp(q1: Quaternion, q2: Quaternion, amount: f32) Quaternion { ret QuaternionSlerp(q1, q2, amount); }
+#[library("raylib")]
+ext fun QuaternionCubicHermiteSpline(q1: Quaternion, outTangent1: Quaternion, q2: Quaternion, inTangent2: Quaternion, t: f32) Quaternion;
+pub fun quaternion_cubic_hermite_spline(q1: Quaternion, outTangent1: Quaternion, q2: Quaternion, inTangent2: Quaternion, t: f32) Quaternion { ret QuaternionCubicHermiteSpline(q1, outTangent1, q2, inTangent2, t); }
+#[library("raylib")]
+ext fun QuaternionFromVector3ToVector3(from: Vector3, to: Vector3) Quaternion;
+pub fun quaternion_from_vector3_to_vector3(from: Vector3, to: Vector3) Quaternion { ret QuaternionFromVector3ToVector3(from, to); }
+#[library("raylib")]
+ext fun QuaternionFromMatrix(mat: Matrix) Quaternion;
+pub fun quaternion_from_matrix(mat: Matrix) Quaternion { ret QuaternionFromMatrix(mat); }
+#[library("raylib")]
+ext fun QuaternionToMatrix(q: Quaternion) Matrix;
+pub fun quaternion_to_matrix(q: Quaternion) Matrix { ret QuaternionToMatrix(q); }
+#[library("raylib")]
+ext fun QuaternionFromAxisAngle(axis: Vector3, angle: f32) Quaternion;
+pub fun quaternion_from_axis_angle(axis: Vector3, angle: f32) Quaternion { ret QuaternionFromAxisAngle(axis, angle); }
+#[library("raylib")]
+ext fun QuaternionToAxisAngle(q: Quaternion, outAxis: *Vector3, outAngle: *f32) u8;
+pub fun quaternion_to_axis_angle(q: Quaternion, outAxis: *Vector3, outAngle: *f32) u8 { ret QuaternionToAxisAngle(q, outAxis, outAngle); }
+#[library("raylib")]
+ext fun QuaternionFromEuler(pitch: f32, yaw: f32, roll: f32) Quaternion;
+pub fun quaternion_from_euler(pitch: f32, yaw: f32, roll: f32) Quaternion { ret QuaternionFromEuler(pitch, yaw, roll); }
+#[library("raylib")]
+ext fun QuaternionToEuler(q: Quaternion) Vector3;
+pub fun quaternion_to_euler(q: Quaternion) Vector3 { ret QuaternionToEuler(q); }
+#[library("raylib")]
+ext fun QuaternionTransform(q: Quaternion, mat: Matrix) Quaternion;
+pub fun quaternion_transform(q: Quaternion, mat: Matrix) Quaternion { ret QuaternionTransform(q, mat); }
+#[library("raylib")]
+ext fun QuaternionEquals(p: Quaternion, q: Quaternion) i32;
+pub fun quaternion_equals(p: Quaternion, q: Quaternion) i32 { ret QuaternionEquals(p, q); }
+#[library("raylib")]
+ext fun MatrixCompose(translation: Vector3, rotation: Quaternion, scale: Vector3) Matrix;
+pub fun matrix_compose(translation: Vector3, rotation: Quaternion, scale: Vector3) Matrix { ret MatrixCompose(translation, rotation, scale); }
+#[library("raylib")]
+ext fun MatrixDecompose(mat: Matrix, translation: *Vector3, rotation: *Quaternion, scale: *Vector3) u8;
+pub fun matrix_decompose(mat: Matrix, translation: *Vector3, rotation: *Quaternion, scale: *Vector3) u8 { ret MatrixDecompose(mat, translation, rotation, scale); }

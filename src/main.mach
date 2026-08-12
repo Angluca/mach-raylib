@@ -1,0 +1,23 @@
+use std.runtime;
+use rl: raylib.raylib;
+use rm: raylib.raymath;
+use rc: raylib.rcamera;
+use rg: raylib.rlgl;
+
+#[symbol("main")]
+fun main(argc: i64, argv: **u8) i64 {
+    val sw: i32 = 300;
+    val sh: i32 = 200;
+    rl.init_window(sw, sh, "mach raylib");
+    rl.set_target_fps(60);
+
+    for (!rl.window_should_close()) {
+        rl.begin_drawing();
+            rl.clear_background(rl.GRAY);
+            rl.draw_text("Hello mach-raylib", 20, 80, 30, rl.LIGHTGRAY);
+        rl.end_drawing();
+    }
+
+    rl.close_window();
+    ret 0;
+}

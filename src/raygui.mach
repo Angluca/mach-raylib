@@ -1,0 +1,608 @@
+fwd std.types.bool.bool;
+fwd std.types.bool.true;
+fwd std.types.bool.false;
+fwd std.types.string.str;
+
+pub val RAYGUI_VERSION_MAJOR: i32 = 5;
+pub val RAYGUI_VERSION_MINOR: i32 = 0;
+pub val RAYGUI_VERSION_PATCH: i32 = 0;
+pub val RAYGUI_VERSION: str = "5.0";
+pub val SCROLLBAR_LEFT_SIDE: i32 = 0;
+pub val SCROLLBAR_RIGHT_SIDE: i32 = 1;
+pub rec Vector2 {
+      x: f32;
+      y: f32;
+}
+pub rec Vector3 {
+      x: f32;
+      y: f32;
+      z: f32;
+}
+pub rec Color {
+      r: u8;
+      g: u8;
+      b: u8;
+      a: u8;
+}
+pub rec Rectangle {
+      x: f32;
+      y: f32;
+      width: f32;
+      height: f32;
+}
+pub rec Texture {
+      id: u32;
+      width: i32;
+      height: i32;
+      mipmaps: i32;
+      format: i32;
+}
+pub rec Image {
+      data: ptr;
+      width: i32;
+      height: i32;
+      mipmaps: i32;
+      format: i32;
+}
+pub rec GlyphInfo {
+      value: i32;
+      offsetX: i32;
+      offsetY: i32;
+      advanceX: i32;
+      image: Image;
+}
+pub rec Font {
+      baseSize: i32;
+      glyphCount: i32;
+      glyphPadding: i32;
+      texture: Texture2D;
+      recs: *Rectangle;
+      glyphs: *GlyphInfo;
+}
+pub rec GuiStyleProp {
+      controlId: u16;
+      propertyId: u16;
+      propertyValue: i32;
+}
+pub rec GuiTextStyle {
+      size: u32;
+      charSpacing: i32;
+      lineSpacing: i32;
+      alignmentH: i32;
+      alignmentV: i32;
+      padding: i32;
+}
+pub def Texture2D: Texture;
+pub val RESULT_NONE: i32 = 0;
+pub val RESULT_PRESSED: i32 = 1;
+pub val RESULT_CHANGED: i32 = 2;
+pub val RESULT_TAB_CLOSE: i32 = 4;
+pub val STATE_NORMAL: i32 = 0;
+pub val STATE_FOCUSED: i32 = 1;
+pub val STATE_PRESSED: i32 = 2;
+pub val STATE_DISABLED: i32 = 3;
+pub val TEXT_ALIGN_LEFT: i32 = 0;
+pub val TEXT_ALIGN_CENTER: i32 = 1;
+pub val TEXT_ALIGN_RIGHT: i32 = 2;
+pub val TEXT_ALIGN_TOP: i32 = 0;
+pub val TEXT_ALIGN_MIDDLE: i32 = 1;
+pub val TEXT_ALIGN_BOTTOM: i32 = 2;
+pub val TEXT_WRAP_NONE: i32 = 0;
+pub val TEXT_WRAP_CHAR: i32 = 1;
+pub val TEXT_WRAP_WORD: i32 = 2;
+pub val DEFAULT: i32 = 0;
+pub val LABEL: i32 = 1;
+pub val BUTTON: i32 = 2;
+pub val TOGGLE: i32 = 3;
+pub val SLIDER: i32 = 4;
+pub val PROGRESSBAR: i32 = 5;
+pub val CHECKBOX: i32 = 6;
+pub val COMBOBOX: i32 = 7;
+pub val DROPDOWNBOX: i32 = 8;
+pub val TEXTBOX: i32 = 9;
+pub val VALUEBOX: i32 = 10;
+pub val TABBAR: i32 = 11;
+pub val LISTVIEW: i32 = 12;
+pub val COLORPICKER: i32 = 13;
+pub val SCROLLBAR: i32 = 14;
+pub val STATUSBAR: i32 = 15;
+pub val BORDER_COLOR_NORMAL: i32 = 0;
+pub val BASE_COLOR_NORMAL: i32 = 1;
+pub val TEXT_COLOR_NORMAL: i32 = 2;
+pub val BORDER_COLOR_FOCUSED: i32 = 3;
+pub val BASE_COLOR_FOCUSED: i32 = 4;
+pub val TEXT_COLOR_FOCUSED: i32 = 5;
+pub val BORDER_COLOR_PRESSED: i32 = 6;
+pub val BASE_COLOR_PRESSED: i32 = 7;
+pub val TEXT_COLOR_PRESSED: i32 = 8;
+pub val BORDER_COLOR_DISABLED: i32 = 9;
+pub val BASE_COLOR_DISABLED: i32 = 10;
+pub val TEXT_COLOR_DISABLED: i32 = 11;
+pub val BORDER_WIDTH: i32 = 12;
+pub val TEXT_PADDING: i32 = 13;
+pub val TEXT_ALIGNMENT: i32 = 14;
+pub val BASEPROP16: i32 = 15;
+pub val TEXT_SIZE: i32 = 16;
+pub val TEXT_SPACING: i32 = 17;
+pub val LINE_COLOR: i32 = 18;
+pub val BACKGROUND_COLOR: i32 = 19;
+pub val TEXT_LINE_SPACING: i32 = 20;
+pub val TEXT_ALIGNMENT_VERTICAL: i32 = 21;
+pub val TEXT_WRAP_MODE: i32 = 22;
+pub val EXTPROP08: i32 = 23;
+pub val GROUP_PADDING: i32 = 16;
+pub val GROUP_WIDTH_FULL: i32 = 17;
+pub val SLIDER_WIDTH: i32 = 16;
+pub val SLIDER_PADDING: i32 = 17;
+pub val PROGRESS_PADDING: i32 = 16;
+pub val PROGRESS_SIDE: i32 = 17;
+pub val ARROWS_SIZE: i32 = 16;
+pub val ARROWS_VISIBLE: i32 = 17;
+pub val SCROLL_SLIDER_PADDING: i32 = 18;
+pub val SCROLL_SLIDER_SIZE: i32 = 19;
+pub val SCROLL_PADDING: i32 = 20;
+pub val SCROLL_SPEED: i32 = 21;
+pub val CHECK_PADDING: i32 = 16;
+pub val COMBO_BUTTON_WIDTH: i32 = 16;
+pub val COMBO_BUTTON_SPACING: i32 = 17;
+pub val ARROW_PADDING: i32 = 16;
+pub val DROPDOWN_ITEMS_SPACING: i32 = 17;
+pub val DROPDOWN_ARROW_HIDDEN: i32 = 18;
+pub val DROPDOWN_ROLL_UP: i32 = 19;
+pub val TEXT_READONLY: i32 = 16;
+pub val SPINNER_BUTTON_WIDTH: i32 = 16;
+pub val SPINNER_BUTTON_SPACING: i32 = 17;
+pub val TAB_ITEMS_WIDTH: i32 = 16;
+pub val TAB_CLOSE_BUTTON: i32 = 17;
+pub val TAB_LINE_SIDE: i32 = 18;
+pub val LIST_ITEMS_HEIGHT: i32 = 16;
+pub val LIST_ITEMS_SPACING: i32 = 17;
+pub val SCROLLBAR_WIDTH: i32 = 18;
+pub val SCROLLBAR_SIDE: i32 = 19;
+pub val LIST_ITEMS_BORDER_NORMAL: i32 = 20;
+pub val LIST_ITEMS_BORDER_WIDTH: i32 = 21;
+pub val COLOR_SELECTOR_SIZE: i32 = 16;
+pub val HUEBAR_WIDTH: i32 = 17;
+pub val HUEBAR_PADDING: i32 = 18;
+pub val HUEBAR_SELECTOR_HEIGHT: i32 = 19;
+pub val HUEBAR_SELECTOR_OVERFLOW: i32 = 20;
+pub val ICON_NONE: i32 = 0;
+pub val ICON_FOLDER_FILE_OPEN: i32 = 1;
+pub val ICON_FILE_SAVE_CLASSIC: i32 = 2;
+pub val ICON_FOLDER_OPEN: i32 = 3;
+pub val ICON_FOLDER_SAVE: i32 = 4;
+pub val ICON_FILE_OPEN: i32 = 5;
+pub val ICON_FILE_SAVE: i32 = 6;
+pub val ICON_FILE_EXPORT: i32 = 7;
+pub val ICON_FILE_ADD: i32 = 8;
+pub val ICON_FILE_DELETE: i32 = 9;
+pub val ICON_FILETYPE_TEXT: i32 = 10;
+pub val ICON_FILETYPE_AUDIO: i32 = 11;
+pub val ICON_FILETYPE_IMAGE: i32 = 12;
+pub val ICON_FILETYPE_PLAY: i32 = 13;
+pub val ICON_FILETYPE_VIDEO: i32 = 14;
+pub val ICON_FILETYPE_INFO: i32 = 15;
+pub val ICON_FILE_COPY: i32 = 16;
+pub val ICON_FILE_CUT: i32 = 17;
+pub val ICON_FILE_PASTE: i32 = 18;
+pub val ICON_CURSOR_HAND: i32 = 19;
+pub val ICON_CURSOR_POINTER: i32 = 20;
+pub val ICON_CURSOR_CLASSIC: i32 = 21;
+pub val ICON_PENCIL: i32 = 22;
+pub val ICON_PENCIL_BIG: i32 = 23;
+pub val ICON_BRUSH_CLASSIC: i32 = 24;
+pub val ICON_BRUSH_PAINTER: i32 = 25;
+pub val ICON_WATER_DROP: i32 = 26;
+pub val ICON_COLOR_PICKER: i32 = 27;
+pub val ICON_RUBBER: i32 = 28;
+pub val ICON_COLOR_BUCKET: i32 = 29;
+pub val ICON_TEXT_T: i32 = 30;
+pub val ICON_TEXT_A: i32 = 31;
+pub val ICON_SCALE: i32 = 32;
+pub val ICON_RESIZE: i32 = 33;
+pub val ICON_FILTER_POINT: i32 = 34;
+pub val ICON_FILTER_BILINEAR: i32 = 35;
+pub val ICON_CROP: i32 = 36;
+pub val ICON_CROP_ALPHA: i32 = 37;
+pub val ICON_SQUARE_TOGGLE: i32 = 38;
+pub val ICON_SYMMETRY: i32 = 39;
+pub val ICON_SYMMETRY_HORIZONTAL: i32 = 40;
+pub val ICON_SYMMETRY_VERTICAL: i32 = 41;
+pub val ICON_LENS: i32 = 42;
+pub val ICON_LENS_BIG: i32 = 43;
+pub val ICON_EYE_ON: i32 = 44;
+pub val ICON_EYE_OFF: i32 = 45;
+pub val ICON_FILTER_TOP: i32 = 46;
+pub val ICON_FILTER: i32 = 47;
+pub val ICON_TARGET_POINT: i32 = 48;
+pub val ICON_TARGET_SMALL: i32 = 49;
+pub val ICON_TARGET_BIG: i32 = 50;
+pub val ICON_TARGET_MOVE: i32 = 51;
+pub val ICON_CURSOR_MOVE: i32 = 52;
+pub val ICON_CURSOR_SCALE: i32 = 53;
+pub val ICON_CURSOR_SCALE_RIGHT: i32 = 54;
+pub val ICON_CURSOR_SCALE_LEFT: i32 = 55;
+pub val ICON_UNDO: i32 = 56;
+pub val ICON_REDO: i32 = 57;
+pub val ICON_REREDO: i32 = 58;
+pub val ICON_MUTATE: i32 = 59;
+pub val ICON_ROTATE: i32 = 60;
+pub val ICON_REPEAT: i32 = 61;
+pub val ICON_SHUFFLE: i32 = 62;
+pub val ICON_EMPTYBOX: i32 = 63;
+pub val ICON_TARGET: i32 = 64;
+pub val ICON_TARGET_SMALL_FILL: i32 = 65;
+pub val ICON_TARGET_BIG_FILL: i32 = 66;
+pub val ICON_TARGET_MOVE_FILL: i32 = 67;
+pub val ICON_CURSOR_MOVE_FILL: i32 = 68;
+pub val ICON_CURSOR_SCALE_FILL: i32 = 69;
+pub val ICON_CURSOR_SCALE_RIGHT_FILL: i32 = 70;
+pub val ICON_CURSOR_SCALE_LEFT_FILL: i32 = 71;
+pub val ICON_UNDO_FILL: i32 = 72;
+pub val ICON_REDO_FILL: i32 = 73;
+pub val ICON_REREDO_FILL: i32 = 74;
+pub val ICON_MUTATE_FILL: i32 = 75;
+pub val ICON_ROTATE_FILL: i32 = 76;
+pub val ICON_REPEAT_FILL: i32 = 77;
+pub val ICON_SHUFFLE_FILL: i32 = 78;
+pub val ICON_EMPTYBOX_SMALL: i32 = 79;
+pub val ICON_BOX: i32 = 80;
+pub val ICON_BOX_TOP: i32 = 81;
+pub val ICON_BOX_TOP_RIGHT: i32 = 82;
+pub val ICON_BOX_RIGHT: i32 = 83;
+pub val ICON_BOX_BOTTOM_RIGHT: i32 = 84;
+pub val ICON_BOX_BOTTOM: i32 = 85;
+pub val ICON_BOX_BOTTOM_LEFT: i32 = 86;
+pub val ICON_BOX_LEFT: i32 = 87;
+pub val ICON_BOX_TOP_LEFT: i32 = 88;
+pub val ICON_BOX_CENTER: i32 = 89;
+pub val ICON_BOX_CIRCLE_MASK: i32 = 90;
+pub val ICON_POT: i32 = 91;
+pub val ICON_ALPHA_MULTIPLY: i32 = 92;
+pub val ICON_ALPHA_CLEAR: i32 = 93;
+pub val ICON_DITHERING: i32 = 94;
+pub val ICON_MIPMAPS: i32 = 95;
+pub val ICON_BOX_GRID: i32 = 96;
+pub val ICON_GRID: i32 = 97;
+pub val ICON_BOX_CORNERS_SMALL: i32 = 98;
+pub val ICON_BOX_CORNERS_BIG: i32 = 99;
+pub val ICON_FOUR_BOXES: i32 = 100;
+pub val ICON_GRID_FILL: i32 = 101;
+pub val ICON_BOX_MULTISIZE: i32 = 102;
+pub val ICON_ZOOM_SMALL: i32 = 103;
+pub val ICON_ZOOM_MEDIUM: i32 = 104;
+pub val ICON_ZOOM_BIG: i32 = 105;
+pub val ICON_ZOOM_ALL: i32 = 106;
+pub val ICON_ZOOM_CENTER: i32 = 107;
+pub val ICON_BOX_DOTS_SMALL: i32 = 108;
+pub val ICON_BOX_DOTS_BIG: i32 = 109;
+pub val ICON_BOX_CONCENTRIC: i32 = 110;
+pub val ICON_BOX_GRID_BIG: i32 = 111;
+pub val ICON_OK_TICK: i32 = 112;
+pub val ICON_CROSS: i32 = 113;
+pub val ICON_ARROW_LEFT: i32 = 114;
+pub val ICON_ARROW_RIGHT: i32 = 115;
+pub val ICON_ARROW_DOWN: i32 = 116;
+pub val ICON_ARROW_UP: i32 = 117;
+pub val ICON_ARROW_LEFT_FILL: i32 = 118;
+pub val ICON_ARROW_RIGHT_FILL: i32 = 119;
+pub val ICON_ARROW_DOWN_FILL: i32 = 120;
+pub val ICON_ARROW_UP_FILL: i32 = 121;
+pub val ICON_AUDIO: i32 = 122;
+pub val ICON_FX: i32 = 123;
+pub val ICON_WAVE: i32 = 124;
+pub val ICON_WAVE_SINUS: i32 = 125;
+pub val ICON_WAVE_SQUARE: i32 = 126;
+pub val ICON_WAVE_TRIANGULAR: i32 = 127;
+pub val ICON_CROSS_SMALL: i32 = 128;
+pub val ICON_PLAYER_PREVIOUS: i32 = 129;
+pub val ICON_PLAYER_PLAY_BACK: i32 = 130;
+pub val ICON_PLAYER_PLAY: i32 = 131;
+pub val ICON_PLAYER_PAUSE: i32 = 132;
+pub val ICON_PLAYER_STOP: i32 = 133;
+pub val ICON_PLAYER_NEXT: i32 = 134;
+pub val ICON_PLAYER_RECORD: i32 = 135;
+pub val ICON_MAGNET: i32 = 136;
+pub val ICON_LOCK_CLOSE: i32 = 137;
+pub val ICON_LOCK_OPEN: i32 = 138;
+pub val ICON_CLOCK: i32 = 139;
+pub val ICON_TOOLS: i32 = 140;
+pub val ICON_GEAR: i32 = 141;
+pub val ICON_GEAR_BIG: i32 = 142;
+pub val ICON_BIN: i32 = 143;
+pub val ICON_HAND_POINTER: i32 = 144;
+pub val ICON_LASER: i32 = 145;
+pub val ICON_COIN: i32 = 146;
+pub val ICON_EXPLOSION: i32 = 147;
+pub val ICON_1UP: i32 = 148;
+pub val ICON_PLAYER: i32 = 149;
+pub val ICON_PLAYER_JUMP: i32 = 150;
+pub val ICON_KEY: i32 = 151;
+pub val ICON_DEMON: i32 = 152;
+pub val ICON_TEXT_POPUP: i32 = 153;
+pub val ICON_GEAR_EX: i32 = 154;
+pub val ICON_CRACK: i32 = 155;
+pub val ICON_CRACK_POINTS: i32 = 156;
+pub val ICON_STAR: i32 = 157;
+pub val ICON_DOOR: i32 = 158;
+pub val ICON_EXIT: i32 = 159;
+pub val ICON_MODE_2D: i32 = 160;
+pub val ICON_MODE_3D: i32 = 161;
+pub val ICON_CUBE: i32 = 162;
+pub val ICON_CUBE_FACE_TOP: i32 = 163;
+pub val ICON_CUBE_FACE_LEFT: i32 = 164;
+pub val ICON_CUBE_FACE_FRONT: i32 = 165;
+pub val ICON_CUBE_FACE_BOTTOM: i32 = 166;
+pub val ICON_CUBE_FACE_RIGHT: i32 = 167;
+pub val ICON_CUBE_FACE_BACK: i32 = 168;
+pub val ICON_CAMERA: i32 = 169;
+pub val ICON_SPECIAL: i32 = 170;
+pub val ICON_LINK_NET: i32 = 171;
+pub val ICON_LINK_BOXES: i32 = 172;
+pub val ICON_LINK_MULTI: i32 = 173;
+pub val ICON_LINK: i32 = 174;
+pub val ICON_LINK_BROKE: i32 = 175;
+pub val ICON_TEXT_NOTES: i32 = 176;
+pub val ICON_NOTEBOOK: i32 = 177;
+pub val ICON_SUITCASE: i32 = 178;
+pub val ICON_SUITCASE_ZIP: i32 = 179;
+pub val ICON_MAILBOX: i32 = 180;
+pub val ICON_MONITOR: i32 = 181;
+pub val ICON_PRINTER: i32 = 182;
+pub val ICON_PHOTO_CAMERA: i32 = 183;
+pub val ICON_PHOTO_CAMERA_FLASH: i32 = 184;
+pub val ICON_HOUSE: i32 = 185;
+pub val ICON_HEART: i32 = 186;
+pub val ICON_CORNER: i32 = 187;
+pub val ICON_VERTICAL_BARS: i32 = 188;
+pub val ICON_VERTICAL_BARS_FILL: i32 = 189;
+pub val ICON_LIFE_BARS: i32 = 190;
+pub val ICON_INFO: i32 = 191;
+pub val ICON_CROSSLINE: i32 = 192;
+pub val ICON_HELP: i32 = 193;
+pub val ICON_FILETYPE_ALPHA: i32 = 194;
+pub val ICON_FILETYPE_HOME: i32 = 195;
+pub val ICON_LAYERS_VISIBLE: i32 = 196;
+pub val ICON_LAYERS: i32 = 197;
+pub val ICON_WINDOW: i32 = 198;
+pub val ICON_HIDPI: i32 = 199;
+pub val ICON_FILETYPE_BINARY: i32 = 200;
+pub val ICON_HEX: i32 = 201;
+pub val ICON_SHIELD: i32 = 202;
+pub val ICON_FILE_NEW: i32 = 203;
+pub val ICON_FOLDER_ADD: i32 = 204;
+pub val ICON_ALARM: i32 = 205;
+pub val ICON_CPU: i32 = 206;
+pub val ICON_ROM: i32 = 207;
+pub val ICON_STEP_OVER: i32 = 208;
+pub val ICON_STEP_INTO: i32 = 209;
+pub val ICON_STEP_OUT: i32 = 210;
+pub val ICON_RESTART: i32 = 211;
+pub val ICON_BREAKPOINT_ON: i32 = 212;
+pub val ICON_BREAKPOINT_OFF: i32 = 213;
+pub val ICON_BURGER_MENU: i32 = 214;
+pub val ICON_CASE_SENSITIVE: i32 = 215;
+pub val ICON_REG_EXP: i32 = 216;
+pub val ICON_FOLDER: i32 = 217;
+pub val ICON_FILE: i32 = 218;
+pub val ICON_SAND_TIMER: i32 = 219;
+pub val ICON_WARNING: i32 = 220;
+pub val ICON_HELP_BOX: i32 = 221;
+pub val ICON_INFO_BOX: i32 = 222;
+pub val ICON_PRIORITY: i32 = 223;
+pub val ICON_LAYERS_ISO: i32 = 224;
+pub val ICON_LAYERS2: i32 = 225;
+pub val ICON_MLAYERS: i32 = 226;
+pub val ICON_MAPS: i32 = 227;
+pub val ICON_HOT: i32 = 228;
+pub val ICON_LABEL: i32 = 229;
+pub val ICON_NAME_ID: i32 = 230;
+pub val ICON_SLICING: i32 = 231;
+pub val ICON_MANUAL_CONTROL: i32 = 232;
+pub val ICON_COLLISION: i32 = 233;
+pub val ICON_CIRCLE_ADD: i32 = 234;
+pub val ICON_CIRCLE_ADD_FILL: i32 = 235;
+pub val ICON_CIRCLE_WARNING: i32 = 236;
+pub val ICON_CIRCLE_WARNING_FILL: i32 = 237;
+pub val ICON_BOX_MORE: i32 = 238;
+pub val ICON_BOX_MORE_FILL: i32 = 239;
+pub val ICON_BOX_MINUS: i32 = 240;
+pub val ICON_BOX_MINUS_FILL: i32 = 241;
+pub val ICON_UNION: i32 = 242;
+pub val ICON_INTERSECTION: i32 = 243;
+pub val ICON_DIFFERENCE: i32 = 244;
+pub val ICON_SPHERE: i32 = 245;
+pub val ICON_CYLINDER: i32 = 246;
+pub val ICON_CONE: i32 = 247;
+pub val ICON_ELLIPSOID: i32 = 248;
+pub val ICON_CAPSULE: i32 = 249;
+pub val ICON_FILETYPE_FONT: i32 = 250;
+pub val ICON_FILETYPE_3D: i32 = 251;
+pub val ICON_FILETYPE_CODE_XML: i32 = 252;
+pub val ICON_FILETYPE_CODE_C: i32 = 253;
+pub val ICON_FILETYPE_CODE_PYTHON: i32 = 254;
+pub val ICON_FILETYPE_CODE_JS: i32 = 255;
+pub val ICON_FILETYPE_ICON: i32 = 256;
+#[library("raylib")]
+ext fun GuiEnable() u8;
+pub fun enable() u8 { ret GuiEnable(); }
+#[library("raylib")]
+ext fun GuiDisable() u8;
+pub fun disable() u8 { ret GuiDisable(); }
+#[library("raylib")]
+ext fun GuiLock() u8;
+pub fun lock() u8 { ret GuiLock(); }
+#[library("raylib")]
+ext fun GuiUnlock() u8;
+pub fun unlock() u8 { ret GuiUnlock(); }
+#[library("raylib")]
+ext fun GuiIsLocked() bool;
+pub fun is_locked() bool { ret GuiIsLocked(); }
+#[library("raylib")]
+ext fun GuiSetAlpha(alpha: f32) u8;
+pub fun set_alpha(alpha: f32) u8 { ret GuiSetAlpha(alpha); }
+#[library("raylib")]
+ext fun GuiSetState(state: i32) u8;
+pub fun set_state(state: i32) u8 { ret GuiSetState(state); }
+#[library("raylib")]
+ext fun GuiGetState() i32;
+pub fun get_state() i32 { ret GuiGetState(); }
+#[library("raylib")]
+ext fun GuiSetFont(font: Font) u8;
+pub fun set_font(font: Font) u8 { ret GuiSetFont(font); }
+#[library("raylib")]
+ext fun GuiGetFont() Font;
+pub fun get_font() Font { ret GuiGetFont(); }
+#[library("raylib")]
+ext fun GuiSetStyle(control: i32, property: i32, value: i32) u8;
+pub fun set_style(control: i32, property: i32, value: i32) u8 { ret GuiSetStyle(control, property, value); }
+#[library("raylib")]
+ext fun GuiGetStyle(control: i32, property: i32) i32;
+pub fun get_style(control: i32, property: i32) i32 { ret GuiGetStyle(control, property); }
+#[library("raylib")]
+ext fun GuiLoadStyle(fileName: *u8) u8;
+pub fun load_style(fileName: *u8) u8 { ret GuiLoadStyle(fileName); }
+#[library("raylib")]
+ext fun GuiLoadStyleFromMemory(fileData: *u8, dataSize: i32) u8;
+pub fun load_style_from_memory(fileData: *u8, dataSize: i32) u8 { ret GuiLoadStyleFromMemory(fileData, dataSize); }
+#[library("raylib")]
+ext fun GuiLoadStyleDefault() u8;
+pub fun load_style_default() u8 { ret GuiLoadStyleDefault(); }
+#[library("raylib")]
+ext fun GuiEnableTooltip() u8;
+pub fun enable_tooltip() u8 { ret GuiEnableTooltip(); }
+#[library("raylib")]
+ext fun GuiDisableTooltip() u8;
+pub fun disable_tooltip() u8 { ret GuiDisableTooltip(); }
+#[library("raylib")]
+ext fun GuiSetTooltip(tooltip: *u8) u8;
+pub fun set_tooltip(tooltip: *u8) u8 { ret GuiSetTooltip(tooltip); }
+#[library("raylib")]
+ext fun GuiIconText(iconId: i32, text: *u8) *u8;
+pub fun icon_text(iconId: i32, text: *u8) *u8 { ret GuiIconText(iconId, text); }
+#[library("raylib")]
+ext fun GuiSetIconScale(scale: i32) u8;
+pub fun set_icon_scale(scale: i32) u8 { ret GuiSetIconScale(scale); }
+#[library("raylib")]
+ext fun GuiGetIcons() *u32;
+pub fun get_icons() *u32 { ret GuiGetIcons(); }
+#[library("raylib")]
+ext fun GuiLoadIcons(fileName: *u8, loadIconsName: bool) *u8;
+pub fun load_icons(fileName: *u8, loadIconsName: bool) *u8 { ret GuiLoadIcons(fileName, loadIconsName); }
+#[library("raylib")]
+ext fun GuiLoadIconsFromMemory(fileData: *u8, dataSize: i32, loadIconsName: bool) *u8;
+pub fun load_icons_from_memory(fileData: *u8, dataSize: i32, loadIconsName: bool) *u8 { ret GuiLoadIconsFromMemory(fileData, dataSize, loadIconsName); }
+#[library("raylib")]
+ext fun GuiDrawIcon(iconId: i32, posX: i32, posY: i32, pixelSize: i32, color: Color) u8;
+pub fun draw_icon(iconId: i32, posX: i32, posY: i32, pixelSize: i32, color: Color) u8 { ret GuiDrawIcon(iconId, posX, posY, pixelSize, color); }
+#[library("raylib")]
+ext fun GuiGetTextWidth(text: *u8) i32;
+pub fun get_text_width(text: *u8) i32 { ret GuiGetTextWidth(text); }
+#[library("raylib")]
+ext fun GuiWindowBox(bounds: Rectangle, title: *u8) i32;
+pub fun window_box(bounds: Rectangle, title: *u8) i32 { ret GuiWindowBox(bounds, title); }
+#[library("raylib")]
+ext fun GuiGroupBox(bounds: Rectangle, text: *u8) i32;
+pub fun group_box(bounds: Rectangle, text: *u8) i32 { ret GuiGroupBox(bounds, text); }
+#[library("raylib")]
+ext fun GuiLine(bounds: Rectangle, text: *u8) i32;
+pub fun line(bounds: Rectangle, text: *u8) i32 { ret GuiLine(bounds, text); }
+#[library("raylib")]
+ext fun GuiPanel(bounds: Rectangle, text: *u8) i32;
+pub fun panel(bounds: Rectangle, text: *u8) i32 { ret GuiPanel(bounds, text); }
+#[library("raylib")]
+ext fun GuiScrollPanel(bounds: Rectangle, text: *u8, content: Rectangle, scroll: *Vector2, view: *Rectangle) i32;
+pub fun scroll_panel(bounds: Rectangle, text: *u8, content: Rectangle, scroll: *Vector2, view: *Rectangle) i32 { ret GuiScrollPanel(bounds, text, content, scroll, view); }
+#[library("raylib")]
+ext fun GuiLabel(bounds: Rectangle, text: *u8) i32;
+pub fun label(bounds: Rectangle, text: *u8) i32 { ret GuiLabel(bounds, text); }
+#[library("raylib")]
+ext fun GuiButton(bounds: Rectangle, text: *u8) i32;
+pub fun button(bounds: Rectangle, text: *u8) i32 { ret GuiButton(bounds, text); }
+#[library("raylib")]
+ext fun GuiLabelButton(bounds: Rectangle, text: *u8) i32;
+pub fun label_button(bounds: Rectangle, text: *u8) i32 { ret GuiLabelButton(bounds, text); }
+#[library("raylib")]
+ext fun GuiToggle(bounds: Rectangle, text: *u8, active: *bool) i32;
+pub fun toggle(bounds: Rectangle, text: *u8, active: *bool) i32 { ret GuiToggle(bounds, text, active); }
+#[library("raylib")]
+ext fun GuiToggleGroup(bounds: Rectangle, text: *u8, active: *i32) i32;
+pub fun toggle_group(bounds: Rectangle, text: *u8, active: *i32) i32 { ret GuiToggleGroup(bounds, text, active); }
+#[library("raylib")]
+ext fun GuiToggleSlider(bounds: Rectangle, text: *u8, active: *i32) i32;
+pub fun toggle_slider(bounds: Rectangle, text: *u8, active: *i32) i32 { ret GuiToggleSlider(bounds, text, active); }
+#[library("raylib")]
+ext fun GuiCheckBox(bounds: Rectangle, text: *u8, checked: *bool) i32;
+pub fun check_box(bounds: Rectangle, text: *u8, checked: *bool) i32 { ret GuiCheckBox(bounds, text, checked); }
+#[library("raylib")]
+ext fun GuiComboBox(bounds: Rectangle, text: *u8, active: *i32) i32;
+pub fun combo_box(bounds: Rectangle, text: *u8, active: *i32) i32 { ret GuiComboBox(bounds, text, active); }
+#[library("raylib")]
+ext fun GuiDropdownBox(bounds: Rectangle, text: *u8, active: *i32, editMode: bool) i32;
+pub fun dropdown_box(bounds: Rectangle, text: *u8, active: *i32, editMode: bool) i32 { ret GuiDropdownBox(bounds, text, active, editMode); }
+#[library("raylib")]
+ext fun GuiSpinner(bounds: Rectangle, text: *u8, value: *i32, minValue: i32, maxValue: i32, editMode: bool) i32;
+pub fun spinner(bounds: Rectangle, text: *u8, value: *i32, minValue: i32, maxValue: i32, editMode: bool) i32 { ret GuiSpinner(bounds, text, value, minValue, maxValue, editMode); }
+#[library("raylib")]
+ext fun GuiValueBox(bounds: Rectangle, text: *u8, value: *i32, minValue: i32, maxValue: i32, editMode: bool) i32;
+pub fun value_box(bounds: Rectangle, text: *u8, value: *i32, minValue: i32, maxValue: i32, editMode: bool) i32 { ret GuiValueBox(bounds, text, value, minValue, maxValue, editMode); }
+#[library("raylib")]
+ext fun GuiValueBoxFloat(bounds: Rectangle, text: *u8, textValue: *u8, value: *f32, editMode: bool) i32;
+pub fun value_box_float(bounds: Rectangle, text: *u8, textValue: *u8, value: *f32, editMode: bool) i32 { ret GuiValueBoxFloat(bounds, text, textValue, value, editMode); }
+#[library("raylib")]
+ext fun GuiTextBox(bounds: Rectangle, text: *u8, textSize: i32, editMode: bool) i32;
+pub fun text_box(bounds: Rectangle, text: *u8, textSize: i32, editMode: bool) i32 { ret GuiTextBox(bounds, text, textSize, editMode); }
+#[library("raylib")]
+ext fun GuiSlider(bounds: Rectangle, textLeft: *u8, textRight: *u8, value: *f32, minValue: f32, maxValue: f32) i32;
+pub fun slider(bounds: Rectangle, textLeft: *u8, textRight: *u8, value: *f32, minValue: f32, maxValue: f32) i32 { ret GuiSlider(bounds, textLeft, textRight, value, minValue, maxValue); }
+#[library("raylib")]
+ext fun GuiSliderBar(bounds: Rectangle, textLeft: *u8, textRight: *u8, value: *f32, minValue: f32, maxValue: f32) i32;
+pub fun slider_bar(bounds: Rectangle, textLeft: *u8, textRight: *u8, value: *f32, minValue: f32, maxValue: f32) i32 { ret GuiSliderBar(bounds, textLeft, textRight, value, minValue, maxValue); }
+#[library("raylib")]
+ext fun GuiProgressBar(bounds: Rectangle, textLeft: *u8, textRight: *u8, value: *f32, minValue: f32, maxValue: f32) i32;
+pub fun progress_bar(bounds: Rectangle, textLeft: *u8, textRight: *u8, value: *f32, minValue: f32, maxValue: f32) i32 { ret GuiProgressBar(bounds, textLeft, textRight, value, minValue, maxValue); }
+#[library("raylib")]
+ext fun GuiStatusBar(bounds: Rectangle, text: *u8) i32;
+pub fun status_bar(bounds: Rectangle, text: *u8) i32 { ret GuiStatusBar(bounds, text); }
+#[library("raylib")]
+ext fun GuiDummyRec(bounds: Rectangle, text: *u8) i32;
+pub fun dummy_rec(bounds: Rectangle, text: *u8) i32 { ret GuiDummyRec(bounds, text); }
+#[library("raylib")]
+ext fun GuiGrid(bounds: Rectangle, text: *u8, spacing: f32, subdivs: i32, mouseCell: *Vector2) i32;
+pub fun grid(bounds: Rectangle, text: *u8, spacing: f32, subdivs: i32, mouseCell: *Vector2) i32 { ret GuiGrid(bounds, text, spacing, subdivs, mouseCell); }
+#[library("raylib")]
+ext fun GuiListView(bounds: Rectangle, text: *u8, scrollIndex: *i32, active: *i32) i32;
+pub fun list_view(bounds: Rectangle, text: *u8, scrollIndex: *i32, active: *i32) i32 { ret GuiListView(bounds, text, scrollIndex, active); }
+#[library("raylib")]
+ext fun GuiListViewEx(bounds: Rectangle, text: *u8, count: i32, scrollIndex: *i32, active: *i32, focus: *i32) i32;
+pub fun list_view_ex(bounds: Rectangle, text: *u8, count: i32, scrollIndex: *i32, active: *i32, focus: *i32) i32 { ret GuiListViewEx(bounds, text, count, scrollIndex, active, focus); }
+#[library("raylib")]
+ext fun GuiTabBar(bounds: Rectangle, text: *u8, hscroll: *i32, active: *i32) i32;
+pub fun tab_bar(bounds: Rectangle, text: *u8, hscroll: *i32, active: *i32) i32 { ret GuiTabBar(bounds, text, hscroll, active); }
+#[library("raylib")]
+ext fun GuiTabBarEx(bounds: Rectangle, text: *u8, count: i32, hscroll: *i32, active: *i32, focus: *i32) i32;
+pub fun tab_bar_ex(bounds: Rectangle, text: *u8, count: i32, hscroll: *i32, active: *i32, focus: *i32) i32 { ret GuiTabBarEx(bounds, text, count, hscroll, active, focus); }
+#[library("raylib")]
+ext fun GuiMessageBox(bounds: Rectangle, title: *u8, message: *u8, btnText: *u8, btnActive: *i32) i32;
+pub fun message_box(bounds: Rectangle, title: *u8, message: *u8, btnText: *u8, btnActive: *i32) i32 { ret GuiMessageBox(bounds, title, message, btnText, btnActive); }
+#[library("raylib")]
+ext fun GuiTextInputBox(bounds: Rectangle, title: *u8, message: *u8, text: *u8, textSize: i32, btnText: *u8, btnActive: *i32, secretViewActive: *bool) i32;
+pub fun text_input_box(bounds: Rectangle, title: *u8, message: *u8, text: *u8, textSize: i32, btnText: *u8, btnActive: *i32, secretViewActive: *bool) i32 { ret GuiTextInputBox(bounds, title, message, text, textSize, btnText, btnActive, secretViewActive); }
+#[library("raylib")]
+ext fun GuiColorPicker(bounds: Rectangle, text: *u8, color: *Color) i32;
+pub fun color_picker(bounds: Rectangle, text: *u8, color: *Color) i32 { ret GuiColorPicker(bounds, text, color); }
+#[library("raylib")]
+ext fun GuiColorPanel(bounds: Rectangle, text: *u8, color: *Color) i32;
+pub fun color_panel(bounds: Rectangle, text: *u8, color: *Color) i32 { ret GuiColorPanel(bounds, text, color); }
+#[library("raylib")]
+ext fun GuiColorBarAlpha(bounds: Rectangle, text: *u8, alpha: *f32) i32;
+pub fun color_bar_alpha(bounds: Rectangle, text: *u8, alpha: *f32) i32 { ret GuiColorBarAlpha(bounds, text, alpha); }
+#[library("raylib")]
+ext fun GuiColorBarHue(bounds: Rectangle, text: *u8, value: *f32) i32;
+pub fun color_bar_hue(bounds: Rectangle, text: *u8, value: *f32) i32 { ret GuiColorBarHue(bounds, text, value); }
+#[library("raylib")]
+ext fun GuiColorPickerHSV(bounds: Rectangle, text: *u8, colorHsv: *Vector3) i32;
+pub fun color_picker_hsv(bounds: Rectangle, text: *u8, colorHsv: *Vector3) i32 { ret GuiColorPickerHSV(bounds, text, colorHsv); }
+#[library("raylib")]
+ext fun GuiColorPanelHSV(bounds: Rectangle, text: *u8, colorHsv: *Vector3) i32;
+pub fun color_panel_hsv(bounds: Rectangle, text: *u8, colorHsv: *Vector3) i32 { ret GuiColorPanelHSV(bounds, text, colorHsv); }
