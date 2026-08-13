@@ -2,8 +2,8 @@
 id = "example"
 version = "0.1.0"
 src = "src"
-#out = "out/{target.name}/{profile.name}"
 out = "out"
+#out = "out/{target.name}/{profile.name}"
 
 [target.linux-x86_64]
 isa = "x86_64"
@@ -19,6 +19,23 @@ abi = "win64"
 isa = "x86_64"
 os  = "darwin"
 abi = "sysv64"
+
+[profile.debug]
+opt = 0
+debug = true
+simd = "scalarize"
+
+[profile.release]
+opt = 2
+debug = false
+simd = "scalarize"
+
+[dep.mach-raylib]
+path = "../.."
+
+[dep.mach-std]
+git = "https://github.com/briar-systems/mach-std"
+ref = "branch/main"
 
 # -- examples -------------------------------------
 [artifact.basic_window]
@@ -45,20 +62,20 @@ targets = ["*"]
 link = []
 need = []
 
-# -------------------------------------------------
-[profile.debug]
-opt = 0
-debug = true
-simd = "scalarize"
+[artifact.input_mouse]
+kind = "bin"
+entry = "input_mouse.mach"
+out = "bin/input_mouse"
+targets = ["*"]
+link = []
+need = []
 
-[profile.release]
-opt = 2
-debug = false
-simd = "scalarize"
+[artifact.scissor_test]
+kind = "bin"
+entry = "scissor_test.mach"
+out = "bin/scissor_test"
+targets = ["*"]
+link = []
+need = []
 
-[dep.mach-raylib]
-path = "../.."
 
-[dep.mach-std]
-git = "https://github.com/briar-systems/mach-std"
-ref = "branch/main"

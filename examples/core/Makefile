@@ -15,7 +15,7 @@ TARGETS = $(notdir $(SRCS:.mach=))
 all: $(TARGETS)
 
 %: src/%.mach
-	mach build . $(MFLAGS) --bin $@
+	mach build . $(MFLAGS) -v --bin $@
 
 RUN_TARGET = $(filter-out run, $(MAKECMDGOALS))
 run: $(RUN_TARGET)

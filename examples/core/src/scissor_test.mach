@@ -1,0 +1,47 @@
+use std.runtime;
+use std.types.bool.bool;
+use std.types.bool.true;
+use std.types.bool.false;
+use rl: raylib.raylib;
+
+#[symbol("main")]
+fun main(argc: i64, argv: **u8) i64 {
+    # -- Init -----------
+    val sw: i32 = 600;
+    val sh: i32 = 400;
+    rl.init_window(sw, sh, "scissor test");
+    rl.set_target_fps(60);
+
+    var scissor_area: rl.Rectangle = rl.Rectangle { x: 50.0, y: 20.0, width: 300.0, height: 200.0 };
+    var scissor_mode: bool = true;
+
+    # --- Main loop -----
+    for (!rl.window_should_close()) {
+        # -- Update -----
+        if (rl.is_key_pressed(rl.KEY_SPACE)) {
+            scissor_area.x = rl.get_mouse_x()::f32 - scissor_area.width/2.0;
+            scissor_area.y = rl.get_mouse_y()::f32 - scissor_area.height/2.0;
+        }
+
+        ## -- Draw -------
+        rl.begin_drawing();
+            rl.clear_background(rl.GRAY);
+
+            if (scissor_mode) {
+                rl.begin_scissor_mode(scissor_area.x::i32, scissor_area.y::i32, scissor_area.width::i32, scissor_area.height::i32);
+            }
+            rl.draw_rectangle(0, 0, rl.get_screen_width(), rl.get_screen_height(), rl.BLUE);
+            rl.draw_text("Move the mouse around to reveal this text!", 100, 120, 20, rl.LIGHTGRAY);
+
+            if (scissor_mode) { rl.end_scissor_mode(); }
+            rl.draw_rectangle_lines_ex(scissor_area, 1.0, rl.BLACK);
+            rl.draw_text("Press Space to toggle scissor test", 10, 10, 20, rl.BLACK);
+
+        rl.end_drawing();
+    } # -----------------
+
+    # --- DeInit --------
+    rl.close_window();
+    ret 0;
+}
+
