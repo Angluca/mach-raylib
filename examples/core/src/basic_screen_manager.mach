@@ -9,6 +9,7 @@ val ENDING: GameScreen = 3;
 
 #[symbol("main")]
 fun main(argc: i64, argv: **u8) i64 {
+    # -- Init -----------
     val sw: i32 = 600;
     val sh: i32 = 200;
     rl.init_window(sw, sh, "basic screen manager");
@@ -16,9 +17,9 @@ fun main(argc: i64, argv: **u8) i64 {
 
     var current_screen: GameScreen = LOGO;
     var frames_counter: i32 = 0;
-
+    # --- Main loop -----
     for (!rl.window_should_close()) {
-
+        # -- Update -----
         if (current_screen == LOGO) {
             frames_counter = frames_counter + 1;
             if (frames_counter > 120) {
@@ -37,7 +38,7 @@ fun main(argc: i64, argv: **u8) i64 {
                 current_screen = TITLE;
             }
         }
-
+        # -- Draw -------
         rl.begin_drawing();
             rl.clear_background(rl.LIGHTGRAY);
             if (current_screen == LOGO) {
@@ -58,8 +59,9 @@ fun main(argc: i64, argv: **u8) i64 {
                 rl.draw_text("PRESS ENTER or TAP to RETURN to TITLE SCREEN", 10, 100, 20, rl.DARKBLUE);
             }
         rl.end_drawing();
-    }
+    } # -----------------
 
+    # --- DeInit --------
     rl.close_window();
     ret 0;
 }

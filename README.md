@@ -17,7 +17,7 @@ ref = "branch/main"
 ```zsh
 mach dep pull
 ```
-3. modify file `main.mach`
+3. modify `main.mach`
 ```rust
 use std.runtime;
 use rl: raylib.raylib;
@@ -53,11 +53,18 @@ mach run .
 ```
 # Examples
 open examples/xxx dir
+* use Makefile
+```zsh
+# set makefile LIBS_PATH
+make run file_name
+# or
+make run file_name ARGS="-L ../../libs" 
+```
+* use Mach
 ```zsh
 mach build . -L lib_path
-# or
-mach build . -L lib_path --bin example_file_name
+# or 
+mach build . -L lib_path --bin file_name
 
-mach run . --bin example_file_name
+mach run . --bin file_name
 ```
-

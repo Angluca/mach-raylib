@@ -37,6 +37,14 @@ targets = ["*"]
 link = []
 need = []
 
+[artifact.input_keys]
+kind = "bin"
+entry = "input_keys.mach"
+out = "bin/input_keys"
+targets = ["*"]
+link = []
+need = []
+
 # -------------------------------------------------
 [profile.debug]
 opt = 0
