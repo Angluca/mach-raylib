@@ -2,7 +2,7 @@
 set -eu
 cd "$(dirname "$0")/.."
 
-MODULES="raylib raymath rcamera"
+MODULES="raylib raymath rcamera math"
 
 generate() {
     cat <<'EOF'

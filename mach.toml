@@ -35,6 +35,7 @@ link = [
     "libSystem", "objc",
     "Cocoa", "AppKit", "Foundation", "CoreGraphics", "CoreServices",
     "IOKit", "CoreFoundation", "CoreVideo", "OpenGL",
+    "QuartzCore", "Metal"
 ]
 need = []
 
@@ -52,6 +53,7 @@ simd = "scalarize"
 source = "system"
 #name = "libs/libraylib.a"
 name = "raylib" # mach build . -L lib_path
+#library = "raylib"
 os = ["linux", "windows", "darwin"]
 isa = "*"
 abi = "*"
@@ -71,27 +73,28 @@ source = "system"
 name = "/usr/lib/libSystem.B.dylib"
 library = "libSystem"
 symbols = [
-    "_NSConcreteGlobalBlock", "_NSGetExecutablePath", "_NSGetProgname", 
-    "___chkstk_darwin", "__bzero", "__error", "__exp10", 
-    "__memcpy_chk", "__memset_chk", "__sincos_stret", 
-    "__sincosf_stret", "__sprintf_chk", "__stack_chk_fail", 
-    "__stack_chk_guard", "__stderrp", "__stdoutp", "__strcat_chk", 
-    "__strncpy_chk", "access", "acos", "acosf", "asinf", "atan2f", 
-    "atof", "atoi", "atoll", "calloc", "chdir", "closedir", "cos", 
-    "cosf", "div", "dlclose", "dlopen", "dlsym", "exit", "exp", 
-    "exp2f", "fclose", "feof", "ferror", "fflush", "fgetc", "fgets", 
-    "fileno", "fmod", "fmodf", "fopen", "fprintf", "fread", "free", 
-    "frexp", "fseek", "fstat$INODE64", "ftell", "fwrite", "getcwd", 
-    "gettimeofday", "hypot", "hypotf", "ldexp", "log", "logf", 
-    "mach_absolute_time", "mach_timebase_info", "malloc", "memchr", 
-    "memcmp", "memcpy", "memmove", "memset", "memset_pattern16", 
-    "mkdir", "opendir$INODE64", "pow", "powf", "pthread_attr_destroy", 
-    "pthread_attr_getschedparam", "pthread_attr_init", 
-    "pthread_attr_setinheritsched", "pthread_attr_setschedparam", 
-    "pthread_attr_setschedpolicy", "pthread_attr_setstacksize", 
-    "pthread_cond_destroy", "pthread_cond_init", "pthread_cond_signal", 
-    "pthread_cond_wait", "pthread_create", "pthread_getspecific", 
-    "pthread_join", "pthread_key_create", "pthread_key_delete", 
+    "ma_atomic_global_lock",
+    "_NSGetExecutablePath", "_NSGetProgname", "___chkstk_darwin", 
+    "__bzero", "__error", "__exp10", "__memcpy_chk", "__memset_chk", 
+    "__sincos_stret", "__sincosf_stret", "__sprintf_chk", 
+    "__stack_chk_fail", "__stack_chk_guard", "__stderrp", "__stdoutp", 
+    "__strcat_chk", "__strncpy_chk", "access", "acos", "acosf", 
+    "asinf", "atan2f", "atof", "atoi", "atoll", "calloc", "chdir", 
+    "closedir", "cos", "cosf", "div", "dlclose", "dlopen", "dlsym", 
+    "exit", "exp", "exp2f", "fclose", "feof", "ferror", "fflush", 
+    "fgetc", "fgets", "fileno", "fmod", "fmodf", "fopen", "fprintf", 
+    "fread", "free", "frexp", "fseek", "fstat$INODE64", "ftell", 
+    "fwrite", "getcwd", "gettimeofday", "hypot", "hypotf", "ldexp", 
+    "log", "logf", "mach_absolute_time", "mach_timebase_info", 
+    "malloc", "memchr", "memcmp", "memcpy", "memmove", "memset", 
+    "memset_pattern16", "mkdir", "opendir$INODE64", "pow", "powf", 
+    "pthread_attr_destroy", "pthread_attr_getschedparam", 
+    "pthread_attr_init", "pthread_attr_setinheritsched", 
+    "pthread_attr_setschedparam", "pthread_attr_setschedpolicy", 
+    "pthread_attr_setstacksize", "pthread_cond_destroy", 
+    "pthread_cond_init", "pthread_cond_signal", "pthread_cond_wait", 
+    "pthread_create", "pthread_getspecific", "pthread_join", 
+    "pthread_key_create", "pthread_key_delete", 
     "pthread_mutex_destroy", "pthread_mutex_init", 
     "pthread_mutex_lock", "pthread_mutex_unlock", 
     "pthread_setspecific", "puts", "qsort", "rand", "readdir$INODE64", 
@@ -101,7 +104,7 @@ symbols = [
     "strcspn", "strerror", "strlen", "strncmp", "strncpy", "strpbrk", 
     "strrchr", "strspn", "strstr", "strtok", "strtol", "strtoul", 
     "system", "tan", "time", "ungetc", "usleep", "vprintf", 
-    "vsnprintf", "wcsrtombs", "ma_atomic_global_lock"
+    "vsnprintf", "wcsrtombs", "_NSConcreteGlobalBlock", 
 ]
 os = ["darwin"]
 isa = "*"
@@ -118,7 +121,7 @@ symbols = [
     "objc_autoreleasePoolPop", "objc_autoreleasePoolPush", 
     "objc_enumerationMutation", "objc_msgSend", "objc_msgSendSuper2", 
     "objc_msgSend_stret", "objc_opt_class", "objc_opt_isKindOfClass", 
-    "objc_opt_respondsToSelector", "objc_release", "objc_retain"
+    "objc_opt_respondsToSelector", "objc_release", "objc_retain",
 ]
 os = ["darwin"]
 isa = "*"
@@ -264,6 +267,26 @@ export = true
 source = "framework"
 name = "OpenGL"
 os = ["darwin"]
+isa = "*"
+abi = "*"
+export = true
+
+[link.QuartzCore]
+source = "framework"
+name = "QuartzCore"
+symbols = [
+    "OBJC_CLASS_$_CAMetalLayer", "OBJC_METACLASS_$_CAMetalLayer",
+]
+os = ["darwin"]
+isa = "*"
+abi = "*"
+export = true
+
+[link.Metal]
+source = "framework"
+name = "Metal"
+os = ["darwin"]
+symbols = [ "MTLCreateSystemDefaultDevice", ]
 isa = "*"
 abi = "*"
 export = true

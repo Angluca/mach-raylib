@@ -1,8 +1,7 @@
 use std.runtime;
-use ra: raylib.ray;
-#use rm: raylib.raymath;
-#use rl: raylib.rlgl;
-use raylib.raylib.Vector2;
+use raylib.ra;
+use rl: raylib.rlgl;
+use raylib.ra.Vector2;
 
 #[symbol("main")]
 fun main(argc: i64, argv: **u8) i64 {
@@ -24,35 +23,58 @@ fun main(argc: i64, argv: **u8) i64 {
 
         if (ra.is_mouse_button_down(ra.MOUSE_BUTTON_LEFT)) {
             var delta: Vector2 = ra.get_mouse_delta();
-            delta = rm.vector2_scale(delta, -1.0/camera.zoom);
-            #camera.target = rm.vector2_add
+            delta = ra.vector2_scale(delta, -1.0/camera.zoom);
+            camera.target = ra.vector2_add(camera.target, delta);
         }
         if (zoom_mode == 0) {
             var wheel: f32 = ra.get_mouse_wheel_move();
             if (wheel > 0.00001) {
-                #var mouse_world_pos: Vector2 = ra.get_screen_to_world2
-                #camera.offset = ra.get_mouse_position();
-                #camera.target =
+                var mouse_world_pos: Vector2 = ra.get_screen_to_world2d(ra.get_mouse_position(), camera);
+                camera.offset = ra.get_mouse_position();
+                camera.target = mouse_world_pos;
+                var scale: f32 = 0.2 * wheel;
+                camera.zoom = ra.clamp(ra.expf(ra.logf(camera.zoom) + scale), 0.125, 64.0);
             }
         }
-        #or (ra.is_mouse_button_pressed(ra.MOUSE_BUTTON_MIDDLE)) { ball_color = ra.LIME; }
-        #or (ra.is_mouse_button_pressed(ra.MOUSE_BUTTON_RIGHT)) { ball_color = ra.DARKBLUE; }
-        #or (ra.is_mouse_button_pressed(ra.MOUSE_BUTTON_SIDE)) { ball_color = ra.PURPLE; }
-        #or (ra.is_mouse_button_pressed(ra.MOUSE_BUTTON_EXTRA)) { ball_color = ra.YELLOW; }
-        #or (ra.is_mouse_button_pressed(ra.MOUSE_BUTTON_FORWARD)) { ball_color = ra.ORANGE; }
-        #or (ra.is_mouse_button_pressed(ra.MOUSE_BUTTON_BACK)) { ball_color = ra.ORANGE; }
+        or {
+            if (ra.is_mouse_button_pressed(ra.MOUSE_BUTTON_RIGHT)) {
+                var mouse_world_pos: Vector2 = ra.get_screen_to_world2d(ra.get_mouse_position(), camera);
+                camera.offset = ra.get_mouse_position();
+                camera.target = mouse_world_pos;
+            }
+            if (ra.is_mouse_button_down(ra.MOUSE_BUTTON_RIGHT)) {
+                val delta_x: f32 = ra.get_mouse_delta().x;
+                var scale: f32 = 0.005 * delta_x;
+                camera.zoom = ra.clamp(ra.expf(ra.logf(camera.zoom) + scale), 0.125, 64.0);
+            }
+        }
 
         # -- Draw -------
         ra.begin_drawing();
             ra.clear_background(ra.RAYWHITE);
-            #ra.draw_circle_v(ball_position, 40.0, ball_color);
-            ra.draw_text("move and click mouse button to change color", 10, 10, 20, ra.DARKGRAY);
-            ra.draw_text("Press 'Space' to toggle cursor visibility", 10, 30, 20, ra.DARKGRAY);
+            ra.begin_mode2d(camera);
+                rl.push_matrix();
+                rl.translatef(0.0, 25.0 * 50.0, 0.0);
+                rl.rotatef(90.0, 1.0, 0.0, 0.0);
+                ra.draw_grid(100, 50.0);
 
-            if (ra.is_cursor_hidden()) {
-                ra.draw_text("CURSOR HIDDEN", 20, 60, 20, ra.RED);
-            }
-            or { ra.draw_text("CURSOR VISIBLE", 20, 60, 20, ra.LIME); }
+                ra.draw_circle(ra.get_screen_width()/2, ra.get_screen_height()/2, 50.0, ra.MAROON);
+            ra.end_mode2d();
+
+            ra.draw_circle_v(ra.get_mouse_position(), 4.0, ra.DARKGRAY);
+            ra.draw_text_ex( ra.get_font_default(),
+                ra.text_format("[%i, %i]", ra.get_mouse_x(), ra.get_mouse_y()),
+                ra.vector2_add(ra.get_mouse_position(), Vector2{x: -44.0, y: -24.0}),
+                20.0, 2.0, ra.BLACK
+            );
+            #ra.draw_circle_v(ball_position, 40.0, ball_color);
+            #ra.draw_text("move and click mouse button to change color", 10, 10, 20, ra.DARKGRAY);
+            #ra.draw_text("Press 'Space' to toggle cursor visibility", 10, 30, 20, ra.DARKGRAY);
+
+            #if (ra.is_cursor_hidden()) {
+                #ra.draw_text("CURSOR HIDDEN", 20, 60, 20, ra.RED);
+            #}
+            #or { ra.draw_text("CURSOR VISIBLE", 20, 60, 20, ra.LIME); }
         ra.end_drawing();
     } # -----------------
 
