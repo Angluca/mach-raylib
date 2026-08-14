@@ -1,7 +1,7 @@
 use std.runtime;
-use ra: raylib.raylib;
-use rm: raylib.raymath;
-use rl: raylib.rlgl;
+use ra: raylib.ray;
+#use rm: raylib.raymath;
+#use rl: raylib.rlgl;
 use raylib.raylib.Vector2;
 
 #[symbol("main")]
@@ -22,9 +22,18 @@ fun main(argc: i64, argv: **u8) i64 {
         if (ra.is_key_pressed(ra.KEY_ONE)) { zoom_mode = 0; }
         or (ra.is_key_pressed(ra.KEY_TWO)) { zoom_mode = 1; }
 
-        if (ra.is_mouse_button_pressed(ra.MOUSE_BUTTON_LEFT)) {
+        if (ra.is_mouse_button_down(ra.MOUSE_BUTTON_LEFT)) {
             var delta: Vector2 = ra.get_mouse_delta();
             delta = rm.vector2_scale(delta, -1.0/camera.zoom);
+            #camera.target = rm.vector2_add
+        }
+        if (zoom_mode == 0) {
+            var wheel: f32 = ra.get_mouse_wheel_move();
+            if (wheel > 0.00001) {
+                #var mouse_world_pos: Vector2 = ra.get_screen_to_world2
+                #camera.offset = ra.get_mouse_position();
+                #camera.target =
+            }
         }
         #or (ra.is_mouse_button_pressed(ra.MOUSE_BUTTON_MIDDLE)) { ball_color = ra.LIME; }
         #or (ra.is_mouse_button_pressed(ra.MOUSE_BUTTON_RIGHT)) { ball_color = ra.DARKBLUE; }

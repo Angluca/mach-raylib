@@ -1,7 +1,5 @@
 use std.runtime;
-use ra: raylib.raylib;
-#use rm: raylib.raymath;
-#use rc: raylib.rcamera;
+use raylib.ra;  # ra is composed of raylib/raymath/rcamera
 #use rl: raylib.rlgl;
 #use ru: raylib.raygui;
 

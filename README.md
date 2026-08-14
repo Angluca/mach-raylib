@@ -20,7 +20,7 @@ mach dep pull
 3. modify `main.mach`
 ```rust
 use std.runtime;
-use ra: raylib.raylib;
+use raylib.ra;  # ra is composed of raylib/raymath/rcamera
 
 #[symbol("main")]
 fun main(argc: i64, argv: **u8) i64 {

@@ -1,5 +1,5 @@
 use std.runtime;
-use ra: raylib.raylib;
+use raylib.ra;
 
 def GameScreen: u32;
 val LOGO: GameScreen = 0;
