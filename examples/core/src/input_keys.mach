@@ -1,34 +1,34 @@
 use std.runtime;
-use rl: raylib.raylib;
+use ra: raylib.raylib;
 
 #[symbol("main")]
 fun main(argc: i64, argv: **u8) i64 {
     # -- Init -----------
     val sw: i32 = 600;
     val sh: i32 = 200;
-    rl.init_window(sw, sh, "input keys");
-    rl.set_target_fps(60);
+    ra.init_window(sw, sh, "input keys");
+    ra.set_target_fps(60);
 
-    var ball_position: rl.Vector2 = rl.Vector2 { x: sw::f32/2.0, y: sh::f32/2.0 };
+    var ball_position: ra.Vector2 = ra.Vector2 { x: sw::f32/2.0, y: sh::f32/2.0 };
 
     # --- Main loop -----
-    for (!rl.window_should_close()) {
+    for (!ra.window_should_close()) {
         # -- Update -----
-        if (rl.is_key_down(rl.KEY_D)) { ball_position.x = ball_position.x + 2.0; }
-        or (rl.is_key_down(rl.KEY_A)) { ball_position.x = ball_position.x - 2.0; }
-        if (rl.is_key_down(rl.KEY_S)) { ball_position.y = ball_position.y + 2.0; }
-        or (rl.is_key_down(rl.KEY_W)) { ball_position.y = ball_position.y - 2.0; }
+        if (ra.is_key_down(ra.KEY_D)) { ball_position.x = ball_position.x + 2.0; }
+        or (ra.is_key_down(ra.KEY_A)) { ball_position.x = ball_position.x - 2.0; }
+        if (ra.is_key_down(ra.KEY_S)) { ball_position.y = ball_position.y + 2.0; }
+        or (ra.is_key_down(ra.KEY_W)) { ball_position.y = ball_position.y - 2.0; }
 
         # -- Draw -------
-        rl.begin_drawing();
-            rl.clear_background(rl.LIGHTGRAY);
-            rl.draw_text("move the ball with A S W D keys", 10, 10, 20, rl.DARKGRAY);
-            rl.draw_circle_v(ball_position, 50.0, rl.MAROON);
-        rl.end_drawing();
+        ra.begin_drawing();
+            ra.clear_background(ra.LIGHTGRAY);
+            ra.draw_text("move the ball with A S W D keys", 10, 10, 20, ra.DARKGRAY);
+            ra.draw_circle_v(ball_position, 50.0, ra.MAROON);
+        ra.end_drawing();
     } # -----------------
 
     # --- DeInit --------
-    rl.close_window();
+    ra.close_window();
     ret 0;
 }
 

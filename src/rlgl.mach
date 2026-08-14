@@ -3,6 +3,7 @@ fwd std.types.bool.true;
 fwd std.types.bool.false;
 fwd std.types.string.str;
 
+fwd raylib.raylib.Matrix;
 #[symbol("GRAPHICS_API_OPENGL_ES2")]
 val GRAPHICS_API_OPENGL_ES2: bool = false;
 $if (GRAPHICS_API_OPENGL_ES2) {
@@ -114,24 +115,6 @@ pub val RL_DEFAULT_SHADER_ATTRIB_LOCATION_INDICES: i32 = 6;
 pub val RL_DEFAULT_SHADER_ATTRIB_LOCATION_BONEINDICES: i32 = 7;
 pub val RL_DEFAULT_SHADER_ATTRIB_LOCATION_BONEWEIGHTS: i32 = 8;
 pub val RL_DEFAULT_SHADER_ATTRIB_LOCATION_INSTANCETRANSFORM: i32 = 9;
-pub rec Matrix {
-      m0: f32;
-      m4: f32;
-      m8: f32;
-      m12: f32;
-      m1: f32;
-      m5: f32;
-      m9: f32;
-      m13: f32;
-      m2: f32;
-      m6: f32;
-      m10: f32;
-      m14: f32;
-      m3: f32;
-      m7: f32;
-      m11: f32;
-      m15: f32;
-}
 pub rec rlDrawCall {
       mode: i32;
       vertexCount: i32;

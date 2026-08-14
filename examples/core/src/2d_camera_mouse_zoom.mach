@@ -1,0 +1,54 @@
+use std.runtime;
+use ra: raylib.raylib;
+use rm: raylib.raymath;
+use rl: raylib.rlgl;
+use raylib.raylib.Vector2;
+
+#[symbol("main")]
+fun main(argc: i64, argv: **u8) i64 {
+    # -- Init -----------
+    val sw: i32 = 600;
+    val sh: i32 = 400;
+    ra.init_window(sw, sh, "2d camera mouse zoom");
+    ra.set_target_fps(60);
+
+    var camera: ra.Camera2D;
+    camera.zoom = 1.0;
+    var zoom_mode: i32 = 0;
+
+    # --- Main loop -----
+    for (!ra.window_should_close()) {
+        ## -- Update -----
+        if (ra.is_key_pressed(ra.KEY_ONE)) { zoom_mode = 0; }
+        or (ra.is_key_pressed(ra.KEY_TWO)) { zoom_mode = 1; }
+
+        if (ra.is_mouse_button_pressed(ra.MOUSE_BUTTON_LEFT)) {
+            var delta: Vector2 = ra.get_mouse_delta();
+            delta = rm.vector2_scale(delta, -1.0/camera.zoom);
+        }
+        #or (ra.is_mouse_button_pressed(ra.MOUSE_BUTTON_MIDDLE)) { ball_color = ra.LIME; }
+        #or (ra.is_mouse_button_pressed(ra.MOUSE_BUTTON_RIGHT)) { ball_color = ra.DARKBLUE; }
+        #or (ra.is_mouse_button_pressed(ra.MOUSE_BUTTON_SIDE)) { ball_color = ra.PURPLE; }
+        #or (ra.is_mouse_button_pressed(ra.MOUSE_BUTTON_EXTRA)) { ball_color = ra.YELLOW; }
+        #or (ra.is_mouse_button_pressed(ra.MOUSE_BUTTON_FORWARD)) { ball_color = ra.ORANGE; }
+        #or (ra.is_mouse_button_pressed(ra.MOUSE_BUTTON_BACK)) { ball_color = ra.ORANGE; }
+
+        # -- Draw -------
+        ra.begin_drawing();
+            ra.clear_background(ra.RAYWHITE);
+            #ra.draw_circle_v(ball_position, 40.0, ball_color);
+            ra.draw_text("move and click mouse button to change color", 10, 10, 20, ra.DARKGRAY);
+            ra.draw_text("Press 'Space' to toggle cursor visibility", 10, 30, 20, ra.DARKGRAY);
+
+            if (ra.is_cursor_hidden()) {
+                ra.draw_text("CURSOR HIDDEN", 20, 60, 20, ra.RED);
+            }
+            or { ra.draw_text("CURSOR VISIBLE", 20, 60, 20, ra.LIME); }
+        ra.end_drawing();
+    } # -----------------
+
+    # --- DeInit --------
+    ra.close_window();
+    ret 0;
+}
+

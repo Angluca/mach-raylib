@@ -78,4 +78,12 @@ targets = ["*"]
 link = []
 need = []
 
+[artifact.2d_camera_mouse_zoom]
+kind = "bin"
+entry = "2d_camera_mouse_zoom.mach"
+out = "bin/2d_camera_mouse_zoom"
+targets = ["*"]
+link = []
+need = []
+
 

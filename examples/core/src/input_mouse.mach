@@ -1,51 +1,51 @@
 use std.runtime;
-use rl: raylib.raylib;
+use ra: raylib.raylib;
 
 #[symbol("main")]
 fun main(argc: i64, argv: **u8) i64 {
     # -- Init -----------
     val sw: i32 = 600;
     val sh: i32 = 400;
-    rl.init_window(sw, sh, "input mouse");
-    rl.set_target_fps(60);
+    ra.init_window(sw, sh, "input mouse");
+    ra.set_target_fps(60);
 
-    val ball_color: rl.Color = rl.DARKBLUE;
-    var ball_position: rl.Vector2 = rl.Vector2 { x: sw::f32/2.0, y: sh::f32/2.0 };
+    val ball_color: ra.Color = ra.DARKBLUE;
+    var ball_position: ra.Vector2 = ra.Vector2 { x: sw::f32/2.0, y: sh::f32/2.0 };
 
     # --- Main loop -----
-    for (!rl.window_should_close()) {
+    for (!ra.window_should_close()) {
         # -- Update -----
-        ball_position = rl.get_mouse_position();
+        ball_position = ra.get_mouse_position();
 
-        if (rl.is_key_pressed(rl.KEY_SPACE)) {
-            if (rl.is_cursor_hidden()) { rl.show_cursor(); }
-            or { rl.hide_cursor(); }
+        if (ra.is_key_pressed(ra.KEY_SPACE)) {
+            if (ra.is_cursor_hidden()) { ra.show_cursor(); }
+            or { ra.hide_cursor(); }
         }
 
-        if (rl.is_mouse_button_pressed(rl.MOUSE_BUTTON_LEFT)) { ball_color = rl.MAROON; }
-        or (rl.is_mouse_button_pressed(rl.MOUSE_BUTTON_MIDDLE)) { ball_color = rl.LIME; }
-        or (rl.is_mouse_button_pressed(rl.MOUSE_BUTTON_RIGHT)) { ball_color = rl.DARKBLUE; }
-        or (rl.is_mouse_button_pressed(rl.MOUSE_BUTTON_SIDE)) { ball_color = rl.PURPLE; }
-        or (rl.is_mouse_button_pressed(rl.MOUSE_BUTTON_EXTRA)) { ball_color = rl.YELLOW; }
-        or (rl.is_mouse_button_pressed(rl.MOUSE_BUTTON_FORWARD)) { ball_color = rl.ORANGE; }
-        or (rl.is_mouse_button_pressed(rl.MOUSE_BUTTON_BACK)) { ball_color = rl.ORANGE; }
+        if (ra.is_mouse_button_pressed(ra.MOUSE_BUTTON_LEFT)) { ball_color = ra.MAROON; }
+        or (ra.is_mouse_button_pressed(ra.MOUSE_BUTTON_MIDDLE)) { ball_color = ra.LIME; }
+        or (ra.is_mouse_button_pressed(ra.MOUSE_BUTTON_RIGHT)) { ball_color = ra.DARKBLUE; }
+        or (ra.is_mouse_button_pressed(ra.MOUSE_BUTTON_SIDE)) { ball_color = ra.PURPLE; }
+        or (ra.is_mouse_button_pressed(ra.MOUSE_BUTTON_EXTRA)) { ball_color = ra.YELLOW; }
+        or (ra.is_mouse_button_pressed(ra.MOUSE_BUTTON_FORWARD)) { ball_color = ra.ORANGE; }
+        or (ra.is_mouse_button_pressed(ra.MOUSE_BUTTON_BACK)) { ball_color = ra.ORANGE; }
 
         # -- Draw -------
-        rl.begin_drawing();
-            rl.clear_background(rl.RAYWHITE);
-            rl.draw_circle_v(ball_position, 40.0, ball_color);
-            rl.draw_text("move and click mouse button to change color", 10, 10, 20, rl.DARKGRAY);
-            rl.draw_text("Press 'Space' to toggle cursor visibility", 10, 30, 20, rl.DARKGRAY);
+        ra.begin_drawing();
+            ra.clear_background(ra.RAYWHITE);
+            ra.draw_circle_v(ball_position, 40.0, ball_color);
+            ra.draw_text("move and click mouse button to change color", 10, 10, 20, ra.DARKGRAY);
+            ra.draw_text("Press 'Space' to toggle cursor visibility", 10, 30, 20, ra.DARKGRAY);
 
-            if (rl.is_cursor_hidden()) {
-                rl.draw_text("CURSOR HIDDEN", 20, 60, 20, rl.RED);
+            if (ra.is_cursor_hidden()) {
+                ra.draw_text("CURSOR HIDDEN", 20, 60, 20, ra.RED);
             }
-            or { rl.draw_text("CURSOR VISIBLE", 20, 60, 20, rl.LIME); }
-        rl.end_drawing();
+            or { ra.draw_text("CURSOR VISIBLE", 20, 60, 20, ra.LIME); }
+        ra.end_drawing();
     } # -----------------
 
     # --- DeInit --------
-    rl.close_window();
+    ra.close_window();
     ret 0;
 }
 

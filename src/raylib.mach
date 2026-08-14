@@ -765,16 +765,16 @@ ext fun EndDrawing();
 pub fun end_drawing() { EndDrawing(); }
 #[library("raylib")]
 ext fun BeginMode2D(camera: Camera2D);
-pub fun begin_mode2_d(camera: Camera2D) { BeginMode2D(camera); }
+pub fun begin_mode2d(camera: Camera2D) { BeginMode2D(camera); }
 #[library("raylib")]
 ext fun EndMode2D();
-pub fun end_mode2_d() { EndMode2D(); }
+pub fun end_mode2d() { EndMode2D(); }
 #[library("raylib")]
 ext fun BeginMode3D(camera: Camera3D);
-pub fun begin_mode3_d(camera: Camera3D) { BeginMode3D(camera); }
+pub fun begin_mode3d(camera: Camera3D) { BeginMode3D(camera); }
 #[library("raylib")]
 ext fun EndMode3D();
-pub fun end_mode3_d() { EndMode3D(); }
+pub fun end_mode3d() { EndMode3D(); }
 #[library("raylib")]
 ext fun BeginTextureMode(target: RenderTexture2D);
 pub fun begin_texture_mode(target: RenderTexture2D) { BeginTextureMode(target); }
@@ -855,16 +855,16 @@ ext fun GetWorldToScreenEx(position: Vector3, camera: Camera, width: i32, height
 pub fun get_world_to_screen_ex(position: Vector3, camera: Camera, width: i32, height: i32) Vector2 { ret GetWorldToScreenEx(position, camera, width, height); }
 #[library("raylib")]
 ext fun GetWorldToScreen2D(position: Vector2, camera: Camera2D) Vector2;
-pub fun get_world_to_screen2_d(position: Vector2, camera: Camera2D) Vector2 { ret GetWorldToScreen2D(position, camera); }
+pub fun get_world_to_screen2d(position: Vector2, camera: Camera2D) Vector2 { ret GetWorldToScreen2D(position, camera); }
 #[library("raylib")]
 ext fun GetScreenToWorld2D(position: Vector2, camera: Camera2D) Vector2;
-pub fun get_screen_to_world2_d(position: Vector2, camera: Camera2D) Vector2 { ret GetScreenToWorld2D(position, camera); }
+pub fun get_screen_to_world2d(position: Vector2, camera: Camera2D) Vector2 { ret GetScreenToWorld2D(position, camera); }
 #[library("raylib")]
 ext fun GetCameraMatrix(camera: Camera) Matrix;
 pub fun get_camera_matrix(camera: Camera) Matrix { ret GetCameraMatrix(camera); }
 #[library("raylib")]
 ext fun GetCameraMatrix2D(camera: Camera2D) Matrix;
-pub fun get_camera_matrix2_d(camera: Camera2D) Matrix { ret GetCameraMatrix2D(camera); }
+pub fun get_camera_matrix2d(camera: Camera2D) Matrix { ret GetCameraMatrix2D(camera); }
 #[library("raylib")]
 ext fun SetTargetFPS(fps: i32);
 pub fun set_target_fps(fps: i32) { SetTargetFPS(fps); }
@@ -1782,7 +1782,7 @@ ext fun DrawTexturePro(texture: Texture2D, srcrec: Rectangle, dstrec: Rectangle,
 pub fun draw_texture_pro(texture: Texture2D, srcrec: Rectangle, dstrec: Rectangle, origin: Vector2, rotation: f32, tint: Color) { DrawTexturePro(texture, srcrec, dstrec, origin, rotation, tint); }
 #[library("raylib")]
 ext fun DrawTextureNPatch(texture: Texture2D, nPatchInfo: NPatchInfo, dstrec: Rectangle, origin: Vector2, rotation: f32, tint: Color);
-pub fun draw_texture_n_patch(texture: Texture2D, nPatchInfo: NPatchInfo, dstrec: Rectangle, origin: Vector2, rotation: f32, tint: Color) { DrawTextureNPatch(texture, nPatchInfo, dstrec, origin, rotation, tint); }
+pub fun draw_texture_npatch(texture: Texture2D, nPatchInfo: NPatchInfo, dstrec: Rectangle, origin: Vector2, rotation: f32, tint: Color) { DrawTextureNPatch(texture, nPatchInfo, dstrec, origin, rotation, tint); }
 #[library("raylib")]
 ext fun ColorIsEqual(col1: Color, col2: Color) bool;
 pub fun color_is_equal(col1: Color, col2: Color) bool { ret ColorIsEqual(col1, col2); }
@@ -2013,19 +2013,19 @@ ext fun TextToFloat(text: str) f32;
 pub fun text_to_float(text: str) f32 { ret TextToFloat(text); }
 #[library("raylib")]
 ext fun DrawLine3D(startPos: Vector3, endPos: Vector3, color: Color);
-pub fun draw_line3_d(startPos: Vector3, endPos: Vector3, color: Color) { DrawLine3D(startPos, endPos, color); }
+pub fun draw_line3d(startPos: Vector3, endPos: Vector3, color: Color) { DrawLine3D(startPos, endPos, color); }
 #[library("raylib")]
 ext fun DrawPoint3D(position: Vector3, color: Color);
-pub fun draw_point3_d(position: Vector3, color: Color) { DrawPoint3D(position, color); }
+pub fun draw_point3d(position: Vector3, color: Color) { DrawPoint3D(position, color); }
 #[library("raylib")]
 ext fun DrawCircle3D(center: Vector3, radius: f32, rotationAxis: Vector3, rotationAngle: f32, color: Color);
-pub fun draw_circle3_d(center: Vector3, radius: f32, rotationAxis: Vector3, rotationAngle: f32, color: Color) { DrawCircle3D(center, radius, rotationAxis, rotationAngle, color); }
+pub fun draw_circle3d(center: Vector3, radius: f32, rotationAxis: Vector3, rotationAngle: f32, color: Color) { DrawCircle3D(center, radius, rotationAxis, rotationAngle, color); }
 #[library("raylib")]
 ext fun DrawTriangle3D(v1: Vector3, v2: Vector3, v3: Vector3, color: Color);
-pub fun draw_triangle3_d(v1: Vector3, v2: Vector3, v3: Vector3, color: Color) { DrawTriangle3D(v1, v2, v3, color); }
+pub fun draw_triangle3d(v1: Vector3, v2: Vector3, v3: Vector3, color: Color) { DrawTriangle3D(v1, v2, v3, color); }
 #[library("raylib")]
 ext fun DrawTriangleStrip3D(points: *Vector3, pointCount: i32, color: Color);
-pub fun draw_triangle_strip3_d(points: *Vector3, pointCount: i32, color: Color) { DrawTriangleStrip3D(points, pointCount, color); }
+pub fun draw_triangle_strip3d(points: *Vector3, pointCount: i32, color: Color) { DrawTriangleStrip3D(points, pointCount, color); }
 #[library("raylib")]
 ext fun DrawCube(position: Vector3, width: f32, height: f32, length: f32, color: Color);
 pub fun draw_cube(position: Vector3, width: f32, height: f32, length: f32, color: Color) { DrawCube(position, width, height, length, color); }

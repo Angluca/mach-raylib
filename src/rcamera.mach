@@ -3,6 +3,11 @@ fwd std.types.bool.true;
 fwd std.types.bool.false;
 fwd std.types.string.str;
 
+fwd raylib.raylib.Vector2;
+fwd raylib.raylib.Vector3;
+fwd raylib.raylib.Matrix;
+fwd raylib.raylib.Camera3D;
+
 pub val CAMERA_CULL_DISTANCE_NEAR: f64 = 0.05;
 pub val CAMERA_CULL_DISTANCE_FAR: f64 = 4000.0;
 pub val CAMERA_MOVE_SPEED: f32 = 5.4;
@@ -10,40 +15,6 @@ pub val CAMERA_ROTATION_SPEED: f32 = 0.03;
 pub val CAMERA_PAN_SPEED: f32 = 2.0;
 pub val CAMERA_MOUSE_MOVE_SENSITIVITY: f32 = 0.003;
 pub val CAMERA_ORBITAL_SPEED: f32 = 0.5;
-pub rec Vector2 {
-      x: f32;
-      y: f32;
-}
-pub rec Vector3 {
-      x: f32;
-      y: f32;
-      z: f32;
-}
-pub rec Matrix {
-      m0: f32;
-      m4: f32;
-      m8: f32;
-      m12: f32;
-      m1: f32;
-      m5: f32;
-      m9: f32;
-      m13: f32;
-      m2: f32;
-      m6: f32;
-      m10: f32;
-      m14: f32;
-      m3: f32;
-      m7: f32;
-      m11: f32;
-      m15: f32;
-}
-pub rec Camera3D {
-      position: Vector3;
-      target: Vector3;
-      up: Vector3;
-      fovy: f32;
-      projection: i32;
-}
 pub def Camera: Camera3D;
 pub val CAMERA_PERSPECTIVE: i32 = 0;
 pub val CAMERA_ORTHOGRAPHIC: i32 = 1;

@@ -3,62 +3,21 @@ fwd std.types.bool.true;
 fwd std.types.bool.false;
 fwd std.types.string.str;
 
+fwd raylib.raylib.Vector2;
+fwd raylib.raylib.Vector3;
+fwd raylib.raylib.Color;
+fwd raylib.raylib.Rectangle;
+fwd raylib.raylib.Texture;
+fwd raylib.raylib.Image;
+fwd raylib.raylib.GlyphInfo;
+fwd raylib.raylib.Font;
+
 pub val RAYGUI_VERSION_MAJOR: i32 = 5;
 pub val RAYGUI_VERSION_MINOR: i32 = 0;
 pub val RAYGUI_VERSION_PATCH: i32 = 0;
 pub val RAYGUI_VERSION: str = "5.0";
 pub val SCROLLBAR_LEFT_SIDE: i32 = 0;
 pub val SCROLLBAR_RIGHT_SIDE: i32 = 1;
-pub rec Vector2 {
-      x: f32;
-      y: f32;
-}
-pub rec Vector3 {
-      x: f32;
-      y: f32;
-      z: f32;
-}
-pub rec Color {
-      r: u8;
-      g: u8;
-      b: u8;
-      a: u8;
-}
-pub rec Rectangle {
-      x: f32;
-      y: f32;
-      width: f32;
-      height: f32;
-}
-pub rec Texture {
-      id: u32;
-      width: i32;
-      height: i32;
-      mipmaps: i32;
-      format: i32;
-}
-pub rec Image {
-      data: ptr;
-      width: i32;
-      height: i32;
-      mipmaps: i32;
-      format: i32;
-}
-pub rec GlyphInfo {
-      value: i32;
-      offsetX: i32;
-      offsetY: i32;
-      advanceX: i32;
-      image: Image;
-}
-pub rec Font {
-      baseSize: i32;
-      glyphCount: i32;
-      glyphPadding: i32;
-      texture: Texture2D;
-      recs: *Rectangle;
-      glyphs: *GlyphInfo;
-}
 pub rec GuiStyleProp {
       controlId: u16;
       propertyId: u16;

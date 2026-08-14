@@ -1,5 +1,5 @@
 use std.runtime;
-use rl: raylib.raylib;
+use ra: raylib.raylib;
 
 def GameScreen: u32;
 val LOGO: GameScreen = 0;
@@ -12,13 +12,13 @@ fun main(argc: i64, argv: **u8) i64 {
     # -- Init -----------
     val sw: i32 = 600;
     val sh: i32 = 200;
-    rl.init_window(sw, sh, "basic screen manager");
-    rl.set_target_fps(60);
+    ra.init_window(sw, sh, "basic screen manager");
+    ra.set_target_fps(60);
 
     var current_screen: GameScreen = LOGO;
     var frames_counter: i32 = 0;
     # --- Main loop -----
-    for (!rl.window_should_close()) {
+    for (!ra.window_should_close()) {
         # -- Update -----
         if (current_screen == LOGO) {
             frames_counter = frames_counter + 1;
@@ -26,43 +26,43 @@ fun main(argc: i64, argv: **u8) i64 {
                 current_screen = TITLE;
             }
         } or (current_screen == TITLE) {
-            if (rl.is_key_pressed(rl.KEY_ENTER) || rl.is_gesture_detected(rl.GESTURE_TAP::u32)) {
+            if (ra.is_key_pressed(ra.KEY_ENTER) || ra.is_gesture_detected(ra.GESTURE_TAP::u32)) {
                 current_screen = GAMEPLAY;
             }
         } or (current_screen == GAMEPLAY) {
-            if (rl.is_key_pressed(rl.KEY_ENTER) || rl.is_gesture_detected(rl.GESTURE_TAP::u32)) {
+            if (ra.is_key_pressed(ra.KEY_ENTER) || ra.is_gesture_detected(ra.GESTURE_TAP::u32)) {
                 current_screen = ENDING;
             }
         } or (current_screen == ENDING) {
-            if (rl.is_key_pressed(rl.KEY_ENTER) || rl.is_gesture_detected(rl.GESTURE_TAP::u32)) {
+            if (ra.is_key_pressed(ra.KEY_ENTER) || ra.is_gesture_detected(ra.GESTURE_TAP::u32)) {
                 current_screen = TITLE;
             }
         }
         # -- Draw -------
-        rl.begin_drawing();
-            rl.clear_background(rl.LIGHTGRAY);
+        ra.begin_drawing();
+            ra.clear_background(ra.LIGHTGRAY);
             if (current_screen == LOGO) {
-                rl.draw_text("LOGO SCREEN", 20, 20, 40, rl.LIGHTGRAY);
-                rl.draw_text("WAIT for 2 SECONDS...", 150, 100, 20, rl.GRAY);
+                ra.draw_text("LOGO SCREEN", 20, 20, 40, ra.LIGHTGRAY);
+                ra.draw_text("WAIT for 2 SECONDS...", 150, 100, 20, ra.GRAY);
             } or (current_screen == TITLE) {
-                rl.draw_rectangle(0, 0, sw, sh, rl.GREEN);
+                ra.draw_rectangle(0, 0, sw, sh, ra.GREEN);
 
-                rl.draw_text("TITLE SCREEN", 10, 20, 40, rl.DARKGREEN);
-                rl.draw_text("PRESS ENTER or TAP to JUMP to GAMEPLAY SCREEN", 10, 100, 20, rl.DARKGREEN);
+                ra.draw_text("TITLE SCREEN", 10, 20, 40, ra.DARKGREEN);
+                ra.draw_text("PRESS ENTER or TAP to JUMP to GAMEPLAY SCREEN", 10, 100, 20, ra.DARKGREEN);
             } or (current_screen == GAMEPLAY) {
-                rl.draw_rectangle(0, 0, sw, sh, rl.PURPLE);
-                rl.draw_text("GAMEPLAY SCREEN", 10, 20, 40, rl.MAROON);
-                rl.draw_text("PRESS ENTER or TAP to JUMP to ENDING SCREEN", 10, 100, 20, rl.MAROON);
+                ra.draw_rectangle(0, 0, sw, sh, ra.PURPLE);
+                ra.draw_text("GAMEPLAY SCREEN", 10, 20, 40, ra.MAROON);
+                ra.draw_text("PRESS ENTER or TAP to JUMP to ENDING SCREEN", 10, 100, 20, ra.MAROON);
             } or (current_screen == ENDING) {
-                rl.draw_rectangle(0, 0, sw, sh, rl.BLUE);
-                rl.draw_text("ENDING SCREEN", 10, 20, 40, rl.DARKBLUE);
-                rl.draw_text("PRESS ENTER or TAP to RETURN to TITLE SCREEN", 10, 100, 20, rl.DARKBLUE);
+                ra.draw_rectangle(0, 0, sw, sh, ra.BLUE);
+                ra.draw_text("ENDING SCREEN", 10, 20, 40, ra.DARKBLUE);
+                ra.draw_text("PRESS ENTER or TAP to RETURN to TITLE SCREEN", 10, 100, 20, ra.DARKBLUE);
             }
-        rl.end_drawing();
+        ra.end_drawing();
     } # -----------------
 
     # --- DeInit --------
-    rl.close_window();
+    ra.close_window();
     ret 0;
 }
 
