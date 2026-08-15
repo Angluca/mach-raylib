@@ -8,16 +8,15 @@ Mach language bindings for Raylib
 ```zsh
 mach init mygame
 ```
-2. write it to `mach.toml` and pull it
+2. You can choose one of the two methods to add `mach-raylib` and run `mach dep pull`
+   1. `mach dep add mach-raylib --git` https://github.com/Angluca/mach-raylib
+   2.  Or write it to `mach.toml`
 ```toml
 [dep.mach-raylib]
 git = "https://github.com/angluca/mach-raylib"
 ref = "branch/main"
 ```
-```zsh
-mach dep pull
-```
-3. modify `main.mach`
+3. write `main.mach`
 ```rust
 use std.runtime;
 use raylib.ra;  # ra is composed of raylib/raymath/rcamera

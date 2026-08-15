@@ -6,14 +6,21 @@ use raylib.ra.Vector2;
 #[symbol("main")]
 fun main(argc: i64, argv: **u8) i64 {
     # -- Init -----------
-    val sw: i32 = 600;
-    val sh: i32 = 400;
+    val sw: i32 = 700;
+    val sh: i32 = 500;
     ra.init_window(sw, sh, "2d camera mouse zoom");
     ra.set_target_fps(60);
 
     var camera: ra.Camera2D;
     camera.zoom = 1.0;
     var zoom_mode: i32 = 0;
+
+    var buf: [256]u8;
+    var st: fixed.FixedState;
+    var al: A.Allocator;
+    fixed.make(?al, ?st, ?buf[0], $size_of(buf));
+    var rbuf: Result[str, str];
+    var ps: str;
 
     # --- Main loop -----
     for (!ra.window_should_close()) {
@@ -28,7 +35,7 @@ fun main(argc: i64, argv: **u8) i64 {
         }
         if (zoom_mode == 0) {
             var wheel: f32 = ra.get_mouse_wheel_move();
-            if (wheel > 0.00001) {
+            if (wheel != 0.0) {
                 var mouse_world_pos: Vector2 = ra.get_screen_to_world2d(ra.get_mouse_position(), camera);
                 camera.offset = ra.get_mouse_position();
                 camera.target = mouse_world_pos;
@@ -49,32 +56,38 @@ fun main(argc: i64, argv: **u8) i64 {
             }
         }
 
+        fixed.reset(?st);
+        rbuf = sprint(?al, "[{}, {}]", ra.get_mouse_x(), ra.get_mouse_y());
+        if (is_err[str, str](rbuf)) { ps = unwrap_err[str, str](rbuf); }
+        or { ps = unwrap_ok[str, str](rbuf); }
         # -- Draw -------
         ra.begin_drawing();
             ra.clear_background(ra.RAYWHITE);
             ra.begin_mode2d(camera);
                 rl.push_matrix();
-                rl.translatef(0.0, 25.0 * 50.0, 0.0);
-                rl.rotatef(90.0, 1.0, 0.0, 0.0);
-                ra.draw_grid(100, 50.0);
+                    rl.translatef(0.0, 25.0 * 50.0, 0.0);
+                    rl.rotatef(90.0, 1.0, 0.0, 0.0);
+                    ra.draw_grid(100, 50.0);
+                rl.pop_matrix();
 
                 ra.draw_circle(ra.get_screen_width()/2, ra.get_screen_height()/2, 50.0, ra.MAROON);
             ra.end_mode2d();
 
             ra.draw_circle_v(ra.get_mouse_position(), 4.0, ra.DARKGRAY);
             ra.draw_text_ex( ra.get_font_default(),
-                ra.text_format("[%i, %i]", ra.get_mouse_x(), ra.get_mouse_y()),
+                #ra.text_format("[%i, %i]", ra.get_mouse_x(), ra.get_mouse_y()),
+                #"Can't use text_format(str, ...) now, Wait for fix it",
+                ps,
                 ra.vector2_add(ra.get_mouse_position(), Vector2{x: -44.0, y: -24.0}),
                 20.0, 2.0, ra.BLACK
             );
-            #ra.draw_circle_v(ball_position, 40.0, ball_color);
-            #ra.draw_text("move and click mouse button to change color", 10, 10, 20, ra.DARKGRAY);
-            #ra.draw_text("Press 'Space' to toggle cursor visibility", 10, 30, 20, ra.DARKGRAY);
+            ra.draw_text("[1][2] Select mouse zoom mode (Wheel or Move)", 20, 20, 20, ra.DARKGRAY);
+            if (!zoom_mode) {
+                ra.draw_text("Mouse left button drag to move, mouse wheel to zoom", 20, 50, 20, ra.DARKGRAY);
+            } or {
+                ra.draw_text("Mouse left button drag to move, mouse press and move to zoom", 20, 50, 20, ra.DARKGRAY);
 
-            #if (ra.is_cursor_hidden()) {
-                #ra.draw_text("CURSOR HIDDEN", 20, 60, 20, ra.RED);
-            #}
-            #or { ra.draw_text("CURSOR VISIBLE", 20, 60, 20, ra.LIME); }
+            }
         ra.end_drawing();
     } # -----------------
 
@@ -82,4 +95,13 @@ fun main(argc: i64, argv: **u8) i64 {
     ra.close_window();
     ret 0;
 }
+
+use std.types.result.Result;
+use std.types.result.is_err;
+use std.types.result.unwrap_ok;
+use std.types.result.unwrap_err;
+use std.types.string.str;
+use A: std.allocator;
+use std.allocator.fixed;
+use std.format.sprint;
 
