@@ -44,12 +44,12 @@ fun main(argc: i64, argv: **u8) i64 {
             }
         }
         or {
-            if (ra.is_mouse_button_pressed(ra.MOUSE_BUTTON_RIGHT)) {
+            if (ra.is_mouse_button_pressed(ra.MOUSE_BUTTON_LEFT)) {
                 var mouse_world_pos: Vector2 = ra.get_screen_to_world2d(ra.get_mouse_position(), camera);
                 camera.offset = ra.get_mouse_position();
                 camera.target = mouse_world_pos;
             }
-            if (ra.is_mouse_button_down(ra.MOUSE_BUTTON_RIGHT)) {
+            if (ra.is_mouse_button_down(ra.MOUSE_BUTTON_LEFT)) {
                 val delta_x: f32 = ra.get_mouse_delta().x;
                 var scale: f32 = 0.005 * delta_x;
                 camera.zoom = ra.clamp(ra.expf(ra.logf(camera.zoom) + scale), 0.125, 64.0);

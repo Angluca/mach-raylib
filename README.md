@@ -2,8 +2,6 @@
 Mach language bindings for Raylib
 
 # How to use
-<img width="200" height="178" alt="图片" src="https://github.com/user-attachments/assets/7bd46b95-4182-41b9-b9e1-3181182ba348" />
-
 1. Create new project
 ```zsh
 mach init mygame
@@ -17,6 +15,8 @@ git = "https://github.com/angluca/mach-raylib"
 ref = "branch/main"
 ```
 3. write `main.mach`
+<img width="200" height="178" alt="basic_window" src="https://github.com/user-attachments/assets/8b203cf6-30f0-42c8-bcdf-f31f70218850" />
+
 ```rust
 use std.runtime;
 use raylib.ra;  # ra is composed of raylib/raymath/rcamera

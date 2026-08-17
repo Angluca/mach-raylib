@@ -32,8 +32,8 @@ pub val BLACK: Color = Color{ r: 0, g: 0, b: 0, a: 255 };
 pub val BLANK: Color = Color{ r: 0, g: 0, b: 0, a: 0 };
 pub val MAGENTA: Color = Color{ r: 255, g: 0, b: 255, a: 255 };
 pub val RAYWHITE: Color = Color{ r: 245, g: 245, b: 245, a: 255 };
-pub rec rAudioBuffer {}
-pub rec rAudioProcessor {}
+#[library("raylib")] pub ext rec rAudioBuffer {}
+#[library("raylib")] pub ext rec rAudioProcessor {}
 
 pub rec Vector2 {
       x: f32;

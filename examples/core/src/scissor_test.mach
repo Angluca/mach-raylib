@@ -8,20 +8,19 @@ use raylib.ra;
 fun main(argc: i64, argv: **u8) i64 {
     # -- Init -----------
     val sw: i32 = 600;
-    val sh: i32 = 400;
+    val sh: i32 = 260;
     ra.init_window(sw, sh, "scissor test");
     ra.set_target_fps(60);
 
-    var scissor_area: ra.Rectangle = ra.Rectangle { x: 50.0, y: 20.0, width: 300.0, height: 200.0 };
+    var scissor_area: ra.Rectangle = ra.Rectangle { x: 50.0, y: 20.0, width: 260.0, height: 150.0 };
     var scissor_mode: bool = true;
 
     # --- Main loop -----
     for (!ra.window_should_close()) {
         # -- Update -----
-        if (ra.is_key_pressed(ra.KEY_SPACE)) {
-            scissor_area.x = ra.get_mouse_x()::f32 - scissor_area.width/2.0;
-            scissor_area.y = ra.get_mouse_y()::f32 - scissor_area.height/2.0;
-        }
+        # scissor_arean follow mouse
+        scissor_area.x = ra.get_mouse_x()::f32 - scissor_area.width/2.0;
+        scissor_area.y = ra.get_mouse_y()::f32 - scissor_area.height/2.0;
 
         ## -- Draw -------
         ra.begin_drawing();
@@ -35,7 +34,7 @@ fun main(argc: i64, argv: **u8) i64 {
 
             if (scissor_mode) { ra.end_scissor_mode(); }
             ra.draw_rectangle_lines_ex(scissor_area, 1.0, ra.BLACK);
-            ra.draw_text("Press Space to toggle scissor test", 10, 10, 20, ra.BLACK);
+            ra.draw_text("Move mouse scissor test", 10, 10, 20, ra.BLACK);
 
         ra.end_drawing();
     } # -----------------
