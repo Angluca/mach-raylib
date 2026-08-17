@@ -86,4 +86,12 @@ targets = ["*"]
 link = []
 need = []
 
+[artifact.2d_camera_split_screen]
+kind = "bin"
+entry = "2d_camera_split_screen.mach"
+out = "bin/2d_camera_split_screen"
+targets = ["*"]
+link = []
+need = []
+
 
