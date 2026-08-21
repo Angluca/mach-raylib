@@ -4,6 +4,7 @@ cd "$(dirname "$0")/.."
 
 MODULES="raylib raymath rcamera math"
 
+[ ! -f "src/ra.mach" ] && touch "src/ra.mach"
 generate() {
     cat <<'EOF'
 # the flat public surface of the Raylib bindings
@@ -20,8 +21,14 @@ generate() {
 EOF
     for m in $MODULES; do printf 'use raylib.%s;\n' "$m"; done
     for m in $MODULES; do
-        grep -oE '^pub (val|fun|rec|def) [A-Za-z_][A-Za-z0-9_]*' "src/$m.mach" |
-            awk -v m="$m" '{print m"."$3}'
+        grep -oE 'pub (ext )?(val|fun|rec|def) [A-Za-z_][A-Za-z0-9_]*' "src/$m.mach" |
+            awk -v m="$m" '{
+                if ($2 == "ext") {
+                    print m"."$4
+                } else {
+                    print m"."$3
+                }
+            }'
     done | LC_ALL=C sort | awk -F. ' {
         if (!($NF in seen)) {
             seen[$NF] = $0

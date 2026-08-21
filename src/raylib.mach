@@ -583,7 +583,7 @@ pub val CAMERA_ORTHOGRAPHIC: i32 = 1;
 pub val NPATCH_NINE_PATCH: i32 = 0;
 pub val NPATCH_THREE_PATCH_VERTICAL: i32 = 1;
 pub val NPATCH_THREE_PATCH_HORIZONTAL: i32 = 2;
-#pub def TraceLogCallback: fun(i32, str, ...) ;
+pub def TraceLogCallback: fun(i32, str, ptr) ;
 pub def LoadFileDataCallback: fun(str, *i32) *u8;
 pub def SaveFileDataCallback: fun(str, ptr, i32) bool;
 pub def LoadFileTextCallback: fun(str) str;
@@ -911,11 +911,11 @@ pub fun open_url(url: str) { OpenURL(url); }
 ext fun SetTraceLogLevel(logLevel: i32);
 pub fun set_trace_log_level(logLevel: i32) { SetTraceLogLevel(logLevel); }
 #[library("raylib")]
-ext fun TraceLog(logLevel: i32, text: str, va: ...);
+ext fun TraceLog(logLevel: i32, text: str, ...);
 pub fun trace_log(logLevel: i32, text: str, va: ...) { TraceLog(logLevel, text, va...); }
-##[library("raylib")]
-#ext fun SetTraceLogCallback(callback: TraceLogCallback);
-#pub fun set_trace_log_callback(callback: TraceLogCallback) { SetTraceLogCallback(callback); }
+#[library("raylib")]
+ext fun SetTraceLogCallback(callback: TraceLogCallback);
+pub fun set_trace_log_callback(callback: TraceLogCallback) { SetTraceLogCallback(callback); }
 #[library("raylib")]
 ext fun MemAlloc(size: u32) ptr;
 pub fun mem_alloc(size: u32) ptr { ret MemAlloc(size); }
@@ -1949,7 +1949,7 @@ pub fun text_is_equal(text1: str, text2: str) bool { ret TextIsEqual(text1, text
 ext fun TextLength(text: str) u32;
 pub fun text_length(text: str) u32 { ret TextLength(text); }
 #[library("raylib")]
-ext fun TextFormat(text: str, va: ...) str;
+ext fun TextFormat(text: str, ...) str;
 pub fun text_format(text: str, va: ...) str { ret TextFormat(text, va...); }
 #[library("raylib")]
 ext fun TextSubtext(text: str, position: i32, length: i32) str;
