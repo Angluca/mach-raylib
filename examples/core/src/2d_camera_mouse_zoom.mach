@@ -24,13 +24,6 @@ fun main(argc: i64, argv: **u8) i64 {
     camera.zoom = 1.0;
     var zoom_mode: i32 = 0;
 
-    var buf: [256]u8;
-    var st: fixed.FixedState;
-    var al: A.Allocator;
-    fixed.make(?al, ?st, ?buf[0], $size_of(buf));
-    var rbuf: Result[str, str];
-    var ps: str;
-
     # --- Main loop -----
     for (!ra.window_should_close()) {
         ## -- Update -----
@@ -65,10 +58,6 @@ fun main(argc: i64, argv: **u8) i64 {
             }
         }
 
-        fixed.reset(?st);
-        rbuf = sprint(?al, "[{}, {}]", ra.get_mouse_x(), ra.get_mouse_y());
-        if (is_err[str, str](rbuf)) { ps = unwrap_err[str, str](rbuf); }
-        or { ps = unwrap_ok[str, str](rbuf); }
         # -- Draw -------
         ra.begin_drawing();
             ra.clear_background(ra.RAYWHITE);
@@ -84,9 +73,7 @@ fun main(argc: i64, argv: **u8) i64 {
 
             ra.draw_circle_v(ra.get_mouse_position(), 4.0, ra.DARKGRAY);
             ra.draw_text_ex( ra.get_font_default(),
-                #ra.text_format("[%i, %i]", ra.get_mouse_x(), ra.get_mouse_y()),
-                #"Can't use text_format(str, ...) now, Wait for fix it",
-                ps,
+                ra.text_format("[%i, %i]", ra.get_mouse_x(), ra.get_mouse_y()),
                 ra.vector2_add(ra.get_mouse_position(), Vector2{x: -44.0, y: -24.0}),
                 20.0, 2.0, ra.BLACK
             );
