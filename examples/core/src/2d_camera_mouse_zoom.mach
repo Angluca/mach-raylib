@@ -1,12 +1,4 @@
 use std.runtime;
-use std.types.result.Result;
-use std.types.result.is_err;
-use std.types.result.unwrap_ok;
-use std.types.result.unwrap_err;
-use std.types.string.str;
-use A: std.allocator;
-use std.allocator.fixed;
-use std.format.sprint;
 
 use raylib.ra;
 use rl: raylib.rlgl;

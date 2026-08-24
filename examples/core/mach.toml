@@ -94,4 +94,11 @@ targets = ["*"]
 link = []
 need = []
 
+[artifact.2d_camera]
+kind = "bin"
+entry = "2d_camera.mach"
+out = "bin/2d_camera"
+targets = ["*"]
+link = []
+need = []
 
