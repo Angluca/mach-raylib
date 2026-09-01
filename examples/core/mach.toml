@@ -102,3 +102,10 @@ targets = ["*"]
 link = []
 need = []
 
+[artifact.3d_camera_first_person]
+kind = "bin"
+entry = "3d_camera_first_person.mach"
+out = "bin/3d_camera_first_person"
+targets = ["*"]
+link = []
+need = []

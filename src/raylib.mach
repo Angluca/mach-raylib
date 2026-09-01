@@ -34,6 +34,25 @@ pub val MAGENTA: Color = Color{ r: 255, g: 0, b: 255, a: 255 };
 pub val RAYWHITE: Color = Color{ r: 245, g: 245, b: 245, a: 255 };
 #[library("raylib")] pub ext rec rAudioBuffer {}
 #[library("raylib")] pub ext rec rAudioProcessor {}
+pub fun logo(x: i32, y: i32) {
+    draw_text("Mach", x, y, 40, ORANGE);
+    draw_text("raylib", x+32, y+24, 40, BLACK);
+}
+pub fun color(r: u8, g: u8, b: u8, a: u8) Color {
+    ret Color { r: r, g: g, b: b, a: a };
+}
+pub fun vector2(x: f32, y: f32) Vector2 {
+    ret Vector2 { x: x, y: y };
+}
+pub fun vector3(x: f32, y: f32, z: f32) Vector3 {
+    ret Vector3 { x: x, y: y, z: z };
+}
+pub fun vector4(x: f32, y: f32, z: f32, w: f32) Vector4 {
+    ret Vector4 { x: x, y: y, z: z, w: w };
+}
+pub fun rectangle(x: f32, y: f32, w: f32, h: f32) Rectangle {
+    ret Rectangle { x: x, y: y, width: w, height: h };
+}
 
 pub rec Vector2 {
       x: f32;
@@ -1292,6 +1311,9 @@ pub fun draw_triangle_gradient(v1: Vector2, v2: Vector2, v3: Vector2, c1: Color,
 ext fun DrawTriangleLines(v1: Vector2, v2: Vector2, v3: Vector2, color: Color);
 pub fun draw_triangle_lines(v1: Vector2, v2: Vector2, v3: Vector2, color: Color) { DrawTriangleLines(v1, v2, v3, color); }
 #[library("raylib")]
+ext fun DrawTriangleLinesEx(v1: Vector2, v2: Vector2, v3: Vector2, thick: f32, color: Color);
+pub fun draw_triangle_lines_ex(v1: Vector2, v2: Vector2, v3: Vector2, thick: f32, color: Color) { DrawTriangleLinesEx(v1, v2, v3, thick, color); }
+#[library("raylib")]
 ext fun DrawTriangleFan(points: *Vector2, pointCount: i32, color: Color);
 pub fun draw_triangle_fan(points: *Vector2, pointCount: i32, color: Color) { DrawTriangleFan(points, pointCount, color); }
 #[library("raylib")]
@@ -1358,6 +1380,9 @@ pub fun draw_circle_sector(center: Vector2, radius: f32, startAngle: f32, endAng
 ext fun DrawCircleSectorLines(center: Vector2, radius: f32, startAngle: f32, endAngle: f32, segments: i32, color: Color);
 pub fun draw_circle_sector_lines(center: Vector2, radius: f32, startAngle: f32, endAngle: f32, segments: i32, color: Color) { DrawCircleSectorLines(center, radius, startAngle, endAngle, segments, color); }
 #[library("raylib")]
+ext fun DrawCircleSectorLinesEx(center: Vector2, radius: f32, startAngle: f32, endAngle: f32, segments: i32, thick: f32, color: Color);
+pub fun draw_circle_sector_lines_ex(center: Vector2, radius: f32, startAngle: f32, endAngle: f32, segments: i32, thick: f32, color: Color) { DrawCircleSectorLinesEx(center, radius, startAngle, endAngle, segments, thick, color); }
+#[library("raylib")]
 ext fun DrawCircleLines(centerX: i32, centerY: i32, radius: f32, color: Color);
 pub fun draw_circle_lines(centerX: i32, centerY: i32, radius: f32, color: Color) { DrawCircleLines(centerX, centerY, radius, color); }
 #[library("raylib")]
@@ -1379,11 +1404,17 @@ pub fun draw_ellipse_lines(centerX: i32, centerY: i32, radiusH: f32, radiusV: f3
 ext fun DrawEllipseLinesV(center: Vector2, radiusH: f32, radiusV: f32, color: Color);
 pub fun draw_ellipse_lines_v(center: Vector2, radiusH: f32, radiusV: f32, color: Color) { DrawEllipseLinesV(center, radiusH, radiusV, color); }
 #[library("raylib")]
+ext fun DrawEllipseLinesEx(center: Vector2, radiusH: f32, radiusV: f32, thick: f32, color: Color);
+pub fun draw_ellipse_lines_ex(center: Vector2, radiusH: f32, radiusV: f32, thick: f32, color: Color) { DrawEllipseLinesEx(center, radiusH, radiusV, thick, color); }
+#[library("raylib")]
 ext fun DrawRing(center: Vector2, innerRadius: f32, outerRadius: f32, startAngle: f32, endAngle: f32, segments: i32, color: Color);
 pub fun draw_ring(center: Vector2, innerRadius: f32, outerRadius: f32, startAngle: f32, endAngle: f32, segments: i32, color: Color) { DrawRing(center, innerRadius, outerRadius, startAngle, endAngle, segments, color); }
 #[library("raylib")]
 ext fun DrawRingLines(center: Vector2, innerRadius: f32, outerRadius: f32, startAngle: f32, endAngle: f32, segments: i32, color: Color);
 pub fun draw_ring_lines(center: Vector2, innerRadius: f32, outerRadius: f32, startAngle: f32, endAngle: f32, segments: i32, color: Color) { DrawRingLines(center, innerRadius, outerRadius, startAngle, endAngle, segments, color); }
+#[library("raylib")]
+ext fun DrawRingLinesEx(center: Vector2, innerRadius: f32, outerRadius: f32, startAngle: f32, endAngle: f32, segments: i32, thick: f32, color: Color);
+pub fun draw_ring_lines_ex(center: Vector2, innerRadius: f32, outerRadius: f32, startAngle: f32, endAngle: f32, segments: i32, thick: f32, color: Color) { DrawRingLinesEx(center, innerRadius, outerRadius, startAngle, endAngle, segments, thick, color); }
 #[library("raylib")]
 ext fun DrawSplineLinear(points: *Vector2, pointCount: i32, thick: f32, color: Color);
 pub fun draw_spline_linear(points: *Vector2, pointCount: i32, thick: f32, color: Color) { DrawSplineLinear(points, pointCount, thick, color); }
