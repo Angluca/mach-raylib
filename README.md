@@ -1,5 +1,5 @@
 # mach-raylib ![Mach](https://img.shields.io/badge/language-Mach-orange)
-Mach language bindings for Raylib
+Mach language bindings for [Raylib](https://github.com/raysan5/raylib)
 
 # How to use
 1. Create new project
@@ -8,10 +8,15 @@ mach init mygame
 ```
 2. You can choose one of the two methods to add `mach-raylib` and run `mach dep pull`
    1. `mach dep add mach-raylib --git` https://github.com/Angluca/mach-raylib
+      `mach dep add mach-std --git` https://github.com/briar-systems/mach-std
    2.  Or write it to `mach.toml`
 ```toml
 [dep.mach-raylib]
 git = "https://github.com/angluca/mach-raylib"
+ref = "branch/main"
+
+[dep.mach-std]
+git = "https://github.com/briar-systems/mach-std"
 ref = "branch/main"
 ```
 3. write `main.mach`
@@ -50,24 +55,5 @@ mach build . -L lib_path
 mach build . -L lib_path -l libname.a or .dylib or name
 mach run .
 ```
-# Examples
-open examples/xxx dir
-* use Makefile
-```zsh
-# set makefile LIBS_PATH
-make
-# or
-make file_name
-# or
-make run file_name
-# or
-make run file_name ARGS="-L ../../libs" 
-```
-* use Mach
-```zsh
-mach build . -L lib_path
-# or 
-mach build . -L lib_path --bin file_name
-
-mach run . --bin file_name
-```
+## Examples
+[mach-raylib examples](https://github.com/Angluca/mach-raylib_examples)

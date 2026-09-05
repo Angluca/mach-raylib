@@ -1,4 +1,13 @@
 use std.runtime;
+#use std.types.bool.bool;
+#use std.types.bool.true;
+#use std.types.bool.false;
+#use std.types.result.Result;
+#use std.types.result.is_err;
+#use std.types.result.unwrap_ok;
+#use std.types.result.unwrap_err;
+#use std.types.string.str;
+
 use raylib.ra;  # ra is composed of raylib/raymath/rcamera
 #use rl: raylib.rlgl;
 #use ru: raylib.raygui;
@@ -11,7 +20,6 @@ fun main(argc: i64, argv: **u8) i64 {
     ra.init_window(sw, sh, "^^v");
     ra.set_target_fps(60);
 
-    val color: ra.Color = ra.Color{ r: 200, g: 100, b: 90, a: 255 };
     # --- Main loop -----
     for (!ra.window_should_close()) {
         # -- Update -----
@@ -19,8 +27,7 @@ fun main(argc: i64, argv: **u8) i64 {
         # -- Draw -------
         ra.begin_drawing();
             ra.clear_background(ra.LIGHTGRAY);
-            ra.draw_text("Mach", 40, 76, 40, color);
-            ra.draw_text("raylib", 72, 100, 40, ra.BLACK);
+            ra.logo(sw-160, sh-80, 1.0);
         ra.end_drawing();
     } # -----------------
 
@@ -29,3 +36,4 @@ fun main(argc: i64, argv: **u8) i64 {
 
     ret 0;
 }
+
