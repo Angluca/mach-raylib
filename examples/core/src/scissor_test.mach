@@ -35,7 +35,7 @@ fun main(argc: i64, argv: **u8) i64 {
             if (scissor_mode) { ra.end_scissor_mode(); }
             ra.draw_rectangle_lines_ex(scissor_area, 1.0, ra.BLACK);
             ra.draw_text("Move mouse scissor test", 10, 10, 20, ra.BLACK);
-
+            ra.logo(sw-160, sh-80, 1.0);
         ra.end_drawing();
     } # -----------------
 

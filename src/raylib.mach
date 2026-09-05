@@ -34,10 +34,6 @@ pub val MAGENTA: Color = Color{ r: 255, g: 0, b: 255, a: 255 };
 pub val RAYWHITE: Color = Color{ r: 245, g: 245, b: 245, a: 255 };
 #[library("raylib")] pub ext rec rAudioBuffer {}
 #[library("raylib")] pub ext rec rAudioProcessor {}
-pub fun logo(x: i32, y: i32) {
-    draw_text("Mach", x, y, 40, ORANGE);
-    draw_text("raylib", x+32, y+24, 40, BLACK);
-}
 pub fun color(r: u8, g: u8, b: u8, a: u8) Color {
     ret Color { r: r, g: g, b: b, a: a };
 }
@@ -52,6 +48,16 @@ pub fun vector4(x: f32, y: f32, z: f32, w: f32) Vector4 {
 }
 pub fun rectangle(x: f32, y: f32, w: f32, h: f32) Rectangle {
     ret Rectangle { x: x, y: y, width: w, height: h };
+}
+pub fun logo(x: i32, y: i32, scale: f32) {
+    logo_scaled(x::f32, y::f32, scale);
+}
+fun logo_scaled(x: f32, y: f32, scale: f32) {
+    val font: Font = get_font_default();
+    val size: f32 = 40.0 * scale;
+    val spacing: f32 = size / 10.0;
+    draw_text_ex(font, "Mach", Vector2{ x: x, y: y }, size, spacing, ORANGE);
+    draw_text_ex(font, "raylib", Vector2{ x: x + 32.0 * scale, y: y + 24.0 * scale }, size, spacing, BLACK);
 }
 
 pub rec Vector2 {
@@ -1005,6 +1011,9 @@ pub fun directory_exists(dirPath: str) bool { ret DirectoryExists(dirPath); }
 ext fun IsFileExtension(fileName: str, ext: str) bool;
 pub fun is_file_extension(fileName: str, ext: str) bool { ret IsFileExtension(fileName, ext); }
 #[library("raylib")]
+ext fun IsFileHidden(filePath: str) bool;
+pub fun is_file_hidden(filePath: str) bool { ret IsFileHidden(filePath); }
+#[library("raylib")]
 ext fun GetFileLength(fileName: str) i32;
 pub fun get_file_length(fileName: str) i32 { ret GetFileLength(fileName); }
 #[library("raylib")]
@@ -1769,6 +1778,9 @@ pub fun load_texture_cubemap(image: Image, layout: i32) TextureCubemap { ret Loa
 #[library("raylib")]
 ext fun LoadRenderTexture(width: i32, height: i32) RenderTexture2D;
 pub fun load_render_texture(width: i32, height: i32) RenderTexture2D { ret LoadRenderTexture(width, height); }
+#[library("raylib")]
+ext fun LoadRenderTextureEx(width: i32, height: i32, format: i32) RenderTexture2D;
+pub fun load_render_texture_ex(width: i32, height: i32, format: i32) RenderTexture2D { ret LoadRenderTextureEx(width, height, format); }
 #[library("raylib")]
 ext fun IsTextureValid(texture: Texture2D) bool;
 pub fun is_texture_valid(texture: Texture2D) bool { ret IsTextureValid(texture); }

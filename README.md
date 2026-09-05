@@ -28,7 +28,7 @@ fun main(argc: i64, argv: **u8) i64 {
     ra.init_window(sw, sh, "^^v");
     ra.set_target_fps(60);
 
-    val color: ra.Color = ra.Color{ r: 200, g: 100, b: 90, a: 255 };
+    val color: ra.Color = ra.color(200, 100, 90, 255);
     for (!ra.window_should_close()) {
         ra.begin_drawing();
             ra.clear_background(ra.LIGHTGRAY);

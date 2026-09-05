@@ -145,6 +145,7 @@ fun main(argc: i64, argv: **u8) i64 {
             ra.draw_texture_rec(screen_camera1.texture, split_screen_rect, Vector2{x: 0.0, y: 0.0}, ra.WHITE);
             ra.draw_texture_rec(screen_camera2.texture, split_screen_rect, Vector2{x: sw::f32/2.0, y: 0.0}, ra.WHITE);
             ra.draw_rectangle(ra.get_screen_width()/2-2, 0, 4, ra.get_screen_width(), ra.LIGHTGRAY);
+            ra.logo(sw-160, sh-80, 1.0);
         ra.end_drawing();
     } # -----------------
 

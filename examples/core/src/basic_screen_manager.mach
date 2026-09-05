@@ -58,6 +58,7 @@ fun main(argc: i64, argv: **u8) i64 {
                 ra.draw_text("ENDING SCREEN", 10, 20, 40, ra.DARKBLUE);
                 ra.draw_text("PRESS ENTER or TAP to RETURN to TITLE SCREEN", 10, 100, 20, ra.DARKBLUE);
             }
+            ra.logo(sw-160, sh-80, 1.0);
         ra.end_drawing();
     } # -----------------
 

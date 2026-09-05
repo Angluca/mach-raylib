@@ -24,6 +24,7 @@ fun main(argc: i64, argv: **u8) i64 {
             ra.clear_background(ra.LIGHTGRAY);
             ra.draw_text("move the ball with A S W D keys", 10, 10, 20, ra.DARKGRAY);
             ra.draw_circle_v(ball_position, 50.0, ra.MAROON);
+            ra.logo(sw-160, sh-80, 1.0);
         ra.end_drawing();
     } # -----------------
 

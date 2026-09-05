@@ -76,6 +76,7 @@ fun main(argc: i64, argv: **u8) i64 {
                 ra.draw_text("Mouse left button drag to move, mouse press and move to zoom", 20, 50, 20, ra.DARKGRAY);
 
             }
+            ra.logo(sw-160, sh-80, 1.0);
         ra.end_drawing();
     } # -----------------
 

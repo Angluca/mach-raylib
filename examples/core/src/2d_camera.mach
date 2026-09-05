@@ -91,6 +91,7 @@ fun main(argc: i64, argv: **u8) i64 {
             ra.draw_text("- Mouse Wheel to Zoom in-out", 40, 60, 10, ra.DARKGRAY);
             ra.draw_text("- A / S to Rotate", 40, 80, 10, ra.DARKGRAY);
             ra.draw_text("- R to reset Zoom and Rotation", 40, 100, 10, ra.DARKGRAY);
+            ra.logo(sw-160, sh-80, 1.0);
         ra.end_drawing();
     } # -----------------
 

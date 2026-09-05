@@ -9,7 +9,7 @@ fun main(argc: i64, argv: **u8) i64 {
     ra.init_window(sw, sh, "input mouse");
     ra.set_target_fps(60);
 
-    val ball_color: ra.Color = ra.DARKBLUE;
+    var ball_color: ra.Color = ra.DARKBLUE;
     var ball_position: ra.Vector2 = ra.Vector2 { x: sw::f32/2.0, y: sh::f32/2.0 };
 
     # --- Main loop -----
@@ -41,6 +41,7 @@ fun main(argc: i64, argv: **u8) i64 {
                 ra.draw_text("CURSOR HIDDEN", 20, 60, 20, ra.RED);
             }
             or { ra.draw_text("CURSOR VISIBLE", 20, 60, 20, ra.LIME); }
+            ra.logo(sw-160, sh-80, 1.0);
         ra.end_drawing();
     } # -----------------
 

@@ -97,6 +97,12 @@ fun main(argc: i64, argv: **u8) i64 {
                     ra.LIME);
                 ra.draw_cube(ra.vector3(0.0, 2.5, 16.0), 32.0, 5.0, 1.0,
                     ra.GOLD);
+                var i: i32;
+                for (i < MAX_COLUMNS) {
+                    fin { i = i + 1; }
+                    ra.draw_cube(positions[i], 2.0, heights[i], 2.0, colors[i]);
+                    ra.draw_cube_wires(positions[i], 2.0, heights[i], 2.0, ra.MAROON);
+                }
                 if (camera_mode == ra.CAMERA_THIRD_PERSON) {
                     ra.draw_cube(camera.target, 0.5, 0.5, 0.5, ra.PURPLE);
                     ra.draw_cube_wires(camera.target, 0.5, 0.5, 0.5, ra.DARKPURPLE);
@@ -139,7 +145,7 @@ fun main(argc: i64, argv: **u8) i64 {
                 "- Up: (%06.3f, %06.3f, %06.3f)",
                 camera.target.x::f64, camera.target.y::f64,
                 camera.target.z::f64), 410, 90, 10, ra.BLACK);
-            ra.logo(440, 270);
+            ra.logo(sw-160, sh-80, 1.0);
         ra.end_drawing();
     } # -----------------
 
