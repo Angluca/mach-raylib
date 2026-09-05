@@ -109,3 +109,12 @@ out = "bin/3d_camera_first_person"
 targets = ["*"]
 link = []
 need = []
+
+[artifact.3d_picking]
+kind = "bin"
+entry = "3d_picking.mach"
+out = "bin/3d_picking"
+targets = ["*"]
+link = []
+need = []
+
