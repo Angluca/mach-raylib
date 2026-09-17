@@ -2,14 +2,15 @@
 id = "raylib"
 version = "0.1.0"
 src = "src"
-out = "out/{target.name}/{profile.name}"
+out = "out"
+#out = "out/{target.name}/{profile.name}"
 
-[target.linux]
+[target.linux-x86_64]
 isa = "x86_64"
 os  = "linux"
 abi = "sysv64"
 
-[target.windows]
+[target.windows-x86_64]
 isa = "x86_64"
 os  = "windows"
 abi = "win64"
@@ -22,32 +23,50 @@ abi = "sysv64"
 [artifact.raylib]
 kind = "bin"
 entry = "main.mach"
-out = "bin/main"
+out = "bin/main{artifact.suffix}"
 targets = ["*"]
-#subsystem = "gui"
 link = [
     #"raygui",
     "raylib",
     # -- os: linux ----
     "pthread", "m", "dl", "rt",
     # -- os: windows ----
+    "kernel32",
     # -- os: darwin ----
     "libSystem", "objc",
     "Cocoa", "AppKit", "Foundation", "CoreGraphics", "CoreServices",
     "IOKit", "CoreFoundation", "CoreVideo", "OpenGL",
     "QuartzCore", "Metal"
 ]
+
 need = []
 
+[link.kernel32]
+source = "system"
+name = "kernel32.dll"
+os = ["windows"]
+isa = ["*"]
+abi = ["*"]
+export = true
+
 [profile.debug]
+default = true
 opt = 0
 debug = true
 simd = "scalarize"
+vectorize = true
+float_reassoc = false
 
 [profile.release]
 opt = 2
 debug = false
 simd = "scalarize"
+vectorize = true
+float_reassoc = false
+
+[dep.std]
+git = "https://github.com/briar-systems/mach-std"
+ref = "branch/main"
 
 [link.raylib]
 source = "system"
@@ -263,6 +282,14 @@ isa = "*"
 abi = "*"
 export = true
 
+[link.CoreVideo]
+source = "framework"
+name = "CoreVideo"
+os = ["darwin"]
+isa = "*"
+abi = "*"
+export = true
+
 [link.OpenGL]
 source = "framework"
 name = "OpenGL"
@@ -322,9 +349,4 @@ os = ["linux"]
 isa = "*"
 abi = "*"
 export = true
-
-[dep.mach-std]
-#path = "dep/mach-std"
-git = "https://github.com/briar-systems/mach-std"
-ref = "branch/main"
 

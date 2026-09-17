@@ -11,8 +11,8 @@ fwd raylib.raylib.Matrix;
 
 pub val PI: f32 = 3.14159265358979323846;
 pub val EPSILON: f32 = 0.000001;
-pub val DEG2RAD: f32 = (PI/180.0f);
-pub val RAD2DEG: f32 = (180.0f/PI);
+pub val DEG2RAD: f32 = (PI/180.0);
+pub val RAD2DEG: f32 = (180.0/PI);
 pub rec float3 {
       v: [3]f32;
 }

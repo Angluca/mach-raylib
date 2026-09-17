@@ -2,10 +2,7 @@ use std.runtime;
 #use std.types.bool.bool;
 #use std.types.bool.true;
 #use std.types.bool.false;
-#use std.types.result.Result;
-#use std.types.result.is_err;
-#use std.types.result.unwrap_ok;
-#use std.types.result.unwrap_err;
+#use std.types.result.res;
 #use std.types.string.str;
 
 use raylib.ra;  # ra is composed of raylib/raymath/rcamera

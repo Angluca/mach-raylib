@@ -5,7 +5,8 @@ fwd std.types.string.str;
 
 fwd raylib.raylib.Matrix;
 #[symbol("GRAPHICS_API_OPENGL_ES2")]
-val GRAPHICS_API_OPENGL_ES2: bool = false;
+pub val GRAPHICS_API_OPENGL_ES2: u8 = 0;
+
 $if (GRAPHICS_API_OPENGL_ES2) {
     pub rec rlVertexBuffer {
           elementCount: i32;
