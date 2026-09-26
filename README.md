@@ -7,15 +7,15 @@ Mach language bindings for [Raylib](https://github.com/raysan5/raylib)
 mach init mygame
 ```
 2. You can choose one of the two methods to add `mach-raylib` and run `mach dep pull`
-   1. `mach dep add mach-raylib --git` https://github.com/Angluca/mach-raylib
-      `mach dep add mach-std --git` https://github.com/briar-systems/mach-std
+   1. `mach dep add raylib --git` https://github.com/Angluca/mach-raylib  
+      `mach dep add std --git` https://github.com/briar-systems/mach-std
    2.  Or write it to `mach.toml`
 ```toml
-[dep.mach-raylib]
+[dep.raylib]
 git = "https://github.com/angluca/mach-raylib"
 ref = "branch/main"
 
-[dep.mach-std]
+[dep.std]
 git = "https://github.com/briar-systems/mach-std"
 ref = "branch/main"
 ```

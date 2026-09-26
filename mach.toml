@@ -2,6 +2,7 @@
 id = "raylib"
 version = "0.1.0"
 src = "src"
+mach = "^5"
 out = "out"
 #out = "out/{target.name}/{profile.name}"
 
