@@ -2,15 +2,18 @@
 # implemented using taylor series and newton's method.
 
 use std.types.bool.bool;
-use std.types.bool.true;
-use std.types.bool.false;
 
 # --- 数学常数 ---
-val PI: f32 = 3.14159265358979323846;
-val PI_2: f32 = 1.57079632679489661923;
-val TWO_PI: f32 = 6.28318530717958647692;
-val E: f32 = 2.71828182845904523536;
-val LN2: f32 = 0.69314718055994530942;
+#val PI: f64 = 3.14159265358979323846;
+#val PI_2: f64 = 1.57079632679489661923;
+#val TWO_PI: f64 = 6.28318530717958647692;
+#val E: f64 = 2.71828182845904523536;
+#val LN2: f64 = 0.69314718055994530942;
+val PI: f64      = 3.141592653589793;
+val PI_2: f64    = 1.5707963267948966;
+val TWO_PI: f64  = 6.283185307179586;
+val E: f64       = 2.718281828459045;
+val LN2: f64     = 0.6931471805599453;
 
 # 极小值误差范围，用于浮点数安全比较
 val EPSILON: f32 = 0.000001;
@@ -125,7 +128,7 @@ pub fun logf(x: f32) f32 {
     # 小于等于 0 的情况，使用 EPSILON 保护
     if (x < EPSILON) { ret -1e30; }
 
-    var v: f32 = x;
+    var v: f64 = x::f64;
     var exp: i64 = 0;
 
     for (v >= 2.0) {
@@ -137,19 +140,19 @@ pub fun logf(x: f32) f32 {
         exp = exp - 1;
     }
 
-    val t: f32 = (v - 1.0) / (v + 1.0);
-    var t2: f32 = t * t;
-    var term: f32 = t;
-    var sum: f32 = t;
+    val t: f64 = (v - 1.0) / (v + 1.0);
+    var t2: f64 = t * t;
+    var term: f64 = t;
+    var sum: f64 = t;
     var i: i64 = 1;
 
     for (i < 15) {
         term = term * t2;
-        sum = sum + term / (2 * i + 1)::f32;
+        sum = sum + term / (2 * i + 1)::f64;
         i = i + 1;
     }
 
-    ret 2.0 * sum + exp::f32 * LN2;
+    ret (2.0 * sum + exp::f64 * LN2)::f32;
 }
 
 # 幂函数 x^y
@@ -167,25 +170,25 @@ pub fun powf(x: f32, y: f32) f32 {
 # ==========================================
 
 pub fun sinf(x: f32) f32 {
-    var v: f32 = x;
+    var v: f64 = x::f64;
     for (v > PI) { v = v - TWO_PI; }
     for (v < -PI) { v = v + TWO_PI; }
 
-    var term: f32 = v;
-    var sum: f32 = v;
-    var v2: f32 = v * v;
+    var term: f64 = v;
+    var sum: f64 = v;
+    var v2: f64 = v * v;
     var i: i64 = 1;
 
     for (i < 8) {
-        term = -term * v2 / ((2 * i)::f32 * (2 * i + 1)::f32);
+        term = -term * v2 / ((2 * i) * (2 * i + 1))::f64;
         sum = sum + term;
         i = i + 1;
     }
-    ret sum;
+    ret sum::f32;
 }
 
 pub fun cosf(x: f32) f32 {
-    ret sinf(x + PI_2);
+    ret sinf((x::f64 + PI_2)::f32);
 }
 
 pub fun tanf(x: f32) f32 {
@@ -196,9 +199,9 @@ pub fun tanf(x: f32) f32 {
 }
 
 pub fun atanf(x: f32) f32 {
-    var v: f32 = x;
-    var sign: f32 = 1.0;
-    var offset: f32 = 0.0;
+    var v: f64 = x::f64;
+    var sign: f64 = 1.0;
+    var offset: f64 = 0.0;
 
     if (v < 0.0) {
         v = -v;
@@ -210,21 +213,21 @@ pub fun atanf(x: f32) f32 {
         offset = PI_2;
     }
 
-    var v2: f32 = v * v;
-    var term: f32 = v;
-    var sum: f32 = v;
+    var v2: f64 = v * v;
+    var term: f64 = v;
+    var sum: f64 = v;
     var i: i64 = 1;
 
     for (i < 10) {
         term = -term * v2;
-        sum = sum + term / (2 * i + 1)::f32;
+        sum = sum + term / (2 * i + 1)::f64;
         i = i + 1;
     }
 
     if (offset > 0.0) {
-        ret sign * (PI_2 - sum);
+        ret (sign * (PI_2 - sum))::f32;
     }
-    ret sign * sum;
+    ret (sign * sum)::f32;
 }
 
 # 双参数反正切 atan2(y, x)
@@ -233,12 +236,12 @@ pub fun atan2f(y: f32, x: f32) f32 {
         ret atanf(y / x);
     }
     if (x < -EPSILON) {
-        if (y >= 0.0) { ret atanf(y / x) + PI; }
-        ret atanf(y / x) - PI;
+        if (y >= 0.0) { ret (atanf(y / x)::f64 + PI)::f32; }
+        ret (atanf(y / x)::f64 - PI)::f32;
     }
     # x 接近 0 的情况
-    if (y > EPSILON) { ret PI_2; }
-    if (y < -EPSILON) { ret -PI_2; }
+    if (y > EPSILON) { ret PI_2::f32; }
+    if (y < -EPSILON) { ret -PI_2::f32; }
     ret 0.0; # (0,0)
 }
 
@@ -247,10 +250,10 @@ pub fun atan2f(y: f32, x: f32) f32 {
 # ==========================================
 
 pub fun rad2deg(rad: f32) f32 {
-    ret rad * (180.0 / PI);
+    ret (rad::f64 * (180.0 / PI))::f32;
 }
 
 pub fun deg2rad(deg: f32) f32 {
-    ret deg * (PI / 180.0);
+    ret (deg::f64 * (PI / 180.0))::f32;
 }
 

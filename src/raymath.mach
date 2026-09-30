@@ -7,12 +7,11 @@ fwd raylib.raylib.Vector2;
 fwd raylib.raylib.Vector3;
 fwd raylib.raylib.Vector4;
 fwd raylib.raylib.Matrix;
+fwd raylib.raylib.PI;
+fwd raylib.raylib.EPSILON;
+fwd raylib.raylib.DEG2RAD;
+fwd raylib.raylib.RAD2DEG;
 
-
-pub val PI: f32 = 3.14159265358979323846;
-pub val EPSILON: f32 = 0.000001;
-pub val DEG2RAD: f32 = (PI/180.0);
-pub val RAD2DEG: f32 = (180.0/PI);
 pub rec float3 {
       v: [3]f32;
 }

@@ -3,9 +3,10 @@ fwd std.types.bool.true;
 fwd std.types.bool.false;
 fwd std.types.string.str;
 
-pub val PI: f32 = 3.14159265358979323846;
+pub val PI: f32 = (3.141592653589793)::f32;
 pub val DEG2RAD: f32 = (PI/180.0f32);
 pub val RAD2DEG: f32 = (180.0f32/PI);
+pub val EPSILON: f32 = 0.000001f32;
 pub val LIGHTGRAY: Color = Color{ r: 200, g: 200, b: 200, a: 255 };
 pub val GRAY: Color = Color{ r: 130, g: 130, b: 130, a: 255 };
 pub val DARKGRAY: Color = Color{ r: 80, g: 80, b: 80, a: 255 };
