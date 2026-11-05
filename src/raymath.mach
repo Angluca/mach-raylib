@@ -29,8 +29,8 @@ pub fun lerp(start: f32, end: f32, amount: f32) f32 { ret Lerp(start, end, amoun
 ext fun Normalize(value: f32, start: f32, end: f32) f32;
 pub fun normalize(value: f32, start: f32, end: f32) f32 { ret Normalize(value, start, end); }
 #[library("raylib")]
-ext fun Remap(value: f32, inputStart: f32, inputEnd: f32, outputStart: f32, outputEnd: f32) f32;
-pub fun remap(value: f32, inputStart: f32, inputEnd: f32, outputStart: f32, outputEnd: f32) f32 { ret Remap(value, inputStart, inputEnd, outputStart, outputEnd); }
+ext fun Remap(value: f32, input_start: f32, input_end: f32, output_start: f32, output_end: f32) f32;
+pub fun remap(value: f32, input_start: f32, input_end: f32, output_start: f32, output_end: f32) f32 { ret Remap(value, input_start, input_end, output_start, output_end); }
 #[library("raylib")]
 ext fun Wrap(value: f32, min: f32, max: f32) f32;
 pub fun wrap(value: f32, min: f32, max: f32) f32 { ret Wrap(value, min, max); }
@@ -113,8 +113,8 @@ pub fun vector2_max(v1: Vector2, v2: Vector2) Vector2 { ret Vector2Max(v1, v2); 
 ext fun Vector2Rotate(v: Vector2, angle: f32) Vector2;
 pub fun vector2_rotate(v: Vector2, angle: f32) Vector2 { ret Vector2Rotate(v, angle); }
 #[library("raylib")]
-ext fun Vector2MoveTowards(v: Vector2, target: Vector2, maxDistance: f32) Vector2;
-pub fun vector2_move_towards(v: Vector2, target: Vector2, maxDistance: f32) Vector2 { ret Vector2MoveTowards(v, target, maxDistance); }
+ext fun Vector2MoveTowards(v: Vector2, target: Vector2, max_distance: f32) Vector2;
+pub fun vector2_move_towards(v: Vector2, target: Vector2, max_distance: f32) Vector2 { ret Vector2MoveTowards(v, target, max_distance); }
 #[library("raylib")]
 ext fun Vector2Invert(v: Vector2) Vector2;
 pub fun vector2_invert(v: Vector2) Vector2 { ret Vector2Invert(v); }
@@ -206,8 +206,8 @@ pub fun vector3_rotate_by_quaternion(v: Vector3, q: Quaternion) Vector3 { ret Ve
 ext fun Vector3RotateByAxisAngle(v: Vector3, axis: Vector3, angle: f32) Vector3;
 pub fun vector3_rotate_by_axis_angle(v: Vector3, axis: Vector3, angle: f32) Vector3 { ret Vector3RotateByAxisAngle(v, axis, angle); }
 #[library("raylib")]
-ext fun Vector3MoveTowards(v: Vector3, target: Vector3, maxDistance: f32) Vector3;
-pub fun vector3_move_towards(v: Vector3, target: Vector3, maxDistance: f32) Vector3 { ret Vector3MoveTowards(v, target, maxDistance); }
+ext fun Vector3MoveTowards(v: Vector3, target: Vector3, max_distance: f32) Vector3;
+pub fun vector3_move_towards(v: Vector3, target: Vector3, max_distance: f32) Vector3 { ret Vector3MoveTowards(v, target, max_distance); }
 #[library("raylib")]
 ext fun Vector3Lerp(v1: Vector3, v2: Vector3, amount: f32) Vector3;
 pub fun vector3_lerp(v1: Vector3, v2: Vector3, amount: f32) Vector3 { ret Vector3Lerp(v1, v2, amount); }
@@ -305,8 +305,8 @@ pub fun vector4_max(v1: Vector4, v2: Vector4) Vector4 { ret Vector4Max(v1, v2); 
 ext fun Vector4Lerp(v1: Vector4, v2: Vector4, amount: f32) Vector4;
 pub fun vector4_lerp(v1: Vector4, v2: Vector4, amount: f32) Vector4 { ret Vector4Lerp(v1, v2, amount); }
 #[library("raylib")]
-ext fun Vector4MoveTowards(v: Vector4, target: Vector4, maxDistance: f32) Vector4;
-pub fun vector4_move_towards(v: Vector4, target: Vector4, maxDistance: f32) Vector4 { ret Vector4MoveTowards(v, target, maxDistance); }
+ext fun Vector4MoveTowards(v: Vector4, target: Vector4, max_distance: f32) Vector4;
+pub fun vector4_move_towards(v: Vector4, target: Vector4, max_distance: f32) Vector4 { ret Vector4MoveTowards(v, target, max_distance); }
 #[library("raylib")]
 ext fun Vector4Invert(v: Vector4) Vector4;
 pub fun vector4_invert(v: Vector4) Vector4 { ret Vector4Invert(v); }
@@ -365,14 +365,14 @@ pub fun matrix_rotate_zyx(angle: Vector3) Matrix { ret MatrixRotateZYX(angle); }
 ext fun MatrixScale(x: f32, y: f32, z: f32) Matrix;
 pub fun matrix_scale(x: f32, y: f32, z: f32) Matrix { ret MatrixScale(x, y, z); }
 #[library("raylib")]
-ext fun MatrixFrustum(left: f64, right: f64, bottom: f64, top: f64, nearPlane: f64, farPlane: f64) Matrix;
-pub fun matrix_frustum(left: f64, right: f64, bottom: f64, top: f64, nearPlane: f64, farPlane: f64) Matrix { ret MatrixFrustum(left, right, bottom, top, nearPlane, farPlane); }
+ext fun MatrixFrustum(left: f32, right: f32, bottom: f32, top: f32, near_plane: f32, far_plane: f32) Matrix;
+pub fun matrix_frustum(left: f32, right: f32, bottom: f32, top: f32, near_plane: f32, far_plane: f32) Matrix { ret MatrixFrustum(left, right, bottom, top, near_plane, far_plane); }
 #[library("raylib")]
-ext fun MatrixPerspective(fovY: f64, aspect: f64, nearPlane: f64, farPlane: f64) Matrix;
-pub fun matrix_perspective(fovY: f64, aspect: f64, nearPlane: f64, farPlane: f64) Matrix { ret MatrixPerspective(fovY, aspect, nearPlane, farPlane); }
+ext fun MatrixPerspective(fov_y: f32, aspect: f32, near_plane: f32, far_plane: f32) Matrix;
+pub fun matrix_perspective(fov_y: f32, aspect: f32, near_plane: f32, far_plane: f32) Matrix { ret MatrixPerspective(fov_y, aspect, near_plane, far_plane); }
 #[library("raylib")]
-ext fun MatrixOrtho(left: f64, right: f64, bottom: f64, top: f64, nearPlane: f64, farPlane: f64) Matrix;
-pub fun matrix_ortho(left: f64, right: f64, bottom: f64, top: f64, nearPlane: f64, farPlane: f64) Matrix { ret MatrixOrtho(left, right, bottom, top, nearPlane, farPlane); }
+ext fun MatrixOrtho(left: f32, right: f32, bottom: f32, top: f32, near_plane: f32, far_plane: f32) Matrix;
+pub fun matrix_ortho(left: f32, right: f32, bottom: f32, top: f32, near_plane: f32, far_plane: f32) Matrix { ret MatrixOrtho(left, right, bottom, top, near_plane, far_plane); }
 #[library("raylib")]
 ext fun MatrixLookAt(eye: Vector3, target: Vector3, up: Vector3) Matrix;
 pub fun matrix_look_at(eye: Vector3, target: Vector3, up: Vector3) Matrix { ret MatrixLookAt(eye, target, up); }
@@ -422,8 +422,8 @@ pub fun quaternion_nlerp(q1: Quaternion, q2: Quaternion, amount: f32) Quaternion
 ext fun QuaternionSlerp(q1: Quaternion, q2: Quaternion, amount: f32) Quaternion;
 pub fun quaternion_slerp(q1: Quaternion, q2: Quaternion, amount: f32) Quaternion { ret QuaternionSlerp(q1, q2, amount); }
 #[library("raylib")]
-ext fun QuaternionCubicHermiteSpline(q1: Quaternion, outTangent1: Quaternion, q2: Quaternion, inTangent2: Quaternion, t: f32) Quaternion;
-pub fun quaternion_cubic_hermite_spline(q1: Quaternion, outTangent1: Quaternion, q2: Quaternion, inTangent2: Quaternion, t: f32) Quaternion { ret QuaternionCubicHermiteSpline(q1, outTangent1, q2, inTangent2, t); }
+ext fun QuaternionCubicHermiteSpline(q1: Quaternion, out_tangent1: Quaternion, q2: Quaternion, in_tangent2: Quaternion, t: f32) Quaternion;
+pub fun quaternion_cubic_hermite_spline(q1: Quaternion, out_tangent1: Quaternion, q2: Quaternion, in_tangent2: Quaternion, t: f32) Quaternion { ret QuaternionCubicHermiteSpline(q1, out_tangent1, q2, in_tangent2, t); }
 #[library("raylib")]
 ext fun QuaternionFromVector3ToVector3(from: Vector3, to: Vector3) Quaternion;
 pub fun quaternion_from_vector3_to_vector3(from: Vector3, to: Vector3) Quaternion { ret QuaternionFromVector3ToVector3(from, to); }
@@ -437,8 +437,8 @@ pub fun quaternion_to_matrix(q: Quaternion) Matrix { ret QuaternionToMatrix(q); 
 ext fun QuaternionFromAxisAngle(axis: Vector3, angle: f32) Quaternion;
 pub fun quaternion_from_axis_angle(axis: Vector3, angle: f32) Quaternion { ret QuaternionFromAxisAngle(axis, angle); }
 #[library("raylib")]
-ext fun QuaternionToAxisAngle(q: Quaternion, outAxis: *Vector3, outAngle: *f32);
-pub fun quaternion_to_axis_angle(q: Quaternion, outAxis: *Vector3, outAngle: *f32) { QuaternionToAxisAngle(q, outAxis, outAngle); }
+ext fun QuaternionToAxisAngle(q: Quaternion, out_axis: *Vector3, out_angle: *f32);
+pub fun quaternion_to_axis_angle(q: Quaternion, out_axis: *Vector3, out_angle: *f32) { QuaternionToAxisAngle(q, out_axis, out_angle); }
 #[library("raylib")]
 ext fun QuaternionFromEuler(pitch: f32, yaw: f32, roll: f32) Quaternion;
 pub fun quaternion_from_euler(pitch: f32, yaw: f32, roll: f32) Quaternion { ret QuaternionFromEuler(pitch, yaw, roll); }

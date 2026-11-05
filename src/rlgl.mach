@@ -38,8 +38,8 @@ pub val RL_DEFAULT_BATCH_DRAWCALLS: i32 = 256;
 pub val RL_DEFAULT_BATCH_MAX_TEXTURE_UNITS: i32 = 4;
 pub val RL_MAX_MATRIX_STACK_SIZE: i32 = 32;
 pub val RL_MAX_SHADER_LOCATIONS: i32 = 32;
-pub val RL_CULL_DISTANCE_NEAR: f64 = 0.05;
-pub val RL_CULL_DISTANCE_FAR: f64 = 4000.0;
+pub val RL_CULL_DISTANCE_NEAR: f32 = 0.05;
+pub val RL_CULL_DISTANCE_FAR: f32 = 4000.0;
 pub val RL_TEXTURE_WRAP_S: i32 = 0x2802;
 pub val RL_TEXTURE_WRAP_T: i32 = 0x2803;
 pub val RL_TEXTURE_MAG_FILTER: i32 = 0x2800;
@@ -117,17 +117,17 @@ pub val RL_DEFAULT_SHADER_ATTRIB_LOCATION_BONEWEIGHTS: i32 = 8;
 pub val RL_DEFAULT_SHADER_ATTRIB_LOCATION_INSTANCETRANSFORM: i32 = 9;
 pub rec rlDrawCall {
       mode: i32;
-      vertexCount: i32;
-      vertexAlignment: i32;
-      textureId: u32;
+      vertex_count: i32;
+      vertex_alignment: i32;
+      texture_id: u32;
 }
 pub rec rlRenderBatch {
-      bufferCount: i32;
-      currentBuffer: i32;
-      vertexBuffer: *rlVertexBuffer;
+      buffer_count: i32;
+      current_buffer: i32;
+      vertex_buffer: *rlVertexBuffer;
       draws: *rlDrawCall;
-      drawCounter: i32;
-      currentDepth: f32;
+      draw_counter: i32;
+      current_depth: f32;
 }
 pub val RL_OPENGL_SOFTWARE: i32 = 0;
 pub val RL_OPENGL_11: i32 = 1;
@@ -270,23 +270,23 @@ pub fun scalef(x: f32, y: f32, z: f32) { rlScalef(x, y, z); }
 ext fun rlMultMatrixf(matf: *f32);
 pub fun mult_matrixf(matf: *f32) { rlMultMatrixf(matf); }
 #[library("raylib")]
-ext fun rlFrustum(left: f64, right: f64, bottom: f64, top: f64, znear: f64, zfar: f64);
-pub fun frustum(left: f64, right: f64, bottom: f64, top: f64, znear: f64, zfar: f64) { rlFrustum(left, right, bottom, top, znear, zfar); }
+ext fun rlFrustum(left: f32, right: f32, bottom: f32, top: f32, znear: f32, zfar: f32);
+pub fun frustum(left: f32, right: f32, bottom: f32, top: f32, znear: f32, zfar: f32) { rlFrustum(left, right, bottom, top, znear, zfar); }
 #[library("raylib")]
-ext fun rlOrtho(left: f64, right: f64, bottom: f64, top: f64, znear: f64, zfar: f64);
-pub fun ortho(left: f64, right: f64, bottom: f64, top: f64, znear: f64, zfar: f64) { rlOrtho(left, right, bottom, top, znear, zfar); }
+ext fun rlOrtho(left: f32, right: f32, bottom: f32, top: f32, znear: f32, zfar: f32);
+pub fun ortho(left: f32, right: f32, bottom: f32, top: f32, znear: f32, zfar: f32) { rlOrtho(left, right, bottom, top, znear, zfar); }
 #[library("raylib")]
 ext fun rlViewport(x: i32, y: i32, width: i32, height: i32);
 pub fun viewport(x: i32, y: i32, width: i32, height: i32) { rlViewport(x, y, width, height); }
 #[library("raylib")]
-ext fun rlSetClipPlanes(nearPlane: f64, farPlane: f64);
-pub fun set_clip_planes(nearPlane: f64, farPlane: f64) { rlSetClipPlanes(nearPlane, farPlane); }
+ext fun rlSetClipPlanes(near_plane: f32, far_plane: f32);
+pub fun set_clip_planes(near_plane: f32, far_plane: f32) { rlSetClipPlanes(near_plane, far_plane); }
 #[library("raylib")]
-ext fun rlGetCullDistanceNear() f64;
-pub fun get_cull_distance_near() f64 { ret rlGetCullDistanceNear(); }
+ext fun rlGetCullDistanceNear() f32;
+pub fun get_cull_distance_near() f32 { ret rlGetCullDistanceNear(); }
 #[library("raylib")]
-ext fun rlGetCullDistanceFar() f64;
-pub fun get_cull_distance_far() f64 { ret rlGetCullDistanceFar(); }
+ext fun rlGetCullDistanceFar() f32;
+pub fun get_cull_distance_far() f32 { ret rlGetCullDistanceFar(); }
 #[library("raylib")]
 ext fun rlBegin(mode: i32);
 pub fun begin(mode: i32) { rlBegin(mode); }
@@ -318,8 +318,8 @@ pub fun color3f(x: f32, y: f32, z: f32) { rlColor3f(x, y, z); }
 ext fun rlColor4f(x: f32, y: f32, z: f32, w: f32);
 pub fun color4f(x: f32, y: f32, z: f32, w: f32) { rlColor4f(x, y, z, w); }
 #[library("raylib")]
-ext fun rlEnableVertexArray(vaoId: u32) bool;
-pub fun enable_vertex_array(vaoId: u32) bool { ret rlEnableVertexArray(vaoId); }
+ext fun rlEnableVertexArray(vao_id: u32) bool;
+pub fun enable_vertex_array(vao_id: u32) bool { ret rlEnableVertexArray(vao_id); }
 #[library("raylib")]
 ext fun rlDisableVertexArray();
 pub fun disable_vertex_array() { rlDisableVertexArray(); }
@@ -342,11 +342,11 @@ pub fun enable_vertex_attribute(index: u32) { rlEnableVertexAttribute(index); }
 ext fun rlDisableVertexAttribute(index: u32);
 pub fun disable_vertex_attribute(index: u32) { rlDisableVertexAttribute(index); }
 #[library("raylib")]
-ext fun rlEnableStatePointer(vertexAttribType: i32, buffer: ptr);
-pub fun enable_state_pointer(vertexAttribType: i32, buffer: ptr) { rlEnableStatePointer(vertexAttribType, buffer); }
+ext fun rlEnableStatePointer(vertex_attrib_type: i32, buffer: ptr);
+pub fun enable_state_pointer(vertex_attrib_type: i32, buffer: ptr) { rlEnableStatePointer(vertex_attrib_type, buffer); }
 #[library("raylib")]
-ext fun rlDisableStatePointer(vertexAttribType: i32);
-pub fun disable_state_pointer(vertexAttribType: i32) { rlDisableStatePointer(vertexAttribType); }
+ext fun rlDisableStatePointer(vertex_attrib_type: i32);
+pub fun disable_state_pointer(vertex_attrib_type: i32) { rlDisableStatePointer(vertex_attrib_type); }
 #[library("raylib")]
 ext fun rlActiveTextureSlot(slot: i32);
 pub fun active_texture_slot(slot: i32) { rlActiveTextureSlot(slot); }
@@ -387,8 +387,8 @@ pub fun get_active_framebuffer() u32 { ret rlGetActiveFramebuffer(); }
 ext fun rlActiveDrawBuffers(count: i32);
 pub fun active_draw_buffers(count: i32) { rlActiveDrawBuffers(count); }
 #[library("raylib")]
-ext fun rlBlitFramebuffer(srcX: i32, srcY: i32, srcWidth: i32, srcHeight: i32, dstX: i32, dstY: i32, dstWidth: i32, dstHeight: i32, bufferMask: i32);
-pub fun blit_framebuffer(srcX: i32, srcY: i32, srcWidth: i32, srcHeight: i32, dstX: i32, dstY: i32, dstWidth: i32, dstHeight: i32, bufferMask: i32) { rlBlitFramebuffer(srcX, srcY, srcWidth, srcHeight, dstX, dstY, dstWidth, dstHeight, bufferMask); }
+ext fun rlBlitFramebuffer(src_x: i32, src_y: i32, src_width: i32, src_height: i32, dst_x: i32, dst_y: i32, dst_width: i32, dst_height: i32, buffer_mask: i32);
+pub fun blit_framebuffer(src_x: i32, src_y: i32, src_width: i32, src_height: i32, dst_x: i32, dst_y: i32, dst_width: i32, dst_height: i32, buffer_mask: i32) { rlBlitFramebuffer(src_x, src_y, src_width, src_height, dst_x, dst_y, dst_width, dst_height, buffer_mask); }
 #[library("raylib")]
 ext fun rlBindFramebuffer(target: u32, framebuffer: u32);
 pub fun bind_framebuffer(target: u32, framebuffer: u32) { rlBindFramebuffer(target, framebuffer); }
@@ -483,11 +483,11 @@ pub fun check_errors() { rlCheckErrors(); }
 ext fun rlSetBlendMode(mode: i32);
 pub fun set_blend_mode(mode: i32) { rlSetBlendMode(mode); }
 #[library("raylib")]
-ext fun rlSetBlendFactors(glSrcFactor: i32, glDstFactor: i32, glEquation: i32);
-pub fun set_blend_factors(glSrcFactor: i32, glDstFactor: i32, glEquation: i32) { rlSetBlendFactors(glSrcFactor, glDstFactor, glEquation); }
+ext fun rlSetBlendFactors(gl_src_factor: i32, gl_dst_factor: i32, gl_equation: i32);
+pub fun set_blend_factors(gl_src_factor: i32, gl_dst_factor: i32, gl_equation: i32) { rlSetBlendFactors(gl_src_factor, gl_dst_factor, gl_equation); }
 #[library("raylib")]
-ext fun rlSetBlendFactorsSeparate(glSrcRGB: i32, glDstRGB: i32, glSrcAlpha: i32, glDstAlpha: i32, glEqRGB: i32, glEqAlpha: i32);
-pub fun set_blend_factors_separate(glSrcRGB: i32, glDstRGB: i32, glSrcAlpha: i32, glDstAlpha: i32, glEqRGB: i32, glEqAlpha: i32) { rlSetBlendFactorsSeparate(glSrcRGB, glDstRGB, glSrcAlpha, glDstAlpha, glEqRGB, glEqAlpha); }
+ext fun rlSetBlendFactorsSeparate(gl_src_rgb: i32, gl_dst_rgb: i32, gl_src_alpha: i32, gl_dst_alpha: i32, gl_eq_rgb: i32, gl_eq_alpha: i32);
+pub fun set_blend_factors_separate(gl_src_rgb: i32, gl_dst_rgb: i32, gl_src_alpha: i32, gl_dst_alpha: i32, gl_eq_rgb: i32, gl_eq_alpha: i32) { rlSetBlendFactorsSeparate(gl_src_rgb, gl_dst_rgb, gl_src_alpha, gl_dst_alpha, gl_eq_rgb, gl_eq_alpha); }
 #[library("raylib")]
 ext fun rlglInit(width: i32, height: i32);
 pub fun rlgl_init(width: i32, height: i32) { rlglInit(width, height); }
@@ -498,8 +498,8 @@ pub fun rlgl_close() { rlglClose(); }
 ext fun rlLoadExtensions(loader: ptr);
 pub fun load_extensions(loader: ptr) { rlLoadExtensions(loader); }
 #[library("raylib")]
-ext fun rlGetProcAddress(procName: str) ptr;
-pub fun get_proc_address(procName: str) ptr { ret rlGetProcAddress(procName); }
+ext fun rlGetProcAddress(proc_name: str) ptr;
+pub fun get_proc_address(proc_name: str) ptr { ret rlGetProcAddress(proc_name); }
 #[library("raylib")]
 ext fun rlGetVersion() i32;
 pub fun get_version() i32 { ret rlGetVersion(); }
@@ -525,8 +525,8 @@ pub fun get_shader_id_default() u32 { ret rlGetShaderIdDefault(); }
 ext fun rlGetShaderLocsDefault() *i32;
 pub fun get_shader_locs_default() *i32 { ret rlGetShaderLocsDefault(); }
 #[library("raylib")]
-ext fun rlLoadRenderBatch(numBuffers: i32, bufferElements: i32) rlRenderBatch;
-pub fun load_render_batch(numBuffers: i32, bufferElements: i32) rlRenderBatch { ret rlLoadRenderBatch(numBuffers, bufferElements); }
+ext fun rlLoadRenderBatch(num_buffers: i32, buffer_elements: i32) rlRenderBatch;
+pub fun load_render_batch(num_buffers: i32, buffer_elements: i32) rlRenderBatch { ret rlLoadRenderBatch(num_buffers, buffer_elements); }
 #[library("raylib")]
 ext fun rlUnloadRenderBatch(batch: rlRenderBatch);
 pub fun unload_render_batch(batch: rlRenderBatch) { rlUnloadRenderBatch(batch); }
@@ -540,8 +540,8 @@ pub fun set_render_batch_active(batch: *rlRenderBatch) { rlSetRenderBatchActive(
 ext fun rlDrawRenderBatchActive();
 pub fun draw_render_batch_active() { rlDrawRenderBatchActive(); }
 #[library("raylib")]
-ext fun rlCheckRenderBatchLimit(vCount: i32) bool;
-pub fun check_render_batch_limit(vCount: i32) bool { ret rlCheckRenderBatchLimit(vCount); }
+ext fun rlCheckRenderBatchLimit(v_count: i32) bool;
+pub fun check_render_batch_limit(v_count: i32) bool { ret rlCheckRenderBatchLimit(v_count); }
 #[library("raylib")]
 ext fun rlSetTexture(id: u32);
 pub fun set_texture(id: u32) { rlSetTexture(id); }
@@ -555,26 +555,26 @@ pub fun load_vertex_buffer(buffer: ptr, size: i32, dynamic: bool) u32 { ret rlLo
 ext fun rlLoadVertexBufferElement(buffer: ptr, size: i32, dynamic: bool) u32;
 pub fun load_vertex_buffer_element(buffer: ptr, size: i32, dynamic: bool) u32 { ret rlLoadVertexBufferElement(buffer, size, dynamic); }
 #[library("raylib")]
-ext fun rlUpdateVertexBuffer(bufferId: u32, data: ptr, dataSize: i32, offset: i32);
-pub fun update_vertex_buffer(bufferId: u32, data: ptr, dataSize: i32, offset: i32) { rlUpdateVertexBuffer(bufferId, data, dataSize, offset); }
+ext fun rlUpdateVertexBuffer(buffer_id: u32, data: ptr, data_size: i32, offset: i32);
+pub fun update_vertex_buffer(buffer_id: u32, data: ptr, data_size: i32, offset: i32) { rlUpdateVertexBuffer(buffer_id, data, data_size, offset); }
 #[library("raylib")]
-ext fun rlUpdateVertexBufferElements(id: u32, data: ptr, dataSize: i32, offset: i32);
-pub fun update_vertex_buffer_elements(id: u32, data: ptr, dataSize: i32, offset: i32) { rlUpdateVertexBufferElements(id, data, dataSize, offset); }
+ext fun rlUpdateVertexBufferElements(id: u32, data: ptr, data_size: i32, offset: i32);
+pub fun update_vertex_buffer_elements(id: u32, data: ptr, data_size: i32, offset: i32) { rlUpdateVertexBufferElements(id, data, data_size, offset); }
 #[library("raylib")]
-ext fun rlUnloadVertexArray(vaoId: u32);
-pub fun unload_vertex_array(vaoId: u32) { rlUnloadVertexArray(vaoId); }
+ext fun rlUnloadVertexArray(vao_id: u32);
+pub fun unload_vertex_array(vao_id: u32) { rlUnloadVertexArray(vao_id); }
 #[library("raylib")]
-ext fun rlUnloadVertexBuffer(vboId: u32);
-pub fun unload_vertex_buffer(vboId: u32) { rlUnloadVertexBuffer(vboId); }
+ext fun rlUnloadVertexBuffer(vbo_id: u32);
+pub fun unload_vertex_buffer(vbo_id: u32) { rlUnloadVertexBuffer(vbo_id); }
 #[library("raylib")]
-ext fun rlSetVertexAttribute(index: u32, compSize: i32, type: i32, normalized: bool, stride: i32, offset: i32);
-pub fun set_vertex_attribute(index: u32, compSize: i32, type: i32, normalized: bool, stride: i32, offset: i32) { rlSetVertexAttribute(index, compSize, type, normalized, stride, offset); }
+ext fun rlSetVertexAttribute(index: u32, comp_size: i32, type: i32, normalized: bool, stride: i32, offset: i32);
+pub fun set_vertex_attribute(index: u32, comp_size: i32, type: i32, normalized: bool, stride: i32, offset: i32) { rlSetVertexAttribute(index, comp_size, type, normalized, stride, offset); }
 #[library("raylib")]
 ext fun rlSetVertexAttributeDivisor(index: u32, divisor: i32);
 pub fun set_vertex_attribute_divisor(index: u32, divisor: i32) { rlSetVertexAttributeDivisor(index, divisor); }
 #[library("raylib")]
-ext fun rlSetVertexAttributeDefault(locIndex: i32, value: ptr, attribType: i32, count: i32);
-pub fun set_vertex_attribute_default(locIndex: i32, value: ptr, attribType: i32, count: i32) { rlSetVertexAttributeDefault(locIndex, value, attribType, count); }
+ext fun rlSetVertexAttributeDefault(loc_index: i32, value: ptr, attrib_type: i32, count: i32);
+pub fun set_vertex_attribute_default(loc_index: i32, value: ptr, attrib_type: i32, count: i32) { rlSetVertexAttributeDefault(loc_index, value, attrib_type, count); }
 #[library("raylib")]
 ext fun rlDrawVertexArray(offset: i32, count: i32);
 pub fun draw_vertex_array(offset: i32, count: i32) { rlDrawVertexArray(offset, count); }
@@ -588,20 +588,20 @@ pub fun draw_vertex_array_instanced(offset: i32, count: i32, instances: i32) { r
 ext fun rlDrawVertexArrayElementsInstanced(offset: i32, count: i32, buffer: ptr, instances: i32);
 pub fun draw_vertex_array_elements_instanced(offset: i32, count: i32, buffer: ptr, instances: i32) { rlDrawVertexArrayElementsInstanced(offset, count, buffer, instances); }
 #[library("raylib")]
-ext fun rlLoadTexture(data: ptr, width: i32, height: i32, format: i32, mipmapCount: i32) u32;
-pub fun load_texture(data: ptr, width: i32, height: i32, format: i32, mipmapCount: i32) u32 { ret rlLoadTexture(data, width, height, format, mipmapCount); }
+ext fun rlLoadTexture(data: ptr, width: i32, height: i32, format: i32, mipmap_count: i32) u32;
+pub fun load_texture(data: ptr, width: i32, height: i32, format: i32, mipmap_count: i32) u32 { ret rlLoadTexture(data, width, height, format, mipmap_count); }
 #[library("raylib")]
-ext fun rlLoadTextureDepth(width: i32, height: i32, useRenderBuffer: bool) u32;
-pub fun load_texture_depth(width: i32, height: i32, useRenderBuffer: bool) u32 { ret rlLoadTextureDepth(width, height, useRenderBuffer); }
+ext fun rlLoadTextureDepth(width: i32, height: i32, use_render_buffer: bool) u32;
+pub fun load_texture_depth(width: i32, height: i32, use_render_buffer: bool) u32 { ret rlLoadTextureDepth(width, height, use_render_buffer); }
 #[library("raylib")]
-ext fun rlLoadTextureCubemap(data: ptr, size: i32, format: i32, mipmapCount: i32) u32;
-pub fun load_texture_cubemap(data: ptr, size: i32, format: i32, mipmapCount: i32) u32 { ret rlLoadTextureCubemap(data, size, format, mipmapCount); }
+ext fun rlLoadTextureCubemap(data: ptr, size: i32, format: i32, mipmap_count: i32) u32;
+pub fun load_texture_cubemap(data: ptr, size: i32, format: i32, mipmap_count: i32) u32 { ret rlLoadTextureCubemap(data, size, format, mipmap_count); }
 #[library("raylib")]
-ext fun rlUpdateTexture(id: u32, offsetX: i32, offsetY: i32, width: i32, height: i32, format: i32, data: ptr);
-pub fun update_texture(id: u32, offsetX: i32, offsetY: i32, width: i32, height: i32, format: i32, data: ptr) { rlUpdateTexture(id, offsetX, offsetY, width, height, format, data); }
+ext fun rlUpdateTexture(id: u32, offset_x: i32, offset_y: i32, width: i32, height: i32, format: i32, data: ptr);
+pub fun update_texture(id: u32, offset_x: i32, offset_y: i32, width: i32, height: i32, format: i32, data: ptr) { rlUpdateTexture(id, offset_x, offset_y, width, height, format, data); }
 #[library("raylib")]
-ext fun rlGetGlTextureFormats(format: i32, glInternalFormat: *u32, glFormat: *u32, glType: *u32);
-pub fun get_gl_texture_formats(format: i32, glInternalFormat: *u32, glFormat: *u32, glType: *u32) { rlGetGlTextureFormats(format, glInternalFormat, glFormat, glType); }
+ext fun rlGetGlTextureFormats(format: i32, gl_internal_format: *u32, gl_format: *u32, gl_type: *u32);
+pub fun get_gl_texture_formats(format: i32, gl_internal_format: *u32, gl_format: *u32, gl_type: *u32) { rlGetGlTextureFormats(format, gl_internal_format, gl_format, gl_type); }
 #[library("raylib")]
 ext fun rlGetPixelFormatName(format: u32) str;
 pub fun get_pixel_format_name(format: u32) str { ret rlGetPixelFormatName(format); }
@@ -621,8 +621,8 @@ pub fun read_screen_pixels(width: i32, height: i32) *u8 { ret rlReadScreenPixels
 ext fun rlLoadFramebuffer() u32;
 pub fun load_framebuffer() u32 { ret rlLoadFramebuffer(); }
 #[library("raylib")]
-ext fun rlFramebufferAttach(id: u32, texId: u32, attachType: i32, texType: i32, mipLevel: i32);
-pub fun framebuffer_attach(id: u32, texId: u32, attachType: i32, texType: i32, mipLevel: i32) { rlFramebufferAttach(id, texId, attachType, texType, mipLevel); }
+ext fun rlFramebufferAttach(id: u32, tex_id: u32, attach_type: i32, tex_type: i32, mip_level: i32);
+pub fun framebuffer_attach(id: u32, tex_id: u32, attach_type: i32, tex_type: i32, mip_level: i32) { rlFramebufferAttach(id, tex_id, attach_type, tex_type, mip_level); }
 #[library("raylib")]
 ext fun rlFramebufferComplete(id: u32) bool;
 pub fun framebuffer_complete(id: u32) bool { ret rlFramebufferComplete(id); }
@@ -639,14 +639,14 @@ pub fun resize_framebuffer(width: i32, height: i32) { rlResizeFramebuffer(width,
 ext fun rlLoadShader(code: str, type: i32) u32;
 pub fun load_shader(code: str, type: i32) u32 { ret rlLoadShader(code, type); }
 #[library("raylib")]
-ext fun rlLoadShaderProgram(vsCode: str, fsCode: str) u32;
-pub fun load_shader_program(vsCode: str, fsCode: str) u32 { ret rlLoadShaderProgram(vsCode, fsCode); }
+ext fun rlLoadShaderProgram(vs_code: str, fs_code: str) u32;
+pub fun load_shader_program(vs_code: str, fs_code: str) u32 { ret rlLoadShaderProgram(vs_code, fs_code); }
 #[library("raylib")]
-ext fun rlLoadShaderProgramEx(vsId: u32, fsId: u32) u32;
-pub fun load_shader_program_ex(vsId: u32, fsId: u32) u32 { ret rlLoadShaderProgramEx(vsId, fsId); }
+ext fun rlLoadShaderProgramEx(vs_id: u32, fs_id: u32) u32;
+pub fun load_shader_program_ex(vs_id: u32, fs_id: u32) u32 { ret rlLoadShaderProgramEx(vs_id, fs_id); }
 #[library("raylib")]
-ext fun rlLoadShaderProgramCompute(csId: u32) u32;
-pub fun load_shader_program_compute(csId: u32) u32 { ret rlLoadShaderProgramCompute(csId); }
+ext fun rlLoadShaderProgramCompute(cs_id: u32) u32;
+pub fun load_shader_program_compute(cs_id: u32) u32 { ret rlLoadShaderProgramCompute(cs_id); }
 #[library("raylib")]
 ext fun rlUnloadShader(id: u32);
 pub fun unload_shader(id: u32) { rlUnloadShader(id); }
@@ -654,38 +654,38 @@ pub fun unload_shader(id: u32) { rlUnloadShader(id); }
 ext fun rlUnloadShaderProgram(id: u32);
 pub fun unload_shader_program(id: u32) { rlUnloadShaderProgram(id); }
 #[library("raylib")]
-ext fun rlGetLocationUniform(id: u32, uniformName: str) i32;
-pub fun get_location_uniform(id: u32, uniformName: str) i32 { ret rlGetLocationUniform(id, uniformName); }
+ext fun rlGetLocationUniform(id: u32, uniform_name: str) i32;
+pub fun get_location_uniform(id: u32, uniform_name: str) i32 { ret rlGetLocationUniform(id, uniform_name); }
 #[library("raylib")]
-ext fun rlGetLocationAttrib(id: u32, attribName: str) i32;
-pub fun get_location_attrib(id: u32, attribName: str) i32 { ret rlGetLocationAttrib(id, attribName); }
+ext fun rlGetLocationAttrib(id: u32, attrib_name: str) i32;
+pub fun get_location_attrib(id: u32, attrib_name: str) i32 { ret rlGetLocationAttrib(id, attrib_name); }
 #[library("raylib")]
-ext fun rlSetUniform(locIndex: i32, value: ptr, uniformType: i32, count: i32);
-pub fun set_uniform(locIndex: i32, value: ptr, uniformType: i32, count: i32) { rlSetUniform(locIndex, value, uniformType, count); }
+ext fun rlSetUniform(loc_index: i32, value: ptr, uniform_type: i32, count: i32);
+pub fun set_uniform(loc_index: i32, value: ptr, uniform_type: i32, count: i32) { rlSetUniform(loc_index, value, uniform_type, count); }
 #[library("raylib")]
-ext fun rlSetUniformMatrix(locIndex: i32, mat: Matrix);
-pub fun set_uniform_matrix(locIndex: i32, mat: Matrix) { rlSetUniformMatrix(locIndex, mat); }
+ext fun rlSetUniformMatrix(loc_index: i32, mat: Matrix);
+pub fun set_uniform_matrix(loc_index: i32, mat: Matrix) { rlSetUniformMatrix(loc_index, mat); }
 #[library("raylib")]
-ext fun rlSetUniformMatrices(locIndex: i32, mat: *Matrix, count: i32);
-pub fun set_uniform_matrices(locIndex: i32, mat: *Matrix, count: i32) { rlSetUniformMatrices(locIndex, mat, count); }
+ext fun rlSetUniformMatrices(loc_index: i32, mat: *Matrix, count: i32);
+pub fun set_uniform_matrices(loc_index: i32, mat: *Matrix, count: i32) { rlSetUniformMatrices(loc_index, mat, count); }
 #[library("raylib")]
-ext fun rlSetUniformSampler(locIndex: i32, textureId: u32);
-pub fun set_uniform_sampler(locIndex: i32, textureId: u32) { rlSetUniformSampler(locIndex, textureId); }
+ext fun rlSetUniformSampler(loc_index: i32, texture_id: u32);
+pub fun set_uniform_sampler(loc_index: i32, texture_id: u32) { rlSetUniformSampler(loc_index, texture_id); }
 #[library("raylib")]
 ext fun rlSetShader(id: u32, locs: *i32);
 pub fun set_shader(id: u32, locs: *i32) { rlSetShader(id, locs); }
 #[library("raylib")]
-ext fun rlComputeShaderDispatch(groupX: u32, groupY: u32, groupZ: u32);
-pub fun compute_shader_dispatch(groupX: u32, groupY: u32, groupZ: u32) { rlComputeShaderDispatch(groupX, groupY, groupZ); }
+ext fun rlComputeShaderDispatch(group_x: u32, group_y: u32, group_z: u32);
+pub fun compute_shader_dispatch(group_x: u32, group_y: u32, group_z: u32) { rlComputeShaderDispatch(group_x, group_y, group_z); }
 #[library("raylib")]
-ext fun rlLoadShaderBuffer(size: u32, data: ptr, usageHint: i32) u32;
-pub fun load_shader_buffer(size: u32, data: ptr, usageHint: i32) u32 { ret rlLoadShaderBuffer(size, data, usageHint); }
+ext fun rlLoadShaderBuffer(size: u32, data: ptr, usage_hint: i32) u32;
+pub fun load_shader_buffer(size: u32, data: ptr, usage_hint: i32) u32 { ret rlLoadShaderBuffer(size, data, usage_hint); }
 #[library("raylib")]
-ext fun rlUnloadShaderBuffer(ssboId: u32);
-pub fun unload_shader_buffer(ssboId: u32) { rlUnloadShaderBuffer(ssboId); }
+ext fun rlUnloadShaderBuffer(ssbo_id: u32);
+pub fun unload_shader_buffer(ssbo_id: u32) { rlUnloadShaderBuffer(ssbo_id); }
 #[library("raylib")]
-ext fun rlUpdateShaderBuffer(id: u32, data: ptr, dataSize: u32, offset: u32);
-pub fun update_shader_buffer(id: u32, data: ptr, dataSize: u32, offset: u32) { rlUpdateShaderBuffer(id, data, dataSize, offset); }
+ext fun rlUpdateShaderBuffer(id: u32, data: ptr, data_size: u32, offset: u32);
+pub fun update_shader_buffer(id: u32, data: ptr, data_size: u32, offset: u32) { rlUpdateShaderBuffer(id, data, data_size, offset); }
 #[library("raylib")]
 ext fun rlBindShaderBuffer(id: u32, index: u32);
 pub fun bind_shader_buffer(id: u32, index: u32) { rlBindShaderBuffer(id, index); }
@@ -693,8 +693,8 @@ pub fun bind_shader_buffer(id: u32, index: u32) { rlBindShaderBuffer(id, index);
 ext fun rlReadShaderBuffer(id: u32, dest: ptr, count: u32, offset: u32);
 pub fun read_shader_buffer(id: u32, dest: ptr, count: u32, offset: u32) { rlReadShaderBuffer(id, dest, count, offset); }
 #[library("raylib")]
-ext fun rlCopyShaderBuffer(destId: u32, srcId: u32, destOffset: u32, srcOffset: u32, count: u32);
-pub fun copy_shader_buffer(destId: u32, srcId: u32, destOffset: u32, srcOffset: u32, count: u32) { rlCopyShaderBuffer(destId, srcId, destOffset, srcOffset, count); }
+ext fun rlCopyShaderBuffer(dest_id: u32, src_id: u32, dest_offset: u32, src_offset: u32, count: u32);
+pub fun copy_shader_buffer(dest_id: u32, src_id: u32, dest_offset: u32, src_offset: u32, count: u32) { rlCopyShaderBuffer(dest_id, src_id, dest_offset, src_offset, count); }
 #[library("raylib")]
 ext fun rlGetShaderBufferSize(id: u32) u32;
 pub fun get_shader_buffer_size(id: u32) u32 { ret rlGetShaderBufferSize(id); }

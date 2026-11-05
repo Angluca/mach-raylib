@@ -122,6 +122,7 @@ symbols = [
     "strrchr", "strspn", "strstr", "strtok", "strtol", "strtoul", 
     "system", "tan", "time", "ungetc", "usleep", "vprintf", 
     "vsnprintf", "wcsrtombs", "_NSConcreteGlobalBlock", 
+    "tanf", "atan", "atanf", "atan2"
 ]
 os = ["darwin"]
 isa = "*"

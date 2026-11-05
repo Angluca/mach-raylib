@@ -19,16 +19,16 @@ pub val RAYGUI_VERSION: str = "5.1-dev";
 pub val SCROLLBAR_LEFT_SIDE: i32 = 0;
 pub val SCROLLBAR_RIGHT_SIDE: i32 = 1;
 pub rec GuiStyleProp {
-      controlId: u16;
-      propertyId: u16;
-      propertyValue: i32;
+      control_id: u16;
+      property_id: u16;
+      property_value: i32;
 }
 pub rec GuiTextStyle {
       size: u32;
-      charSpacing: i32;
-      lineSpacing: i32;
-      alignmentH: i32;
-      alignmentV: i32;
+      char_spacing: i32;
+      line_spacing: i32;
+      alignment_h: i32;
+      alignment_v: i32;
       padding: i32;
 }
 pub def Texture2D: Texture;
@@ -419,11 +419,11 @@ pub fun set_style(control: i32, property: i32, value: i32) { GuiSetStyle(control
 ext fun GuiGetStyle(control: i32, property: i32) i32;
 pub fun get_style(control: i32, property: i32) i32 { ret GuiGetStyle(control, property); }
 #[library("raygui")]
-ext fun GuiLoadStyle(fileName: str);
-pub fun load_style(fileName: str) { GuiLoadStyle(fileName); }
+ext fun GuiLoadStyle(file_name: str);
+pub fun load_style(file_name: str) { GuiLoadStyle(file_name); }
 #[library("raygui")]
-ext fun GuiLoadStyleFromMemory(fileData: *u8, dataSize: i32);
-pub fun load_style_from_memory(fileData: *u8, dataSize: i32) { GuiLoadStyleFromMemory(fileData, dataSize); }
+ext fun GuiLoadStyleFromMemory(file_data: *u8, data_size: i32);
+pub fun load_style_from_memory(file_data: *u8, data_size: i32) { GuiLoadStyleFromMemory(file_data, data_size); }
 #[library("raygui")]
 ext fun GuiLoadStyleDefault();
 pub fun load_style_default() { GuiLoadStyleDefault(); }
@@ -437,8 +437,8 @@ pub fun disable_tooltip() { GuiDisableTooltip(); }
 ext fun GuiSetTooltip(tooltip: str);
 pub fun set_tooltip(tooltip: str) { GuiSetTooltip(tooltip); }
 #[library("raygui")]
-ext fun GuiIconText(iconId: i32, text: str) str;
-pub fun icon_text(iconId: i32, text: str) str { ret GuiIconText(iconId, text); }
+ext fun GuiIconText(icon_id: i32, text: str) str;
+pub fun icon_text(icon_id: i32, text: str) str { ret GuiIconText(icon_id, text); }
 #[library("raygui")]
 ext fun GuiSetIconScale(scale: i32);
 pub fun set_icon_scale(scale: i32) { GuiSetIconScale(scale); }
@@ -446,14 +446,14 @@ pub fun set_icon_scale(scale: i32) { GuiSetIconScale(scale); }
 ext fun GuiGetIcons() *u32;
 pub fun get_icons() *u32 { ret GuiGetIcons(); }
 #[library("raygui")]
-ext fun GuiLoadIcons(fileName: str, loadIconsName: bool) *str;
-pub fun load_icons(fileName: str, loadIconsName: bool) *str { ret GuiLoadIcons(fileName, loadIconsName); }
+ext fun GuiLoadIcons(file_name: str, load_icons_name: bool) *str;
+pub fun load_icons(file_name: str, load_icons_name: bool) *str { ret GuiLoadIcons(file_name, load_icons_name); }
 #[library("raygui")]
-ext fun GuiLoadIconsFromMemory(fileData: *u8, dataSize: i32, loadIconsName: bool) *str;
-pub fun load_icons_from_memory(fileData: *u8, dataSize: i32, loadIconsName: bool) *str { ret GuiLoadIconsFromMemory(fileData, dataSize, loadIconsName); }
+ext fun GuiLoadIconsFromMemory(file_data: *u8, data_size: i32, load_icons_name: bool) *str;
+pub fun load_icons_from_memory(file_data: *u8, data_size: i32, load_icons_name: bool) *str { ret GuiLoadIconsFromMemory(file_data, data_size, load_icons_name); }
 #[library("raygui")]
-ext fun GuiDrawIcon(iconId: i32, posX: i32, posY: i32, pixelSize: i32, color: Color);
-pub fun draw_icon(iconId: i32, posX: i32, posY: i32, pixelSize: i32, color: Color) { GuiDrawIcon(iconId, posX, posY, pixelSize, color); }
+ext fun GuiDrawIcon(icon_id: i32, pos_x: i32, pos_y: i32, pixel_size: i32, color: Color);
+pub fun draw_icon(icon_id: i32, pos_x: i32, pos_y: i32, pixel_size: i32, color: Color) { GuiDrawIcon(icon_id, pos_x, pos_y, pixel_size, color); }
 #[library("raygui")]
 ext fun GuiGetTextWidth(text: str) i32;
 pub fun get_text_width(text: str) i32 { ret GuiGetTextWidth(text); }
@@ -497,29 +497,29 @@ pub fun check_box(bounds: Rectangle, text: str, checked: *bool) i32 { ret GuiChe
 ext fun GuiComboBox(bounds: Rectangle, text: str, active: *i32) i32;
 pub fun combo_box(bounds: Rectangle, text: str, active: *i32) i32 { ret GuiComboBox(bounds, text, active); }
 #[library("raygui")]
-ext fun GuiDropdownBox(bounds: Rectangle, text: str, active: *i32, editMode: bool) i32;
-pub fun dropdown_box(bounds: Rectangle, text: str, active: *i32, editMode: bool) i32 { ret GuiDropdownBox(bounds, text, active, editMode); }
+ext fun GuiDropdownBox(bounds: Rectangle, text: str, active: *i32, edit_mode: bool) i32;
+pub fun dropdown_box(bounds: Rectangle, text: str, active: *i32, edit_mode: bool) i32 { ret GuiDropdownBox(bounds, text, active, edit_mode); }
 #[library("raygui")]
-ext fun GuiSpinner(bounds: Rectangle, text: str, value: *i32, minValue: i32, maxValue: i32, editMode: bool) i32;
-pub fun spinner(bounds: Rectangle, text: str, value: *i32, minValue: i32, maxValue: i32, editMode: bool) i32 { ret GuiSpinner(bounds, text, value, minValue, maxValue, editMode); }
+ext fun GuiSpinner(bounds: Rectangle, text: str, value: *i32, min_value: i32, max_value: i32, edit_mode: bool) i32;
+pub fun spinner(bounds: Rectangle, text: str, value: *i32, min_value: i32, max_value: i32, edit_mode: bool) i32 { ret GuiSpinner(bounds, text, value, min_value, max_value, edit_mode); }
 #[library("raygui")]
-ext fun GuiValueBox(bounds: Rectangle, text: str, value: *i32, minValue: i32, maxValue: i32, editMode: bool) i32;
-pub fun value_box(bounds: Rectangle, text: str, value: *i32, minValue: i32, maxValue: i32, editMode: bool) i32 { ret GuiValueBox(bounds, text, value, minValue, maxValue, editMode); }
+ext fun GuiValueBox(bounds: Rectangle, text: str, value: *i32, min_value: i32, max_value: i32, edit_mode: bool) i32;
+pub fun value_box(bounds: Rectangle, text: str, value: *i32, min_value: i32, max_value: i32, edit_mode: bool) i32 { ret GuiValueBox(bounds, text, value, min_value, max_value, edit_mode); }
 #[library("raygui")]
-ext fun GuiValueBoxFloat(bounds: Rectangle, text: str, textValue: str, value: *f32, editMode: bool) i32;
-pub fun value_box_float(bounds: Rectangle, text: str, textValue: str, value: *f32, editMode: bool) i32 { ret GuiValueBoxFloat(bounds, text, textValue, value, editMode); }
+ext fun GuiValueBoxFloat(bounds: Rectangle, text: str, text_value: str, value: *f32, edit_mode: bool) i32;
+pub fun value_box_float(bounds: Rectangle, text: str, text_value: str, value: *f32, edit_mode: bool) i32 { ret GuiValueBoxFloat(bounds, text, text_value, value, edit_mode); }
 #[library("raygui")]
-ext fun GuiTextBox(bounds: Rectangle, text: str, textSize: i32, editMode: bool) i32;
-pub fun text_box(bounds: Rectangle, text: str, textSize: i32, editMode: bool) i32 { ret GuiTextBox(bounds, text, textSize, editMode); }
+ext fun GuiTextBox(bounds: Rectangle, text: str, text_size: i32, edit_mode: bool) i32;
+pub fun text_box(bounds: Rectangle, text: str, text_size: i32, edit_mode: bool) i32 { ret GuiTextBox(bounds, text, text_size, edit_mode); }
 #[library("raygui")]
-ext fun GuiSlider(bounds: Rectangle, textLeft: str, textRight: str, value: *f32, minValue: f32, maxValue: f32) i32;
-pub fun slider(bounds: Rectangle, textLeft: str, textRight: str, value: *f32, minValue: f32, maxValue: f32) i32 { ret GuiSlider(bounds, textLeft, textRight, value, minValue, maxValue); }
+ext fun GuiSlider(bounds: Rectangle, text_left: str, text_right: str, value: *f32, min_value: f32, max_value: f32) i32;
+pub fun slider(bounds: Rectangle, text_left: str, text_right: str, value: *f32, min_value: f32, max_value: f32) i32 { ret GuiSlider(bounds, text_left, text_right, value, min_value, max_value); }
 #[library("raygui")]
-ext fun GuiSliderBar(bounds: Rectangle, textLeft: str, textRight: str, value: *f32, minValue: f32, maxValue: f32) i32;
-pub fun slider_bar(bounds: Rectangle, textLeft: str, textRight: str, value: *f32, minValue: f32, maxValue: f32) i32 { ret GuiSliderBar(bounds, textLeft, textRight, value, minValue, maxValue); }
+ext fun GuiSliderBar(bounds: Rectangle, text_left: str, text_right: str, value: *f32, min_value: f32, max_value: f32) i32;
+pub fun slider_bar(bounds: Rectangle, text_left: str, text_right: str, value: *f32, min_value: f32, max_value: f32) i32 { ret GuiSliderBar(bounds, text_left, text_right, value, min_value, max_value); }
 #[library("raygui")]
-ext fun GuiProgressBar(bounds: Rectangle, textLeft: str, textRight: str, value: *f32, minValue: f32, maxValue: f32) i32;
-pub fun progress_bar(bounds: Rectangle, textLeft: str, textRight: str, value: *f32, minValue: f32, maxValue: f32) i32 { ret GuiProgressBar(bounds, textLeft, textRight, value, minValue, maxValue); }
+ext fun GuiProgressBar(bounds: Rectangle, text_left: str, text_right: str, value: *f32, min_value: f32, max_value: f32) i32;
+pub fun progress_bar(bounds: Rectangle, text_left: str, text_right: str, value: *f32, min_value: f32, max_value: f32) i32 { ret GuiProgressBar(bounds, text_left, text_right, value, min_value, max_value); }
 #[library("raygui")]
 ext fun GuiStatusBar(bounds: Rectangle, text: str) i32;
 pub fun status_bar(bounds: Rectangle, text: str) i32 { ret GuiStatusBar(bounds, text); }
@@ -527,14 +527,14 @@ pub fun status_bar(bounds: Rectangle, text: str) i32 { ret GuiStatusBar(bounds, 
 ext fun GuiDummyRec(bounds: Rectangle, text: str) i32;
 pub fun dummy_rec(bounds: Rectangle, text: str) i32 { ret GuiDummyRec(bounds, text); }
 #[library("raygui")]
-ext fun GuiGrid(bounds: Rectangle, text: str, spacing: f32, subdivs: i32, mouseCell: *Vector2) i32;
-pub fun grid(bounds: Rectangle, text: str, spacing: f32, subdivs: i32, mouseCell: *Vector2) i32 { ret GuiGrid(bounds, text, spacing, subdivs, mouseCell); }
+ext fun GuiGrid(bounds: Rectangle, text: str, spacing: f32, subdivs: i32, mouse_cell: *Vector2) i32;
+pub fun grid(bounds: Rectangle, text: str, spacing: f32, subdivs: i32, mouse_cell: *Vector2) i32 { ret GuiGrid(bounds, text, spacing, subdivs, mouse_cell); }
 #[library("raygui")]
-ext fun GuiListView(bounds: Rectangle, text: str, scrollIndex: *i32, active: *i32) i32;
-pub fun list_view(bounds: Rectangle, text: str, scrollIndex: *i32, active: *i32) i32 { ret GuiListView(bounds, text, scrollIndex, active); }
+ext fun GuiListView(bounds: Rectangle, text: str, scroll_index: *i32, active: *i32) i32;
+pub fun list_view(bounds: Rectangle, text: str, scroll_index: *i32, active: *i32) i32 { ret GuiListView(bounds, text, scroll_index, active); }
 #[library("raygui")]
-ext fun GuiListViewEx(bounds: Rectangle, text: *str, count: i32, scrollIndex: *i32, active: *i32, focus: *i32) i32;
-pub fun list_view_ex(bounds: Rectangle, text: *str, count: i32, scrollIndex: *i32, active: *i32, focus: *i32) i32 { ret GuiListViewEx(bounds, text, count, scrollIndex, active, focus); }
+ext fun GuiListViewEx(bounds: Rectangle, text: *str, count: i32, scroll_index: *i32, active: *i32, focus: *i32) i32;
+pub fun list_view_ex(bounds: Rectangle, text: *str, count: i32, scroll_index: *i32, active: *i32, focus: *i32) i32 { ret GuiListViewEx(bounds, text, count, scroll_index, active, focus); }
 #[library("raygui")]
 ext fun GuiTabBar(bounds: Rectangle, text: str, hscroll: *i32, active: *i32) i32;
 pub fun tab_bar(bounds: Rectangle, text: str, hscroll: *i32, active: *i32) i32 { ret GuiTabBar(bounds, text, hscroll, active); }
@@ -542,11 +542,11 @@ pub fun tab_bar(bounds: Rectangle, text: str, hscroll: *i32, active: *i32) i32 {
 ext fun GuiTabBarEx(bounds: Rectangle, text: *str, count: i32, hscroll: *i32, active: *i32, focus: *i32) i32;
 pub fun tab_bar_ex(bounds: Rectangle, text: *str, count: i32, hscroll: *i32, active: *i32, focus: *i32) i32 { ret GuiTabBarEx(bounds, text, count, hscroll, active, focus); }
 #[library("raygui")]
-ext fun GuiMessageBox(bounds: Rectangle, title: str, message: str, btnText: str, btnActive: *i32) i32;
-pub fun message_box(bounds: Rectangle, title: str, message: str, btnText: str, btnActive: *i32) i32 { ret GuiMessageBox(bounds, title, message, btnText, btnActive); }
+ext fun GuiMessageBox(bounds: Rectangle, title: str, message: str, btn_text: str, btn_active: *i32) i32;
+pub fun message_box(bounds: Rectangle, title: str, message: str, btn_text: str, btn_active: *i32) i32 { ret GuiMessageBox(bounds, title, message, btn_text, btn_active); }
 #[library("raygui")]
-ext fun GuiTextInputBox(bounds: Rectangle, title: str, message: str, text: str, textSize: i32, btnText: str, btnActive: *i32, secretViewActive: *bool) i32;
-pub fun text_input_box(bounds: Rectangle, title: str, message: str, text: str, textSize: i32, btnText: str, btnActive: *i32, secretViewActive: *bool) i32 { ret GuiTextInputBox(bounds, title, message, text, textSize, btnText, btnActive, secretViewActive); }
+ext fun GuiTextInputBox(bounds: Rectangle, title: str, message: str, text: str, text_size: i32, btn_text: str, btn_active: *i32, secret_view_active: *bool) i32;
+pub fun text_input_box(bounds: Rectangle, title: str, message: str, text: str, text_size: i32, btn_text: str, btn_active: *i32, secret_view_active: *bool) i32 { ret GuiTextInputBox(bounds, title, message, text, text_size, btn_text, btn_active, secret_view_active); }
 #[library("raygui")]
 ext fun GuiColorPicker(bounds: Rectangle, text: str, color: *Color) i32;
 pub fun color_picker(bounds: Rectangle, text: str, color: *Color) i32 { ret GuiColorPicker(bounds, text, color); }
@@ -560,8 +560,8 @@ pub fun color_bar_alpha(bounds: Rectangle, text: str, alpha: *f32) i32 { ret Gui
 ext fun GuiColorBarHue(bounds: Rectangle, text: str, value: *f32) i32;
 pub fun color_bar_hue(bounds: Rectangle, text: str, value: *f32) i32 { ret GuiColorBarHue(bounds, text, value); }
 #[library("raygui")]
-ext fun GuiColorPickerHSV(bounds: Rectangle, text: str, colorHsv: *Vector3) i32;
-pub fun color_picker_hsv(bounds: Rectangle, text: str, colorHsv: *Vector3) i32 { ret GuiColorPickerHSV(bounds, text, colorHsv); }
+ext fun GuiColorPickerHSV(bounds: Rectangle, text: str, color_hsv: *Vector3) i32;
+pub fun color_picker_hsv(bounds: Rectangle, text: str, color_hsv: *Vector3) i32 { ret GuiColorPickerHSV(bounds, text, color_hsv); }
 #[library("raygui")]
-ext fun GuiColorPanelHSV(bounds: Rectangle, text: str, colorHsv: *Vector3) i32;
-pub fun color_panel_hsv(bounds: Rectangle, text: str, colorHsv: *Vector3) i32 { ret GuiColorPanelHSV(bounds, text, colorHsv); }
+ext fun GuiColorPanelHSV(bounds: Rectangle, text: str, color_hsv: *Vector3) i32;
+pub fun color_panel_hsv(bounds: Rectangle, text: str, color_hsv: *Vector3) i32 { ret GuiColorPanelHSV(bounds, text, color_hsv); }
