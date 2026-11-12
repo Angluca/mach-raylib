@@ -4,13 +4,9 @@
 use std.types.bool.bool;
 
 # --- 数学常数 ---
-#val PI: f64 = 3.14159265358979323846;
-#val PI_2: f64 = 1.57079632679489661923;
-#val TWO_PI: f64 = 6.28318530717958647692;
-#val E: f64 = 2.71828182845904523536;
-#val LN2: f64 = 0.69314718055994530942;
 val PI: f64      = 3.141592653589793;
 val PI_2: f64    = 1.5707963267948966;
+val PI_4: f64    = 0.7853981633974483;
 val TWO_PI: f64  = 6.283185307179586;
 val E: f64       = 2.718281828459045;
 val LN2: f64     = 0.6931471805599453;
@@ -18,49 +14,98 @@ val LN2: f64     = 0.6931471805599453;
 # 极小值误差范围，用于浮点数安全比较
 val EPSILON: f32 = 0.000001;
 
+# 哨兵"无穷大"（游戏场景约定，非 IEEE Inf）
+val BIG: f32 = 1e30;
+
+# ==========================================
+# 0. 浮点辅助函数
+# ==========================================
+
+# 判断 f32 是否为 NaN（IEEE 754：指数全 1 且尾数非 0）
+pub fun is_nan(v: f32) bool {
+    val b: u32 = v :~ u32;
+    ret ((b & 0x7F80_0000) == 0x7F80_0000) && ((b & 0x007F_FFFF) != 0);
+}
+
+# 判断 f32 是否为 Inf（IEEE 754：忽略符号位后等于 0x7F800000）
+pub fun is_inf(v: f32) bool {
+    val b: u32 = v :~ u32;
+    ret (b & 0x7FFF_FFFF) == 0x7F80_0000;
+}
+
+# 计算 2^n（f64 精度），expf 还原用
+fun pow2_f64(n: i64) f64 {
+    if (n > 1023)  { ret 1.7e308; }
+    if (n < -1022) { ret 0.0; }
+    val exp_bits: u64 = ((n + 1023)::u64) << 52;
+    ret exp_bits :~ f64;
+}
+
 # ==========================================
 # 1. 基础函数
 # ==========================================
 
 pub fun absf(v: f32) f32 {
-    if (v < 0.0) { ret 0.0 - v; }
-    ret v;
+    ret ((v :~ u32) & 0x7FFF_FFFF) :~ f32;
 }
 
-# 平铺 (向下取整)
+# 向零取整（C 的 truncf）
+pub fun truncf(v: f32) f32 {
+    if (is_nan(v)) { ret v; }
+    val bits: u32 = v :~ u32;
+    val sign: u32 = bits & 0x8000_0000;
+    val exp: u32 = (bits >> 23) & 0xFF;
+    val mantissa: u32 = bits & 0x007F_FFFF;
+
+    if (exp == 0xFF) { ret v; }             # Inf，直接返回
+    if (exp < 127)   { ret sign :~ f32; }   # |v| < 1，返回带符号零
+    if (exp >= 150)  { ret v; }             # 实际指数 >= 23，已是整数
+
+    # 需要清除的尾数低位数量
+    val frac_bits: u32 = 150 - exp;
+    val one: u32 = 1;
+    val mask: u32 = ~((one << frac_bits) - 1);
+    ret (sign | (exp << 23) | (mantissa & mask)) :~ f32;
+}
+
+# 平铺（向下取整）
 pub fun floorf(v: f32) f32 {
+    if (is_nan(v)) { ret v; }
+    if (v >= 9.0e18 || v <= -9.0e18) { ret v; }
     val i: i64 = v::i64;
-    # 使用 EPSILON 判断浮点数与整数是否相等
-    if (v < 0.0 && absf(i::f32 - v) > EPSILON) {
-        ret (i - 1)::f32;
-    }
+    # v::i64 是向零截断；若 v 为负且带小数，floor 需再减 1
+    if (v - i::f32 < 0.0) { ret (i - 1)::f32; }
     ret i::f32;
 }
 
-# 天花板 (向上取整)
+# 天花板（向上取整）
 pub fun ceilf(v: f32) f32 {
+    if (is_nan(v)) { ret v; }
+    if (v >= 9.0e18 || v <= -9.0e18) { ret v; }
     val i: i64 = v::i64;
-    if (v > 0.0 && absf(i::f32 - v) > EPSILON) {
-        ret (i + 1)::f32;
-    }
+    if (v - i::f32 > 0.0) { ret (i + 1)::f32; }
     ret i::f32;
 }
 
 # 四舍五入
 pub fun roundf(v: f32) f32 {
-    if (v < 0.0) {
-        ret (v - 0.5)::i64::f32;
-    }
+    if (is_nan(v)) { ret v; }
+    if (v >= 9.0e18 || v <= -9.0e18) { ret v; }
+    if (v < 0.0) { ret (v - 0.5)::i64::f32; }
     ret (v + 0.5)::i64::f32;
 }
 
-# 浮点数取余
+# 浮点数取余（用 f64 中转，避免商超大时 i64 转换 UB）
 pub fun fmodf(a: f32, b: f32) f32 {
-    # 不能用 b == 0.0，必须判断 b 是否接近 0
+    if (is_nan(a) || is_nan(b)) { ret a + b; }
     if (absf(b) < EPSILON) { ret 0.0; }
-    val quot: f32 = a / b;
-    val int_part: f32 = quot::i64::f32;
-    ret a - int_part * b;
+    val a64: f64 = a::f64;
+    val b64: f64 = b::f64;
+    val q64: f64 = a64 / b64;
+    # 商过大时 f64 的整数部分已不精确，余数无意义，按约定返回 0
+    if (q64 >= 9.0e15 || q64 <= -9.0e15) { ret 0.0; }
+    val qi: i64 = q64::i64;
+    ret (a64 - qi::f64 * b64)::f32;
 }
 
 # 判断两个浮点数是否近似相等
@@ -77,7 +122,6 @@ pub fun lerpf(a: f32, b: f32, t: f32) f32 {
 }
 
 pub fun mapf(v: f32, in_min: f32, in_max: f32, out_min: f32, out_max: f32) f32 {
-    # 安全判断：分母接近 0 时直接返回 out_min
     if (absf(in_max - in_min) < EPSILON) { ret out_min; }
     val t: f32 = (v - in_min) / (in_max - in_min);
     ret out_min + t * (out_max - out_min);
@@ -93,12 +137,14 @@ pub fun clampf(v: f32, lo: f32, hi: f32) f32 {
 # 3. 幂与根号
 # ==========================================
 
-# 平方根
+# 平方根（魔数初值 + 牛顿迭代）
 pub fun sqrtf(v: f32) f32 {
-    # 小于等于 0 的情况，使用 EPSILON 保护
-    if (v < EPSILON) { ret 0.0; }
-    var x: f32 = v;
-    x = 0.5 * x + 0.5 * (v / x);
+    if (is_nan(v)) { ret v; }
+    if (v <= 0.0)  { ret 0.0; }
+    # 魔数初值：位模式整体右移再补偏置，得到 √v 的近似
+    var bits: u32 = v :~ u32;
+    bits = (bits >> 1) + 0x1FC0_0000;
+    var x: f32 = bits :~ f32;
     x = 0.5 * x + 0.5 * (v / x);
     x = 0.5 * x + 0.5 * (v / x);
     x = 0.5 * x + 0.5 * (v / x);
@@ -106,61 +152,67 @@ pub fun sqrtf(v: f32) f32 {
     ret x;
 }
 
-# 指数 e^x
+# 指数 e^x（范围归约 + 泰勒级数 + 2^n 还原）
 pub fun expf(x: f32) f32 {
+    if (is_nan(x)) { ret x; }
     if (x < -20.0) { ret 0.0; }
-    if (x > 80.0) { ret 1e30; }
-
-    var term: f32 = 1.0;
-    var sum: f32 = 1.0;
+    if (x > 80.0)  { ret BIG; }
+    # x = n*ln2 + r，|r| <= ln2/2
+    val n: i64 = (x::f64 / LN2 + 0.5)::i64;
+    val r: f64 = x::f64 - n::f64 * LN2;
+    var term: f64 = 1.0;
+    var sum:  f64 = 1.0;
     var i: i64 = 1;
-
-    for (i < 20) {
-        term = term * x / i::f32;
-        sum = sum + term;
-        i = i + 1;
+    for (i < 10) {
+        term = term * r / i::f64;
+        sum  = sum + term;
+        i    = i + 1;
     }
-    ret sum;
+    ret (sum * pow2_f64(n))::f32;
 }
 
 # 自然对数 ln(x)
 pub fun logf(x: f32) f32 {
-    # 小于等于 0 的情况，使用 EPSILON 保护
-    if (x < EPSILON) { ret -1e30; }
-
+    if (is_nan(x)) { ret x; }
+    if (is_inf(x)) {
+        if (x > 0.0) { ret BIG; }
+        ret -BIG;
+    }
+    if (x < EPSILON) { ret -BIG; }
     var v: f64 = x::f64;
     var exp: i64 = 0;
-
-    for (v >= 2.0) {
-        v = v * 0.5;
-        exp = exp + 1;
-    }
-    for (v < 1.0) {
-        v = v * 2.0;
-        exp = exp - 1;
-    }
-
+    for (v >= 2.0) { v = v * 0.5; exp = exp + 1; }
+    for (v < 1.0)  { v = v * 2.0; exp = exp - 1; }
     val t: f64 = (v - 1.0) / (v + 1.0);
     var t2: f64 = t * t;
     var term: f64 = t;
-    var sum: f64 = t;
+    var sum:  f64 = t;
     var i: i64 = 1;
-
     for (i < 15) {
         term = term * t2;
-        sum = sum + term / (2 * i + 1)::f64;
-        i = i + 1;
+        sum  = sum + term / (2 * i + 1)::f64;
+        i    = i + 1;
     }
-
     ret (2.0 * sum + exp::f64 * LN2)::f32;
 }
 
-# 幂函数 x^y
+# 幂函数 x^y（修复负底数处理）
 pub fun powf(x: f32, y: f32) f32 {
-    # x 接近 0 时
+    if (is_nan(x) || is_nan(y)) { ret x + y; }
     if (absf(x) < EPSILON) {
         if (y > 0.0) { ret 0.0; }
-        ret 1e30;
+        ret BIG;
+    }
+    if (x < 0.0) {
+        if (y >= 16777216.0 || y <= -16777216.0) {
+            ret expf(y * logf(-x));
+        }
+        val yi: i64 = y::i64;
+        # 非整数幂，按哨兵约定返回 BIG
+        if (absf(y - yi::f32) > EPSILON) { ret BIG; }
+        val mag: f32 = expf(y * logf(-x));
+        if ((yi & 1) == 0) { ret mag; }
+        ret 0.0 - mag;
     }
     ret expf(y * logf(x));
 }
@@ -170,19 +222,23 @@ pub fun powf(x: f32, y: f32) f32 {
 # ==========================================
 
 pub fun sinf(x: f32) f32 {
+    if (is_nan(x)) { ret x; }
     var v: f64 = x::f64;
-    for (v > PI) { v = v - TWO_PI; }
-    for (v < -PI) { v = v + TWO_PI; }
-
+    # f32 在 1e15 处 ulp 已远大于 2π，规约无意义
+    if (v > 1.0e15 || v < -1.0e15) { ret 0.0; }
+    # 一次性规约到 [-π, π]，避免 while 迭代死循环
+    if (v > PI || v < -PI) {
+        val n: f64 = (v / TWO_PI + 0.5)::i64::f64;
+        v = v - n * TWO_PI;
+    }
     var term: f64 = v;
-    var sum: f64 = v;
-    var v2: f64 = v * v;
+    var sum:  f64 = v;
+    var v2:   f64 = v * v;
     var i: i64 = 1;
-
     for (i < 8) {
         term = -term * v2 / ((2 * i) * (2 * i + 1))::f64;
-        sum = sum + term;
-        i = i + 1;
+        sum  = sum + term;
+        i    = i + 1;
     }
     ret sum::f32;
 }
@@ -193,56 +249,56 @@ pub fun cosf(x: f32) f32 {
 
 pub fun tanf(x: f32) f32 {
     val c: f32 = cosf(x);
-    # 不能用 c == 0.0，判断余弦值是否接近 0 (此时角度接近 PI/2，正切值无穷大)
-    if (absf(c) < EPSILON) { ret 1e30; }
+    if (absf(c) < EPSILON) { ret BIG; }
     ret sinf(x) / c;
 }
 
+# 反正切（两级区间压缩 + 泰勒级数，|x| ≈ 1 处精度大幅提升）
 pub fun atanf(x: f32) f32 {
+    if (is_nan(x)) { ret x; }
     var v: f64 = x::f64;
-    var sign: f64 = 1.0;
+    var s: f64 = 1.0;
+    if (v < 0.0) { v = -v; s = -1.0; }
+
     var offset: f64 = 0.0;
+    var coeff:  f64 = 1.0;
 
-    if (v < 0.0) {
-        v = -v;
-        sign = -1.0;
-    }
-
+    # 第一级：|x| > 1 → atan(v) = π/2 - atan(1/v)
     if (v > 1.0) {
         v = 1.0 / v;
         offset = PI_2;
+        coeff  = -1.0;
+    }
+    # 第二级：v > tan(π/8) → atan(v) = π/4 + atan((v-1)/(v+1))
+    if (v > 0.41421356) {
+        v = (v - 1.0) / (v + 1.0);
+        offset = offset + coeff * PI_4;
     }
 
-    var v2: f64 = v * v;
+    # 此时 v ∈ [-0.4142, 0.4142]，泰勒级数快速收敛
+    var v2:   f64 = v * v;
     var term: f64 = v;
-    var sum: f64 = v;
+    var sum:  f64 = v;
     var i: i64 = 1;
-
-    for (i < 10) {
+    for (i < 8) {
         term = -term * v2;
-        sum = sum + term / (2 * i + 1)::f64;
-        i = i + 1;
+        sum  = sum + term / (2 * i + 1)::f64;
+        i    = i + 1;
     }
-
-    if (offset > 0.0) {
-        ret (sign * (PI_2 - sum))::f32;
-    }
-    ret (sign * sum)::f32;
+    ret (s * (offset + coeff * sum))::f32;
 }
 
 # 双参数反正切 atan2(y, x)
 pub fun atan2f(y: f32, x: f32) f32 {
-    if (x > EPSILON) {
-        ret atanf(y / x);
-    }
+    if (is_nan(x) || is_nan(y)) { ret x + y; }
+    if (x > EPSILON)  { ret atanf(y / x); }
     if (x < -EPSILON) {
         if (y >= 0.0) { ret (atanf(y / x)::f64 + PI)::f32; }
         ret (atanf(y / x)::f64 - PI)::f32;
     }
-    # x 接近 0 的情况
-    if (y > EPSILON) { ret PI_2::f32; }
-    if (y < -EPSILON) { ret -PI_2::f32; }
-    ret 0.0; # (0,0)
+    if (y > EPSILON)  { ret PI_2::f32; }
+    if (y < -EPSILON) { ret 0.0 - PI_2::f32; }
+    ret 0.0;
 }
 
 # ==========================================
@@ -256,4 +312,3 @@ pub fun rad2deg(rad: f32) f32 {
 pub fun deg2rad(deg: f32) f32 {
     ret (deg::f64 * (PI / 180.0))::f32;
 }
-
