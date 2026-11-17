@@ -1,0 +1,67 @@
+[project]
+id = "my_template"
+version = "0.1.0"
+mach = "^6.0"
+src = "src"
+out = "out/{target.name}/{profile.name}"
+
+[target.linux-x86_64]
+isa = "x86_64"
+os  = "linux"
+abi = "sysv64"
+
+[target.windows-x86_64]
+isa = "x86_64"
+os  = "windows"
+abi = "win64"
+
+[target.darwin-x86_64]
+isa = "x86_64"
+os  = "darwin"
+abi = "sysv64"
+
+[artifact.my_template]
+kind = "bin"
+entry = "main.mach"
+out = "bin/my_template{artifact.suffix}"
+targets = ["*"]
+#link = ["kernel32"]
+link = ["kernel32", "raygui"]
+need = []
+
+[link.raygui]
+source = "system"
+#name = "libs/libraygui.a"
+name = "raygui"
+os = ["linux", "windows", "darwin"]
+isa = "*"
+abi = "*"
+export = true
+
+[link.kernel32]
+source = "system"
+name = "kernel32.dll"
+os = ["windows"]
+isa = ["*"]
+abi = ["*"]
+export = false
+
+[profile.debug]
+default = true
+opt = 0
+debug = true
+simd = "scalarize"
+vectorize = false
+float_reassoc = false
+
+[profile.release]
+opt = 2
+debug = false
+simd = "scalarize"
+vectorize = true
+float_reassoc = false
+
+[dep.raylib]
+git = "https://github.com/angluca/mach-raylib"
+ref = "branch/main"
+

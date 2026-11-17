@@ -8,7 +8,7 @@ mach init mygame
 ```
 2. You can choose one of the two methods to add `mach-raylib` and run `mach dep pull`
    1. `mach dep add . raylib --git https://github.com/Angluca/mach-raylib --ref branch/main` 
-   2.  Or write it to `mach.toml`
+   2.  Or write it to `mach.toml`, see `template/mach.toml`
 ```toml
 [dep.raylib]
 git = "https://github.com/angluca/mach-raylib"
@@ -51,5 +51,16 @@ mach build . -L lib_path -l libname.a or .dylib or name
 
 mach run .
 ```
+6. How to use [raygui](https://github.com/raysan5/raygui/tree/master/src)
+    1. `raygui.c` build static-lib(`libraygui.a|raygui.lib`)
+    2. add `link.raygui` to `mach.toml`, see `./template/mach.toml`
+```c
+/// raygui.c
+// cc -c raygui.c -Iraylib_include_path
+// ar rcs libraygui.a raygui.o
+#define RAYGUI_IMPLEMENTATION
+#include "raygui.h"
+```
+
 ## Examples
 [mach-raylib examples](https://github.com/Angluca/mach-raylib_examples)
