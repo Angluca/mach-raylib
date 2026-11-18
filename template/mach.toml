@@ -25,8 +25,8 @@ kind = "bin"
 entry = "main.mach"
 out = "bin/my_template{artifact.suffix}"
 targets = ["*"]
-#link = ["kernel32"]
-link = ["kernel32", "raygui"]
+#link = []
+link = ["raygui"]
 need = []
 
 [link.raygui]
@@ -37,14 +37,6 @@ os = ["linux", "windows", "darwin"]
 isa = "*"
 abi = "*"
 export = true
-
-[link.kernel32]
-source = "system"
-name = "kernel32.dll"
-os = ["windows"]
-isa = ["*"]
-abi = ["*"]
-export = false
 
 [profile.debug]
 default = true

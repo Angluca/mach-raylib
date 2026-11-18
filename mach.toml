@@ -32,7 +32,7 @@ link = [
     # -- os: linux ----
     "pthread", "m", "dl", "rt",
     # -- os: windows ----
-    "kernel32",
+    "kernel32", "ucrtbase"
     # -- os: darwin ----
     "libSystem", "objc",
     "Cocoa", "AppKit", "Foundation", "CoreGraphics", "CoreServices",
@@ -86,6 +86,14 @@ isa = ["*"]
 abi = ["*"]
 export = true
 
+[link.ucrtbase]
+source = "system"
+name = "ucrtbase.dll"
+os = ["windows"]
+isa = ["*"]
+abi = ["*"]
+export = true
+
 [link.libSystem]
 source = "system"
 name = "/usr/lib/libSystem.B.dylib"
@@ -124,6 +132,8 @@ symbols = [
     "system", "tanf", "time", "ungetc", "usleep", "vprintf",
     "vsnprintf", "wcsrtombs", 
     "ma_atomic_global_lock", "tan", "atan", "atanf", "atan2",
+    "ceilf", "expf", "fabsf", "floorf",
+    "log10f", "roundf", "truncf", "sqrtf",
 ]
 os = ["darwin"]
 isa = "*"
